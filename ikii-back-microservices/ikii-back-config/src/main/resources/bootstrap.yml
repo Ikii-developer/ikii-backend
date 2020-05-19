@@ -1,0 +1,19 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitlab.com/arturovelazquez94/arturo-velazquez-addition-properties.git
+          username: arturovelazquez94@gmail.com
+          password: Ajedrez94
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 10
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/

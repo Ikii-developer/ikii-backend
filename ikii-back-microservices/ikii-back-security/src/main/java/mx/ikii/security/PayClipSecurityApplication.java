@@ -1,0 +1,33 @@
+package mx.ikii.security;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@ComponentScan({ "mx.payclip", "mx.payclip.commons.feignclient" })
+@EnableFeignClients({ "mx.payclip.commons.feignclient" })
+@EnableMongoRepositories(basePackages = { "mx.payclip.repository" })
+@EnableDiscoveryClient
+@RestController
+@RequestMapping("/")
+public class PayClipSecurityApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PayClipSecurityApplication.class, args);
+	}
+
+	@GetMapping("/example")
+	public ResponseEntity<String> getById() {
+		return ResponseEntity.ok("Example");
+	}
+
+}
