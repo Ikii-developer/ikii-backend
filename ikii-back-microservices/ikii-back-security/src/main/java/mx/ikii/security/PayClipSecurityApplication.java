@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@ComponentScan({ "mx.payclip", "mx.payclip.commons.feignclient" })
-@EnableFeignClients({ "mx.payclip.commons.feignclient" })
-@EnableMongoRepositories(basePackages = { "mx.payclip.repository" })
+@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient" })
+@EnableFeignClients({ "mx.ikii.commons.feignclient" })
+@EnableMongoRepositories(basePackages = { "mx.ikii.repository" })
 @EnableDiscoveryClient
 @RestController
 @RequestMapping("/")

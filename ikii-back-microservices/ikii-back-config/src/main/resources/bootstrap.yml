@@ -3,14 +3,14 @@ server:
 spring:
   application:
     name: config
-
   cloud:
     config:
       server:
         git:
-          uri: https://gitlab.com/arturovelazquez94/arturo-velazquez-addition-properties.git
-          username: arturovelazquez94@gmail.com
-          password: Ajedrez94
+          uri: https://github.com/Ikii-developer/ikii-config-server.git
+          skipSslValidation: true          
+          username: arturo199
+          password: Ajedrez94#
 eureka:
   client:
     region: default
