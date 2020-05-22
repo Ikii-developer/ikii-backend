@@ -12,20 +12,12 @@ import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableDiscoveryClient
-//@EnableWebSecurity
 @EnableZuulProxy
-public class GatewayApplication
-//extends ResourceServerConfigurerAdapter 
-{
+public class GatewayApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
-
-//	@Override
-//	public void configure(final HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers("security/**").permitAll().antMatchers("/**").authenticated();
-//	}
 
 	@Bean
 	public CorsFilter corsFilter() {
