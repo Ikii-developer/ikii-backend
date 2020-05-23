@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import mx.ikii.security.user.AccountAuthenticationProvider;
-import mx.ikii.security.user.CustomUserDetailsService;
+import mx.ikii.commons.security.AccountAuthenticationProvider;
+import mx.ikii.commons.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity

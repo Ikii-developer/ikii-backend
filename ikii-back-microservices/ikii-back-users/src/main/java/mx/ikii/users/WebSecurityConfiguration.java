@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import mx.ikii.users.service.impl.AccountAuthenticationProvider;
-import mx.ikii.users.service.impl.CustomUserDetailsService;
+import mx.ikii.commons.security.AccountAuthenticationProvider;
+import mx.ikii.commons.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(customUserDetailsService); // <-- replacing the in-memory anthentication setup
+		auth.userDetailsService(customUserDetailsService); 
 		auth.authenticationProvider(accountAuthenticationProvider);
 	}
 

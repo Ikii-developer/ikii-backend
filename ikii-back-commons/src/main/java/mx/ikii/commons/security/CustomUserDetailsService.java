@@ -1,4 +1,4 @@
-package mx.ikii.users.service.impl;
+package mx.ikii.commons.security;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,22 +16,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.ikii.commons.feignclient.service.impl.IUserClipFeignService;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 import mx.ikii.commons.persistence.collection.UserClip;
 import mx.ikii.commons.utils.Nullable;
-import mx.ikii.users.service.IUserClipService;
 
 @Service
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserClipService userClipFeignService;
+	private IUserClipFeignService userClipFeignService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserClip userByName = userClipFeignService.findByUserName(username);
+		UserClip userByName = userClipFeignService.getByUserName(username);
 		if (Nullable.isNull(userByName)) {
 			throw new UsernameNotFoundException("User " + username + " not found.");
 		}

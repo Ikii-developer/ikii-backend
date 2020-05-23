@@ -1,4 +1,4 @@
-package mx.ikii.users.service.impl;
+package mx.ikii.commons.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,7 +8,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class AccountAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
