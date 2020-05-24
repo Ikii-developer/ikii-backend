@@ -1,4 +1,4 @@
-package mx.ikii.security.user;
+package mx.ikii.commons.security;
 
 import static java.util.stream.Collectors.toList;
 

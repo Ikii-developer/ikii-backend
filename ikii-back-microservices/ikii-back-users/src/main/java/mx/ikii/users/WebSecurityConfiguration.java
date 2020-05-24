@@ -1,4 +1,4 @@
-package mx.ikii.security.config;
+package mx.ikii.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,14 +23,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String signingKey;
 
 	@Autowired
-	private CustomUserDetailsService userDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private AccountAuthenticationProvider accountAuthenticationProvider;
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(customUserDetailsService);
 		auth.authenticationProvider(accountAuthenticationProvider);
 	}
 

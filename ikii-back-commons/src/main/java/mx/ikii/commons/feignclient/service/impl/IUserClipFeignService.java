@@ -1,9 +1,5 @@
 package mx.ikii.commons.feignclient.service.impl;
 
-import java.util.List;
-
-import org.springframework.data.domain.Pageable;
-
 import mx.ikii.commons.payload.request.user.UserClipRequest;
 import mx.ikii.commons.persistence.collection.UserClip;
 
