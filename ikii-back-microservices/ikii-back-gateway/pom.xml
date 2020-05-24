@@ -8,13 +8,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ikii-back-gateway</artifactId>
-	<version>8.0.0</version>
+	<version>1.0.0</version>
 	<properties>
 		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
 		<spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
 		<spring.cloud.k8s.version>1.0.0.RELEASE</spring.cloud.k8s.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.security.oauth.boot</groupId>
