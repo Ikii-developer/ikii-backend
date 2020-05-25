@@ -3,108 +3,19 @@ services:
   mongo:
     image: mongo:3.4
     volumes:
-      - db-mongo-data:/data/db
-      - db-mongo-conf:/data/configdb
+      - db-mongo-data-local:/data/db
+      - db-mongo-conf-local:/data/configdb
     ports:
       - "${MONGODB_PORT}:27017"
     networks:
-      - network            
-      
-##---- INFRASTRUCTURE MICROSERVICES---- ##
-  config:
-    container_name: ikii-back-config-container
-    build: ikii-back-config
-    restart: always
-    ports:
-        - "${SERVER_CONFIG_PORT}:8888"  
-    networks:
-        - network
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"                     
-      
-  registry:
-    container_name: ikii-back-registry-container
-    build: ikii-back-registry
-    restart: always
-    ports:
-        - "${SERVER_REGISTRY_PORT}:8761" 
-    networks:
-        - network
-    links:
-        - config:config      
-    depends_on:
-      - config                                   
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"    
-        
-  gateway:
-    container_name: ikii-back-gateway-container
-    build: ikii-back-gateway
-    ports:
-      - "${GATEWAY_PORT}:4000"
-    networks:
-      - network  
-    links:
-      - config:config
-    depends_on:
-      - config
-      - registry            
-
-##----FUNCTIONAL MICROSERVICES----##
-  ikii-back-transactions:
-    container_name: ikii-back-transactions-container
-    build: ikii-back-transactions
-    ports:
-      - "${TRANSACTIONS_PORT}:8001"   
-      - "9000:8000"
-    networks:
-      - network 
-    links:
-      - config:config
-    depends_on:
-      - config
-      - registry
-      - mongo   
-      
-  ikii-back-users:
-    container_name: ikii-back-users-container
-    build: ikii-back-users
-    ports:
-      - "${USERS_PORT}:8002"   
-    networks:
-      - network 
-    links:
-      - config:config
-    depends_on:
-      - config
-      - registry
-      - mongo 
-
-  ikii-back-security:
-    container_name: ikii-back-security-container
-    build: ikii-back-security
-    ports:
-      - "${SECURITY_PORT}:8003"  
-      - "9003:8000" 
-    networks:
-      - network 
-    links:
-      - config:config
-    depends_on:
-      - config
-      - registry
-      - mongo                   
+      - ikiinet-local             
                  
 networks:
-  network:
+  ikiinet-local:
     driver: bridge
     ipam:
       driver: default
 
 volumes:
-  db-mongo-data:
-  db-mongo-conf:
+  db-mongo-data-local:
+  db-mongo-conf-local:

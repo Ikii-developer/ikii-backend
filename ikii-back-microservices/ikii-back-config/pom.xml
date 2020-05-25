@@ -40,13 +40,29 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<finalName>config</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<profiles>
 		<profile>
 			<id>development</id>
-		</profile>
-		<profile>
-			<id>production</id>
 			<dependencies>
+				
 				<dependency>
 					<groupId>org.springframework.cloud</groupId>
 					<artifactId>spring-cloud-config-server</artifactId>
@@ -66,23 +82,87 @@
 					<artifactId>spring-boot-starter-test</artifactId>
 					<scope>test</scope>
 				</dependency>
+				
 			</dependencies>
+			<build>
+				<finalName>gateway</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>production</id>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.cloud</groupId>
+						<artifactId>spring-cloud-dependencies</artifactId>
+						<version>${spring-cloud-dependencies.version}</version>
+						<type>pom</type>
+						<scope>import</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			
+			<dependencies>
+			</dependencies>
+
+			<build>
+				<finalName>gateway</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Jib -->
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>${jib-maven-plugin.version}</version>
+						<configuration>
+							<container>
+								<ports>
+									<port>4000</port>
+								</ports>
+							</container>
+							<from>
+								<image>openjdk:8u212-jre</image>
+							</from>
+							<to>
+								<image>arturo1994/ikii-back-config:${project.version}</image>
+							</to>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
-	<build>
-		<finalName>config</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+
 </project>
