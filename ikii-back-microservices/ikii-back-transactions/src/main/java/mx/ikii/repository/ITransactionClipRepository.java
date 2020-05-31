@@ -3,7 +3,7 @@ package mx.ikii.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import mx.ikii.commons.persistence.collection.TransactionClip;
+import mx.ikii.commons.persistence.collection.TransactionIkii;
 
 /**
  * This interface interacts directly with the TransactionClip Collection of the
@@ -13,6 +13,6 @@ import mx.ikii.commons.persistence.collection.TransactionClip;
  *
  */
 @Repository
-public interface ITransactionClipRepository extends MongoRepository<TransactionClip, String> {
+public interface ITransactionClipRepository extends MongoRepository<TransactionIkii, String> {
 
 }

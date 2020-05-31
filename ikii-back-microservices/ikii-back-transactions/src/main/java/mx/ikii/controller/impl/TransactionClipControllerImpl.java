@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionClipRequest;
+import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionIkiiRequest;
 import mx.ikii.commons.payload.response.transaction.TransactionClipReport;
-import mx.ikii.commons.payload.response.transaction.TransactionClipResponse;
+import mx.ikii.commons.payload.response.transaction.TransactionIkiiResponse;
 import mx.ikii.commons.payload.response.transaction.TransactionClipSummaryResponse;
 import mx.ikii.controller.ITransactionClipController;
 import mx.ikii.service.ITransactionClipServiceWrapper;
@@ -38,7 +38,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> add(@RequestBody TransactionClipRequest transactionRequest,
+	public ResponseEntity<TransactionIkiiResponse> add(@RequestBody TransactionIkiiRequest transactionRequest,
 			@PathVariable String userId) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.add(transactionRequest, userId));
 	}
@@ -49,7 +49,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> getByIdByUserId(@PathVariable String id,
+	public ResponseEntity<TransactionIkiiResponse> getByIdByUserId(@PathVariable String id,
 			@PathVariable String userId) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.findByTransactionIdByUserId(id, userId));
 	}
@@ -60,7 +60,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<List<TransactionClipResponse>> getAllByUserId(@PathVariable String userId) {
+	public ResponseEntity<List<TransactionIkiiResponse>> getAllByUserId(@PathVariable String userId) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.findAllByUserId(userId));
 	}
 
@@ -91,7 +91,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> getRandom() {
+	public ResponseEntity<TransactionIkiiResponse> getRandom() {
 		return ResponseEntity.ok(transactionClipServiceWrapper.findRandom());
 	}
 
@@ -100,7 +100,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> getById(@PathVariable String id) {
+	public ResponseEntity<TransactionIkiiResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.findById(id));
 	}
 
@@ -108,7 +108,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Page<TransactionClipResponse>> getAll(Pageable pageable) {
+	public ResponseEntity<Page<TransactionIkiiResponse>> getAll(Pageable pageable) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.findAll(pageable));
 	}
 
@@ -116,7 +116,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> create(@RequestBody TransactionClipRequest transactionRequest) {
+	public ResponseEntity<TransactionIkiiResponse> create(@RequestBody TransactionIkiiRequest transactionRequest) {
 		return new ResponseEntity<>(transactionClipServiceWrapper.create(transactionRequest), HttpStatus.CREATED);
 	}
 
@@ -124,7 +124,7 @@ public class TransactionClipControllerImpl implements ITransactionClipController
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<TransactionClipResponse> update(@RequestBody TransactionClipRequest transactionRequest,
+	public ResponseEntity<TransactionIkiiResponse> update(@RequestBody TransactionIkiiRequest transactionRequest,
 			@PathVariable String id) {
 		return ResponseEntity.ok(transactionClipServiceWrapper.update(transactionRequest, id));
 	}

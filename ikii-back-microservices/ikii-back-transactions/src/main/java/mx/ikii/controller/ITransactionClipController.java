@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionClipRequest;
+import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionIkiiRequest;
 import mx.ikii.commons.payload.response.transaction.TransactionClipReport;
-import mx.ikii.commons.payload.response.transaction.TransactionClipResponse;
+import mx.ikii.commons.payload.response.transaction.TransactionIkiiResponse;
 import mx.ikii.commons.payload.response.transaction.TransactionClipSummaryResponse;
 
 /**
@@ -44,7 +44,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@PostMapping("/users/{userId}")
-	ResponseEntity<TransactionClipResponse> add(TransactionClipRequest transactionRequest, String userId);
+	ResponseEntity<TransactionIkiiResponse> add(TransactionIkiiRequest transactionRequest, String userId);
 
 	/**
 	 * Payclip assesment requitement-2:
@@ -58,7 +58,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@GetMapping("{id}/users/{userId}")
-	ResponseEntity<TransactionClipResponse> getByIdByUserId(String id, String userId);
+	ResponseEntity<TransactionIkiiResponse> getByIdByUserId(String id, String userId);
 
 	/**
 	 * Payclip assesment requitement-3:
@@ -72,7 +72,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@GetMapping("/users/{userId}")
-	ResponseEntity<List<TransactionClipResponse>> getAllByUserId(String userId);
+	ResponseEntity<List<TransactionIkiiResponse>> getAllByUserId(String userId);
 
 	/**
 	 * Payclip assessment requirement4
@@ -106,7 +106,7 @@ public interface ITransactionClipController {
 	 * @return
 	 */
 	@GetMapping("/random")
-	ResponseEntity<TransactionClipResponse> getRandom();
+	ResponseEntity<TransactionIkiiResponse> getRandom();
 
 	/**
 	 * This method is used to get the transaction based on the id
@@ -115,7 +115,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transaction
 	 */
 	@GetMapping("{id}")
-	ResponseEntity<TransactionClipResponse> getById(String id);
+	ResponseEntity<TransactionIkiiResponse> getById(String id);
 
 	/**
 	 * This method is used to get all the transactions
@@ -123,7 +123,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@GetMapping
-	ResponseEntity<Page<TransactionClipResponse>> getAll(Pageable pageable);
+	ResponseEntity<Page<TransactionIkiiResponse>> getAll(Pageable pageable);
 
 	/**
 	 * This method is used to create a transaction
@@ -132,7 +132,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@PostMapping
-	ResponseEntity<TransactionClipResponse> create(TransactionClipRequest transactionRequest);
+	ResponseEntity<TransactionIkiiResponse> create(TransactionIkiiRequest transactionRequest);
 
 	/**
 	 * This method is used to update a transaction
@@ -141,7 +141,7 @@ public interface ITransactionClipController {
 	 * @return the HTTP DTO response wrapping the transactions
 	 */
 	@PutMapping("{id}")
-	ResponseEntity<TransactionClipResponse> update(TransactionClipRequest transactionRequest, String id);
+	ResponseEntity<TransactionIkiiResponse> update(TransactionIkiiRequest transactionRequest, String id);
 
 	/**
 	 * This method is used to delete the transaction based on the id

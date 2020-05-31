@@ -22,15 +22,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
-import mx.ikii.commons.feignclient.service.impl.IUserClipFeignService;
-import mx.ikii.commons.mapper.transaction.ITransactionClipMapper;
-import mx.ikii.commons.mapper.user.IUserClipMapper;
-import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionClipRequest;
+import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
+import mx.ikii.commons.mapper.transaction.ITransactionMapper;
+import mx.ikii.commons.mapper.user.ICustomerMapper;
+import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionIkiiRequest;
 import mx.ikii.commons.payload.response.transaction.TransactionClipReport;
-import mx.ikii.commons.payload.response.transaction.TransactionClipResponse;
+import mx.ikii.commons.payload.response.transaction.TransactionIkiiResponse;
 import mx.ikii.commons.payload.response.transaction.TransactionClipSummaryResponse;
-import mx.ikii.commons.persistence.collection.TransactionClip;
-import mx.ikii.commons.persistence.collection.UserClip;
+import mx.ikii.commons.persistence.collection.TransactionIkii;
+import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.utils.DateHelper;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.service.ITransactionClipService;
@@ -54,7 +54,7 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	 * to an outcoming DTO response to the client. It uses mapstruct library.
 	 */
 	@Autowired
-	private ITransactionClipMapper transactionClipMapper;
+	private ITransactionMapper transactionClipMapper;
 
 	/**
 	 * This instance variable is used as the low-service layer in the business logic
@@ -70,19 +70,19 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	 * microservice
 	 */
 	@Autowired
-	private IUserClipFeignService userFeignService;
+	private ICustomerFeignService userFeignService;
 
 	/**
 	 * This instance variable is used to map the user DTOs
 	 */
 	@Autowired
-	private IUserClipMapper userClipMapper;
+	private ICustomerMapper userClipMapper;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TransactionClipResponse add(TransactionClipRequest transaction, String userId) {
+	public TransactionIkiiResponse add(TransactionIkiiRequest transaction, String userId) {
 //
 //		UserClip user = userFeignService.getById(userId);
 //
@@ -101,7 +101,7 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TransactionClipResponse findByTransactionIdByUserId(String transactionId, String userId) {
+	public TransactionIkiiResponse findByTransactionIdByUserId(String transactionId, String userId) {
 
 //		UserClip user = userFeignService.getById(userId);
 //
@@ -121,7 +121,7 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<TransactionClipResponse> findAllByUserId(String userId) {
+	public List<TransactionIkiiResponse> findAllByUserId(String userId) {
 //		UserClip user = userFeignService.getById(userId);
 //		List<TransactionClip> userTransactions = user.getTransactions().stream()
 //				.sorted((s1, s2) -> s1.getDate().compareTo(s2.getDate())).collect(Collectors.toList());
@@ -236,18 +236,18 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	 * {@inheritDoc}}
 	 */
 	@Override
-	public TransactionClipResponse findRandom() {
+	public TransactionIkiiResponse findRandom() {
 
-		List<TransactionClip> transactions = transactionClipService.findAll(PageRequest.of(0, Integer.MAX_VALUE))
+		List<TransactionIkii> transactions = transactionClipService.findAll(PageRequest.of(0, Integer.MAX_VALUE))
 				.getContent();
 
 		if (transactions.isEmpty()) {
 			throw new ResourceNotFoundException("Random transaction not found");
 		}
-		List<TransactionClip> transactionsTemp = new ArrayList<>(transactions);
+		List<TransactionIkii> transactionsTemp = new ArrayList<>(transactions);
 		Collections.shuffle(transactionsTemp);
 
-		Optional<TransactionClip> optionalTransaction = transactionsTemp.stream().findAny();
+		Optional<TransactionIkii> optionalTransaction = transactionsTemp.stream().findAny();
 
 		if (optionalTransaction.isPresent()) {
 			return transactionClipMapper.entityToResponse(optionalTransaction.get());
@@ -314,28 +314,28 @@ public class TransactionClipServiceWrapperImpl implements ITransactionClipServic
 	}
 
 	@Override
-	public TransactionClipResponse findById(String id) {
+	public TransactionIkiiResponse findById(String id) {
 		return transactionClipMapper.entityToResponse(transactionClipService.findById(id));
 	}
 
 	@Override
-	public Page<TransactionClipResponse> findAll(Pageable pageable) {
-		Page<TransactionClip> transactionsClip = transactionClipService.findAll(pageable);
-		List<TransactionClipResponse> transactionsResponse = transactionClipMapper
+	public Page<TransactionIkiiResponse> findAll(Pageable pageable) {
+		Page<TransactionIkii> transactionsClip = transactionClipService.findAll(pageable);
+		List<TransactionIkiiResponse> transactionsResponse = transactionClipMapper
 				.entityToResponse(transactionsClip.getContent());
 
 		return PageHelper.createPage(transactionsResponse, pageable, transactionsClip.getTotalElements());
 	}
 
 	@Override
-	public TransactionClipResponse create(TransactionClipRequest transaction) {
-		TransactionClip transactionEntity = transactionClipMapper.requestToEntity(transaction);
+	public TransactionIkiiResponse create(TransactionIkiiRequest transaction) {
+		TransactionIkii transactionEntity = transactionClipMapper.requestToEntity(transaction);
 		return transactionClipMapper.entityToResponse(transactionClipService.create(transactionEntity));
 	}
 
 	@Override
-	public TransactionClipResponse update(TransactionClipRequest transaction, String id) {
-		TransactionClip transactionEntity = transactionClipMapper.requestToEntity(transaction);
+	public TransactionIkiiResponse update(TransactionIkiiRequest transaction, String id) {
+		TransactionIkii transactionEntity = transactionClipMapper.requestToEntity(transaction);
 		return transactionClipMapper.entityToResponse(transactionClipService.update(transactionEntity, id));
 	}
 

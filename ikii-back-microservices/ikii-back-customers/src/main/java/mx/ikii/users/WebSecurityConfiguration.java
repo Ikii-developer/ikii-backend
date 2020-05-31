@@ -1,6 +1,7 @@
-package mx.ikii.security.config;
+package mx.ikii.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,17 +19,18 @@ import mx.ikii.commons.security.CustomUserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	private static final String SIGNING_KEY = "s1f41234pwqdqkl4l12ghg9853123sd";
+	@Value("${custom-security.signingKey}")
+	private String signingKey;
 
 	@Autowired
-	private CustomUserDetailsService userDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private AccountAuthenticationProvider accountAuthenticationProvider;
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(customUserDetailsService);
 		auth.authenticationProvider(accountAuthenticationProvider);
 	}
 
@@ -41,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-		jwtAccessTokenConverter.setSigningKey(SIGNING_KEY);
+		jwtAccessTokenConverter.setSigningKey(signingKey);
 		return jwtAccessTokenConverter;
 	}
 

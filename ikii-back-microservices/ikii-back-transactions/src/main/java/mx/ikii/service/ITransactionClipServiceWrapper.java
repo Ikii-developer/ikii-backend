@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionClipRequest;
+import mx.ikii.commons.payload.request.transaction.clip.crud.TransactionIkiiRequest;
 import mx.ikii.commons.payload.response.transaction.TransactionClipReport;
-import mx.ikii.commons.payload.response.transaction.TransactionClipResponse;
+import mx.ikii.commons.payload.response.transaction.TransactionIkiiResponse;
 import mx.ikii.commons.payload.response.transaction.TransactionClipSummaryResponse;
 
 /**
@@ -30,7 +30,7 @@ public interface ITransactionClipServiceWrapper {
 	 * @param userId      incoming id of the user
 	 * @return
 	 */
-	TransactionClipResponse add(TransactionClipRequest transaction, String userId);
+	TransactionIkiiResponse add(TransactionIkiiRequest transaction, String userId);
 
 	/**
 	 * Requirement-2 This method is used to find the transaction based on the userId
@@ -39,7 +39,7 @@ public interface ITransactionClipServiceWrapper {
 	 * @param userId        incoming id of the user
 	 * @return the DTO response representing the transaction fetched
 	 */
-	TransactionClipResponse findByTransactionIdByUserId(String transactionId, String userId);
+	TransactionIkiiResponse findByTransactionIdByUserId(String transactionId, String userId);
 
 	/**
 	 * Requirement-3 This method is used to list all the transactions attached to a
@@ -48,7 +48,7 @@ public interface ITransactionClipServiceWrapper {
 	 * @param userId incoming id of the user
 	 * @return the DTO response representing the transactions fetched
 	 */
-	List<TransactionClipResponse> findAllByUserId(String userId);
+	List<TransactionIkiiResponse> findAllByUserId(String userId);
 
 	/**
 	 * Requirement-4 This method is used to sum all the transactions attached to a
@@ -75,14 +75,14 @@ public interface ITransactionClipServiceWrapper {
 	 * 
 	 * @return the DTO response representing the random transaction
 	 */
-	TransactionClipResponse findRandom();
+	TransactionIkiiResponse findRandom();
 
 	/**
 	 * 
 	 * @param id incoming id of the transaction to be fetched
 	 * @return
 	 */
-	TransactionClipResponse findById(String id);
+	TransactionIkiiResponse findById(String id);
 
 	/**
 	 * 
@@ -90,14 +90,14 @@ public interface ITransactionClipServiceWrapper {
 	 * @return the DTO responses representing the transaction fetched based on the
 	 *         pagination
 	 */
-	Page<TransactionClipResponse> findAll(Pageable pageable);
+	Page<TransactionIkiiResponse> findAll(Pageable pageable);
 
 	/**
 	 * 
 	 * @param transaction transaction DTO to be created
 	 * @return the DTO response representing the transaction inserted
 	 */
-	TransactionClipResponse create(TransactionClipRequest transaction);
+	TransactionIkiiResponse create(TransactionIkiiRequest transaction);
 
 	/**
 	 * 
@@ -105,7 +105,7 @@ public interface ITransactionClipServiceWrapper {
 	 * @param id          incoming id of the transaction to be updated
 	 * @return the DTO response representing the transaction updated
 	 */
-	TransactionClipResponse update(TransactionClipRequest transaction, String id);
+	TransactionIkiiResponse update(TransactionIkiiRequest transaction, String id);
 
 	/**
 	 * 

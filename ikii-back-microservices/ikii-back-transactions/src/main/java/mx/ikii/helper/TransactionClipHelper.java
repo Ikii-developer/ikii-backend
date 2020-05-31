@@ -1,6 +1,6 @@
 package mx.ikii.helper;
 
-import mx.ikii.commons.persistence.collection.TransactionClip;
+import mx.ikii.commons.persistence.collection.TransactionIkii;
 import mx.ikii.commons.utils.Nullable;
 
 /**
@@ -18,7 +18,7 @@ public class TransactionClipHelper {
 	 * @param newEntity new entity
 	 */
 
-	public static void setUpdateProperties(TransactionClip entity, TransactionClip newEntity) {
+	public static void setUpdateProperties(TransactionIkii entity, TransactionIkii newEntity) {
 
 		if (Nullable.isNotNull(newEntity)) {
 

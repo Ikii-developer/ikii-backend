@@ -3,7 +3,7 @@ package mx.ikii.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.ikii.commons.persistence.collection.TransactionClip;
+import mx.ikii.commons.persistence.collection.TransactionIkii;
 
 /**
  * This interface contains the methods related to CRUD operations
@@ -13,13 +13,13 @@ import mx.ikii.commons.persistence.collection.TransactionClip;
  */
 public interface ITransactionClipService {
 
-	TransactionClip findById(String id);
+	TransactionIkii findById(String id);
 
-	Page<TransactionClip> findAll(Pageable pageable);
+	Page<TransactionIkii> findAll(Pageable pageable);
 
-	TransactionClip create(TransactionClip transaction);
+	TransactionIkii create(TransactionIkii transaction);
 
-	TransactionClip update(TransactionClip transaction, String id);
+	TransactionIkii update(TransactionIkii transaction, String id);
 
 	void delete(String id);
 

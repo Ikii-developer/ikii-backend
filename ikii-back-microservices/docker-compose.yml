@@ -70,11 +70,12 @@ services:
       - registry
       - mongo   
       
-  ikii-back-users:
-    container_name: ikii-back-users-container
-    build: ikii-back-users
+  ikii-back-customers:
+    container_name: ikii-back-customers-container
+    build: ikii-back-customers
     ports:
       - "${USERS_PORT}:8002"   
+      - "9004:8000"
     networks:
       - network 
     links:
@@ -89,7 +90,6 @@ services:
     build: ikii-back-security
     ports:
       - "${SECURITY_PORT}:8003"  
-      - "9003:8000" 
     networks:
       - network 
     links:
