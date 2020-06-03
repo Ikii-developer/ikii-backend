@@ -73,7 +73,6 @@
 	</dependencyManagement>
 	<modules>
 		<module>ikii-back-security</module>
-		<module>ikii-back-transactions</module>
 		<module>ikii-back-customers</module>
 		<module>ikii-back-config</module>
 		<module>ikii-back-gateway</module>

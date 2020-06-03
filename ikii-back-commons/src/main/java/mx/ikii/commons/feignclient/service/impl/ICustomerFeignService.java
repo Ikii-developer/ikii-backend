@@ -18,7 +18,6 @@ public interface ICustomerFeignService {
 	 * @param id userId
 	 * @return the user fetched
 	 */
-
 	Customer getById(String id);
 
 	/**
@@ -27,6 +26,13 @@ public interface ICustomerFeignService {
 	 * @return
 	 */
 	Customer getByPhoneNumber(String phoneNumber);
+
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
+	Customer getByEmail(String email);
 
 	/**
 	 * This method updates a user from the user microservice

@@ -25,17 +25,19 @@ public interface ICustomerFeignClientRepository {
 
 	@GetMapping("customers/{id}")
 	ResponseEntity<CustomerResponse> getById(@PathVariable("id") String id);
-	
+
 	@GetMapping("/customers/phone-numbers/{phoneNumber}")
 	ResponseEntity<CustomerResponse> getByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber);
+
+	@GetMapping("/customers/emails/{email}")
+	ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
 
 	@GetMapping("customers/")
 	ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);
 
 	@PutMapping("customers/{id}")
 	ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest userRequest, @PathVariable("id") String id);
-	
+
 	@PostMapping("customers/")
 	ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest);
-
 }

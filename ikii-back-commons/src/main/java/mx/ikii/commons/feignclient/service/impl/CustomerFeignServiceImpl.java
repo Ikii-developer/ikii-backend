@@ -38,4 +38,10 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
 		return customerMapper.responseToEntity(
 				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByPhoneNumber(userName)));
 	}
+
+	@Override
+	public Customer getByEmail(String email) {
+		return customerMapper.responseToEntity(
+				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmail(email)));
+	}
 }

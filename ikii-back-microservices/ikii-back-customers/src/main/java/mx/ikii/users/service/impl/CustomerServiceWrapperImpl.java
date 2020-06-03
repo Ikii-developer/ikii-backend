@@ -3,7 +3,6 @@ package mx.ikii.users.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
-import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.users.repository.ICustomerPrivilegeRepository;
 import mx.ikii.users.repository.ICustomerRoleRepository;
@@ -61,23 +59,14 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	public Page<CustomerResponse> findAll(Pageable pageable) {
 		Page<Customer> customerClip = customerService.findAll(pageable);
 		List<CustomerResponse> usersResponse = customerMapper.entityToResponse(customerClip.getContent());
-
 		return PageHelper.createPage(usersResponse, pageable, customerClip.getTotalElements());
 	}
 
 	@Override
 	public CustomerResponse signUp(CustomerRequest customerRequest) {
-
 		Customer customer = customerMapper.requestToEntity(customerRequest);
-		
-		if (Nullable.isNotNull(customer.getPassword())) {
-			customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-		}
-		
-		customer.setIsEnabled(true);
-
+		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
 		return customerMapper.entityToResponse(customerService.signUp(customer));
-
 	}
 
 	@Override
@@ -89,6 +78,11 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	@Override
 	public void delete(String id) {
 		customerService.delete(id);
+	}
+
+	@Override
+	public CustomerResponse findByPhoneNumber(String phoneNumber) {
+		return customerMapper.entityToResponse(customerService.findByPhoneNumber(phoneNumber));
 	}
 
 	@Override
@@ -121,17 +115,6 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 		if (customerRole.isPresent()) {
 			customer.getRoles().add(customerRole.get());
 			customerService.update(customer, customer.getId());
-
 		}
 	}
-
-	@Override
-	public CustomerResponse findByTelephone(String id) {
-		if(StringUtils.isBlank(id)) {
-			return null;
-		}
-		
-		return customerMapper.entityToResponse(customerService.findByPhoneNumber(id));
-	}
-
 }

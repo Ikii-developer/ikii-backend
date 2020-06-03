@@ -34,7 +34,7 @@ public interface ICustomerController {
 	 * @param email
 	 * @return
 	 */
-	@GetMapping("/customers/{email}")
+	@GetMapping("/emails/{email}")
 	ResponseEntity<CustomerResponse> getByEmail(String email);
 
 	/**
@@ -43,8 +43,8 @@ public interface ICustomerController {
 	 * @param telephone
 	 * @return
 	 */
-	@GetMapping("/customers/phone-numbers/{phoneNumber}")
-	ResponseEntity<CustomerResponse> getByTelephone(String telephone);
+	@GetMapping("/phone-numbers/{phoneNumber}")
+	ResponseEntity<CustomerResponse> getByPhoneNumber(String phoneNumber);
 
 	/**
 	 * This method is used to get all the users

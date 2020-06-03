@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class PayClipSecurityApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(PayClipSecurityApplication.class, args);
 	}
-
 }

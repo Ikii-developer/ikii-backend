@@ -23,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/security").permitAll();
+                    .antMatchers("/security").permitAll()
+                    .and().authorizeRequests().antMatchers("customers/sign-up").permitAll();
      // @formatter:on
 	}
 }

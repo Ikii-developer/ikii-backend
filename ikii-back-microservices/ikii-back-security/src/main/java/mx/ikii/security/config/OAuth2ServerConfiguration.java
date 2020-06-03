@@ -32,7 +32,8 @@ public class OAuth2ServerConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable().authorizeRequests().anyRequest().authenticated();
+			http.csrf().disable().formLogin().usernameParameter("email").permitAll().and().authorizeRequests()
+					.anyRequest().authenticated();
 		}
 	}
 
@@ -60,6 +61,5 @@ public class OAuth2ServerConfiguration {
 			clients.inMemory().withClient("client").secret(passwordEncoder.encode("secret"))
 					.authorizedGrantTypes("password", "refresh_token").scopes("read", "write");
 		}
-
 	}
 }

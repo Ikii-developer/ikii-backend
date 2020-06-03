@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
@@ -30,16 +31,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private ICustomerFeignService customerFeignService;
 
 	@Override
-	public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-		Customer userByName = customerFeignService.getByPhoneNumber(phoneNumber);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Customer userByName = null;
+		try {
+			userByName = customerFeignService.getByEmail(email);
+		} catch (ResourceNotFoundException e) {
+			throw new UsernameNotFoundException("Email " + email + " not found.");
+		}
 		if (Nullable.isNull(userByName)) {
-			throw new UsernameNotFoundException("PhoneNumber " + phoneNumber + " not found.");
+			throw new UsernameNotFoundException("Email " + email + " not found.");
 		}
 		if (userByName.getRoles() == null || userByName.getRoles().isEmpty()) {
 			throw new UsernameNotFoundException("User not authorized.");
 		}
-		return new User(userByName.getPhoneNumber(), userByName.getPassword(), userByName.getIsEnabled(), true, true, true,
-				getAuthorities(userByName.getRoles()));
+		return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(), true, true,
+				true, getAuthorities(userByName.getRoles()));
 	}
 
 	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {

@@ -30,9 +30,9 @@ public class AccountAuthenticationProvider extends AbstractUserDetailsAuthentica
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken token)
+	protected UserDetails retrieveUser(String email, UsernamePasswordAuthenticationToken token)
 			throws AuthenticationException {
-		return userDetailsService.loadUserByUsername(username);
+		return userDetailsService.loadUserByUsername(email);
 	}
 
 }

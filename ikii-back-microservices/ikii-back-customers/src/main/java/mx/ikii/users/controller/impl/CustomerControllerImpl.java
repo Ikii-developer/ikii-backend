@@ -79,8 +79,8 @@ public class CustomerControllerImpl implements ICustomerController {
 	}
 
 	@Override
-	public ResponseEntity<CustomerResponse> getByTelephone(String telephone) {
-		return ResponseEntity.ok(customerServiceWrapper.findByemail(telephone));
+	public ResponseEntity<CustomerResponse> getByPhoneNumber(@PathVariable String phoneNumber) {
+		return ResponseEntity.ok(customerServiceWrapper.findByPhoneNumber(phoneNumber));
 	}
 
 }

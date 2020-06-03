@@ -30,8 +30,9 @@ public class OAuth2ServerConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable().authorizeRequests().antMatchers("/phone-numbers/**").permitAll().and().authorizeRequests()
-					.anyRequest().authenticated();
+			http.csrf().disable().authorizeRequests().antMatchers("/phone-numbers/**").permitAll().and()
+					.authorizeRequests().antMatchers("/emails/**").permitAll().and().authorizeRequests()
+					.antMatchers("/sign-up/**").permitAll().and().authorizeRequests().anyRequest().permitAll();
 		}
 	}
 

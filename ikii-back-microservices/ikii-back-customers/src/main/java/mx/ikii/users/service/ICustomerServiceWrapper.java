@@ -26,7 +26,7 @@ public interface ICustomerServiceWrapper {
 
 	CustomerResponse update(CustomerRequest transaction, String id);
 	
-	CustomerResponse findByTelephone(String id);
+	CustomerResponse findByPhoneNumber(String id);
 
 	void delete(String id);
 
