@@ -16,10 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mx.ikii.commons.feignclient.service.impl.IUserClipFeignService;
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
+import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
+import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
-import mx.ikii.commons.persistence.collection.UserClip;
 import mx.ikii.commons.utils.Nullable;
 
 @Service
@@ -27,18 +28,20 @@ import mx.ikii.commons.utils.Nullable;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserClipFeignService userClipFeignService;
+	private ICustomerFeignService customerFeignService;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserClip userByName = userClipFeignService.getByUserName(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Customer userByName = null;
+		try {
+			userByName = customerFeignService.getByEmailForAuth(email);
+		} catch (ResourceNotFoundException e) {
+			throw new UsernameNotFoundException("Email " + email + " not found.");
+		}
 		if (Nullable.isNull(userByName)) {
-			throw new UsernameNotFoundException("User " + username + " not found.");
+			throw new UsernameNotFoundException("Email " + email + " not found.");
 		}
-		if (userByName.getRoles() == null || userByName.getRoles().isEmpty()) {
-			throw new UsernameNotFoundException("User not authorized.");
-		}
-		return new User(userByName.getUserName(), userByName.getPassword(), userByName.isEnabled(), true, true, true,
+		return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(), true, true, true,
 				getAuthorities(userByName.getRoles()));
 	}
 

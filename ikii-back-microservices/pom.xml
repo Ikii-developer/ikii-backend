@@ -20,7 +20,7 @@
 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 		<lombok.version>1.16.14</lombok.version>
 		<mapstruct.version>1.2.0.Final</mapstruct.version>
-		<ikii.commons.version>1.0.0</ikii.commons.version>
+		<ikii.commons.version>2.0.1</ikii.commons.version>
 		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
 	</properties>
 	<dependencyManagement>
@@ -73,8 +73,7 @@
 	</dependencyManagement>
 	<modules>
 		<module>ikii-back-security</module>
-		<module>ikii-back-transactions</module>
-		<module>ikii-back-users</module>
+		<module>ikii-back-customers</module>
 		<module>ikii-back-config</module>
 		<module>ikii-back-gateway</module>
 		<module>ikii-back-registry</module>

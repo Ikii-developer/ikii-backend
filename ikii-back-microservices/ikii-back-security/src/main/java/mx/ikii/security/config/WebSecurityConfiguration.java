@@ -21,7 +21,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Value("${custom-security.signingKey}")
 	private String signingKey;
-
+	
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 
