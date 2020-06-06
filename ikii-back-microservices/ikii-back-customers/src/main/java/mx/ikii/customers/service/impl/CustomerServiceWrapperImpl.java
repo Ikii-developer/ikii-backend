@@ -1,4 +1,4 @@
-package mx.ikii.users.service.impl;
+package mx.ikii.customers.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.mapper.user.ICustomerMapper;
 import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 import mx.ikii.commons.utils.PageHelper;
-import mx.ikii.users.repository.ICustomerPrivilegeRepository;
-import mx.ikii.users.repository.ICustomerRoleRepository;
-import mx.ikii.users.service.ICustomerService;
-import mx.ikii.users.service.ICustomerServiceWrapper;
+import mx.ikii.customers.repository.ICustomerPrivilegeRepository;
+import mx.ikii.customers.repository.ICustomerRoleRepository;
+import mx.ikii.customers.service.ICustomerService;
+import mx.ikii.customers.service.ICustomerServiceWrapper;
 
 /**
  * 
@@ -53,6 +54,11 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	@Override
 	public CustomerResponse findByemail(String email) {
 		return customerMapper.entityToResponse(customerService.findByEmail(email));
+	}
+
+	@Override
+	public CustomerAuthResponse findByemailForAuth(String email) {
+		return customerMapper.entityToAuthResponse(customerService.findByEmail(email));
 	}
 
 	@Override

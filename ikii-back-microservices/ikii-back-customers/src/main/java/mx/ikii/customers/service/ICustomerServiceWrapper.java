@@ -1,9 +1,10 @@
-package mx.ikii.users.service;
+package mx.ikii.customers.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
@@ -19,6 +20,8 @@ public interface ICustomerServiceWrapper {
 	CustomerResponse findById(String id);
 
 	CustomerResponse findByemail(String email);
+	
+	CustomerAuthResponse findByemailForAuth(String email);
 
 	Page<CustomerResponse> findAll(Pageable pageable);
 

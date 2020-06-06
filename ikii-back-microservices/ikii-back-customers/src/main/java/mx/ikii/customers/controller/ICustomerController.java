@@ -1,4 +1,4 @@
-package mx.ikii.users.controller;
+package mx.ikii.customers.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
@@ -36,6 +37,15 @@ public interface ICustomerController {
 	 */
 	@GetMapping("/emails/{email}")
 	ResponseEntity<CustomerResponse> getByEmail(String email);
+
+	/**
+	 * This method is only used for authentication
+	 * 
+	 * @param email
+	 * @return
+	 */
+	@GetMapping("/emails/auth/{email}")
+	ResponseEntity<CustomerAuthResponse> getByEmailForAuth(String email);
 
 	/**
 	 * This method is used to get a user by telephone

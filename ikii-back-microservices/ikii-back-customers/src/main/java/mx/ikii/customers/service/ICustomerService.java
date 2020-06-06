@@ -1,4 +1,4 @@
-package mx.ikii.users.service;
+package mx.ikii.customers.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

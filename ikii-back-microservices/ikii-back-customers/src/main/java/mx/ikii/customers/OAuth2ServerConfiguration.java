@@ -1,4 +1,4 @@
-package mx.ikii.users;
+package mx.ikii.customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class OAuth2ServerConfiguration {
 		public void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable().authorizeRequests().antMatchers("/phone-numbers/**").permitAll().and()
 					.authorizeRequests().antMatchers("/emails/**").permitAll().and().authorizeRequests()
-					.antMatchers("/sign-up/**").permitAll().and().authorizeRequests().anyRequest().permitAll();
+					.antMatchers("/sign-up/**").permitAll().and().authorizeRequests().anyRequest().authenticated();
 		}
 	}
 

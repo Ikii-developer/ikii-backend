@@ -1,4 +1,4 @@
-package mx.ikii.users.helper;
+package mx.ikii.customers.helper;
 
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.utils.Nullable;

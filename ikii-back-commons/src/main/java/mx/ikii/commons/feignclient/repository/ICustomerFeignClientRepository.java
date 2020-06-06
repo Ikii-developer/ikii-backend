@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 
 /**
@@ -31,6 +32,9 @@ public interface ICustomerFeignClientRepository {
 
 	@GetMapping("/customers/emails/{email}")
 	ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
+
+	@GetMapping("customers/emails/auth/{email}")
+	ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable("email") String email);
 
 	@GetMapping("customers/")
 	ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);

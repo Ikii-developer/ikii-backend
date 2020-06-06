@@ -1,4 +1,4 @@
-package mx.ikii.users;
+package mx.ikii.customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

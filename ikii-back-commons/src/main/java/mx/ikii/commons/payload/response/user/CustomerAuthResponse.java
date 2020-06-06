@@ -1,30 +1,27 @@
 package mx.ikii.commons.payload.response.user;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import mx.ikii.commons.persistence.collection.Role;
 
-/**
- * This class is used as the outcoming DTO related the the user response
- * 
- * @author Francisco Javier Mart�nez Arazo
- *
- */
 @Data
 @JsonInclude(Include.NON_NULL)
-public class CustomerResponse implements Serializable {
+public class CustomerAuthResponse {
 
-	private static final long serialVersionUID = 4409947770631003418L;
-
-	private String id;
 	private String name;
 	private String lastName;
 	private String secondLastName;
 	private String email;
 	private String phoneNumber;
+	private String password;
 	private String birthday;
+	private Boolean isEnabled;
+
+	private Set<Role> roles = new HashSet<>();
 
 }

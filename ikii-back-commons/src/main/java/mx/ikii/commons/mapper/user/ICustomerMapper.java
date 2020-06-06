@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import mx.ikii.commons.mapper.utils.GenericMapper;
 import mx.ikii.commons.mapper.utils.StringObjectIdMapper;
 import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
 
@@ -17,5 +18,13 @@ import mx.ikii.commons.persistence.collection.Customer;
 @Mapper(componentModel = "spring", uses = { StringObjectIdMapper.class })
 public interface ICustomerMapper extends GenericMapper<Customer, CustomerRequest, CustomerResponse> {
 
-	public CustomerRequest entityToRequest(Customer customer);
+	CustomerRequest entityToRequest(Customer customer);
+
+	CustomerResponse entityToResponse(Customer customer);
+
+	CustomerAuthResponse entityToAuthResponse(Customer customer);
+	
+	
+	Customer authResponseToentity(CustomerAuthResponse customer);
+
 }

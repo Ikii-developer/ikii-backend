@@ -34,18 +34,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Customer userByName = null;
 		try {
-			userByName = customerFeignService.getByEmail(email);
+			userByName = customerFeignService.getByEmailForAuth(email);
 		} catch (ResourceNotFoundException e) {
 			throw new UsernameNotFoundException("Email " + email + " not found.");
 		}
 		if (Nullable.isNull(userByName)) {
 			throw new UsernameNotFoundException("Email " + email + " not found.");
 		}
-		if (userByName.getRoles() == null || userByName.getRoles().isEmpty()) {
-			throw new UsernameNotFoundException("User not authorized.");
-		}
-		return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(), true, true,
-				true, getAuthorities(userByName.getRoles()));
+		return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(), true, true, true,
+				getAuthorities(userByName.getRoles()));
 	}
 
 	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {

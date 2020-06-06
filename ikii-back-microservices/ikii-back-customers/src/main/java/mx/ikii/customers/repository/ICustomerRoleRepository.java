@@ -1,4 +1,4 @@
-package mx.ikii.users.repository;
+package mx.ikii.customers.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

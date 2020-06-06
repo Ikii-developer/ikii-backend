@@ -74,6 +74,7 @@ services:
     build: ikii-back-security
     ports:
       - "${SECURITY_PORT}:8003"  
+      - "9005:8000"  
     networks:
       - network 
     links:

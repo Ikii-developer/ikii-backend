@@ -1,4 +1,4 @@
-package mx.ikii.users.service.impl;
+package mx.ikii.customers.service.impl;
 
 import java.util.Optional;
 
@@ -11,9 +11,9 @@ import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.exception.handler.helper.ConflictException;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.utils.constants.EnumError;
-import mx.ikii.users.helper.Helper;
-import mx.ikii.users.repository.ICustomerRepository;
-import mx.ikii.users.service.ICustomerService;
+import mx.ikii.customers.helper.Helper;
+import mx.ikii.customers.repository.ICustomerRepository;
+import mx.ikii.customers.service.ICustomerService;
 
 /**
  * This class contains the CRUD operations related to the user resource

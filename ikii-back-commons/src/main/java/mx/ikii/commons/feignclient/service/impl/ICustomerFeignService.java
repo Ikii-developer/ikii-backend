@@ -13,7 +13,7 @@ import mx.ikii.commons.persistence.collection.Customer;
  */
 public interface ICustomerFeignService {
 	/**
-	 * THis method is used to get the user by userId from the user microservice
+	 * THis method is used to get the customer by userId from the user microservice
 	 * 
 	 * @param id userId
 	 * @return the user fetched
@@ -28,11 +28,20 @@ public interface ICustomerFeignService {
 	Customer getByPhoneNumber(String phoneNumber);
 
 	/**
+	 * This method is used to get the customer by email
 	 * 
 	 * @param email
 	 * @return
 	 */
 	Customer getByEmail(String email);
+
+	/**
+	 * This method is only used for authentication purpose
+	 * 
+	 * @param email
+	 * @return
+	 */
+	Customer getByEmailForAuth(String email);
 
 	/**
 	 * This method updates a user from the user microservice
