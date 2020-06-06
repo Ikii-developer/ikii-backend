@@ -9,7 +9,7 @@ cd .. && cd ikii-back-commons && mvn clean install
 cd .. && cd ikii-back-microservices && mvn clean install -DskipTests -P development
 
 #START RUNNING
-docker-compose up -d $DOCKER_SERVICE
+docker-compose up --build -d $DOCKER_SERVICE
 
-echo "Container "+${DOCKER_SERVICE}+" is now online."
+echo "Container "${DOCKER_SERVICE}" is now online."
 

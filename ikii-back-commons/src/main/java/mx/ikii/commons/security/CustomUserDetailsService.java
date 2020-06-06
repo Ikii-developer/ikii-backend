@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mx.ikii.commons.exception.handler.ResourceNotFoundException;
+import feign.FeignException;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
@@ -27,6 +29,8 @@ import mx.ikii.commons.utils.Nullable;
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
+
 	@Autowired
 	private ICustomerFeignService customerFeignService;
 
@@ -34,8 +38,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Customer userByName = null;
 		try {
+			LOGGER.info("Customer email {}", email);
 			userByName = customerFeignService.getByEmailForAuth(email);
-		} catch (ResourceNotFoundException e) {
+		} catch (FeignException e) {
 			throw new UsernameNotFoundException("Email " + email + " not found.");
 		}
 		if (Nullable.isNull(userByName)) {
