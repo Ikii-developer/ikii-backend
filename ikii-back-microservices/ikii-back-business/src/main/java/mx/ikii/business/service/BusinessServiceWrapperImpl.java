@@ -36,7 +36,6 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 	public Page<BusinessResponse> findAll(Pageable pageable) {
 		Page<Business> userClip = businessService.findAll(pageable);
 		List<BusinessResponse> usersResponse = businessMapper.entityToResponse(userClip.getContent());
-
 		return PageHelper.createPage(usersResponse, pageable, userClip.getTotalElements());
 	}
 

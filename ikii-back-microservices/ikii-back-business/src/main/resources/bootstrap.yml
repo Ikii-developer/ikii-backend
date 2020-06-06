@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: ikii-bussiness
+      name: bussiness
       uri: http://localhost:8888
       fail-fast: true
       retry:

@@ -1,14 +1,12 @@
 package mx.ikii.business.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.business.repository.IBusinessRepository;
-import mx.ikii.commons.exception.handler.helper.ThrowsException;
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Business;
 
 @Service
@@ -19,8 +17,9 @@ public class BusinessServiceImpl implements IBusinessService {
 
 	@Override
 	public Business findById(String id) {
-		Optional<Business> business = businessRepository.findById(id);
-		return ThrowsException.resourceNotFound(business, id, Business.class);
+		Business business = businessRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
+		return business;
 	}
 
 	@Override
@@ -41,17 +40,15 @@ public class BusinessServiceImpl implements IBusinessService {
 
 	@Override
 	public Business update(Business user, String id) {
-
-		Business business = businessRepository.findById(id).orElse(null);
-		ThrowsException.resourceNotFound(Optional.ofNullable(business), id, Business.class);
+		Business business = businessRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
 		businessRepository.save(business);
 		return business;
 	}
 
 	@Override
 	public void delete(String id) {
-		Business business = businessRepository.findById(id).orElse(null);
-		ThrowsException.resourceNotFound(Optional.ofNullable(business), id, Business.class);
+		businessRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
 		businessRepository.deleteById(id);
 	}
 

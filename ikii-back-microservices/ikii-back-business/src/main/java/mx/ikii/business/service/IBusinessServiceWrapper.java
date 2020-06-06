@@ -20,5 +20,4 @@ public interface IBusinessServiceWrapper {
 
 	void delete(String id);
 
-	
 }

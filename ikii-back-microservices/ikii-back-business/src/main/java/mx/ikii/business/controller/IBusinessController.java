@@ -17,11 +17,10 @@ import mx.ikii.commons.payload.response.business.BusinessResponse;
 @RequestMapping("/")
 public interface IBusinessController {
 
-
 	@GetMapping("{id}")
 	ResponseEntity<BusinessResponse> getById(String id);
 
-	@GetMapping("/username/{userName}")
+	@GetMapping("/usernames/{userName}")
 	ResponseEntity<BusinessResponse> getByUserName(String userName);
 
 	@GetMapping
@@ -35,5 +34,5 @@ public interface IBusinessController {
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);
-	
+
 }

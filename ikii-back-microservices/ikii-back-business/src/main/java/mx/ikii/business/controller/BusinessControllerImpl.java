@@ -40,7 +40,8 @@ public class BusinessControllerImpl implements IBusinessController {
 	}
 
 	@Override
-	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest, @PathVariable String id) {
+	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest,
+			@PathVariable String id) {
 		return ResponseEntity.ok(userClipServiceWrapper.update(businessRequest, id));
 	}
 
