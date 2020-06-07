@@ -8,80 +8,80 @@ services:
     ports:
       - "${MONGODB_PORT}:27017"
     networks:
-      - network                  
+      - ikiinet-local                  
 ##---- INFRASTRUCTURE MICROSERVICES---- ##
-  config:
-    container_name: ikii-back-config-container
-    build: ikii-back-config
+  ikii-back-config:
+    container_name: ikii-back-config
+    image : ikii/config:2.0.0
     restart: always
     ports:
         - "${SERVER_CONFIG_PORT}:8888"  
     networks:
-        - network
+        - ikiinet-local
     logging:
       options:
         max-size: "10m"
         max-file: "10"                     
       
-  registry:
-    container_name: ikii-back-registry-container
-    build: ikii-back-registry
+  ikii-back-registry:
+    container_name: ikii-back-registry
+    image : ikii/registry:2.0.0
     restart: always
     ports:
         - "${SERVER_REGISTRY_PORT}:8761" 
     networks:
-        - network
+        - ikiinet-local
     links:
-        - config:config      
+        - ikii-back-config:ikii-back-config     
     depends_on:
-      - config                                   
+      - ikii-back-config                                   
     logging:
       options:
         max-size: "10m"
         max-file: "10"    
         
-  gateway:
-    container_name: ikii-back-gateway-container
-    build: ikii-back-gateway
+  ikii-back-gateway:
+    container_name: ikii-back-gateway
+    image : ikii/gateway:2.0.0
     ports:
       - "${GATEWAY_PORT}:4000"
     networks:
-      - network  
+      - ikiinet-local  
     links:
-      - config:config
+      - ikii-back-config:ikii-back-config
     depends_on:
-      - config
-      - registry            
+      - ikii-back-config
+      - ikii-back-registry            
 
 ##----FUNCTIONAL MICROSERVICES----##
   ikii-back-customers:
-    container_name: ikii-back-customers-container
-    build: ikii-back-customers
+    container_name: ikii-back-customers
+    image: ikii/customers:2.0.0
     ports:
       - "${USERS_PORT}:8002"   
       - "9004:8000"
     networks:
-      - network 
+      - ikiinet-local 
     links:
-      - config:config
+      - ikii-back-config:ikii-back-config
     depends_on:
-      - config
-      - registry
+      - ikii-back-config
+      - ikii-back-registry
       - mongo 
 
   ikii-back-security:
-    container_name: ikii-back-security-container
-    build: ikii-back-security
+    container_name: ikii-back-security
+    image : ikii/security:2.0.0
     ports:
       - "${SECURITY_PORT}:8003"  
       - "9005:8000"  
     networks:
-      - network 
+      - ikiinet-local 
     links:
-      - config:config
+      - ikii-back-config:ikii-back-config
     depends_on:
-      - config
-      - registry
+      - ikii-back-config
+      - ikii-back-registry
       - mongo                   
                  
 networks:

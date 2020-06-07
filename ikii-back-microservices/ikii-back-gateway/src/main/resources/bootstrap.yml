@@ -2,7 +2,7 @@ spring:
   cloud:
     config:
       name: gateway
-      uri: http://config:8888
+      uri: http://ikii-back-config:8888
       fail-fast: true
       retry:
         max-attempts: 20
