@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>mx.ikii</groupId>
 		<artifactId>ikii-back-full-main</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>ikii-back-products</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>ikii-back-products</name>
 	<description>Spring Product Microservice</description>
 
@@ -138,97 +139,6 @@
 							<target>1.8</target>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>repackage</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>production</id>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-dependencies</artifactId>
-						<version>${spring-cloud-dependencies.version}</version>
-						<type>pom</type>
-						<scope>import</scope>
-					</dependency>
-					<dependency>
-						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-kubernetes-dependencies</artifactId>
-						<version>${spring.cloud.k8s.version}</version>
-						<type>pom</type>
-						<scope>import</scope>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-kubernetes-discovery</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-web</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-actuator</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-test</artifactId>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-kubernetes-ribbon</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-				</dependency>
-			</dependencies>
-			<build>
-				<finalName>ikii-back-products</finalName>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<configuration>
-							<source>1.8</source>
-							<target>1.8</target>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>repackage</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 					<!-- Jib -->
 					<plugin>
 						<groupId>com.google.cloud.tools</groupId>
@@ -237,21 +147,32 @@
 						<configuration>
 							<container>
 								<ports>
-									<port>8002</port>
+									<port>8005</port>
 								</ports>
 							</container>
 							<from>
 								<image>openjdk:8u212-jre</image>
 							</from>
 							<to>
-								<image>arturo1994/ikii-back-productss:${project.version}</image>
+								<image>ikii/products:${project.version}</image>
 							</to>
 						</configuration>
 						<executions>
 							<execution>
 								<phase>package</phase>
 								<goals>
-									<goal>build</goal>
+									<goal>dockerBuild</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>repackage</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -260,5 +181,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>

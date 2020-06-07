@@ -1,13 +1,11 @@
 package mx.ikii.products.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import mx.ikii.commons.exception.handler.helper.ThrowsException;
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Product;
 import mx.ikii.products.repository.IProductRepository;
 
@@ -19,13 +17,15 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Product findById(String id) {
-		Optional<Product> product = productRepository.findById(id);
-		return ThrowsException.resourceNotFound(product, id, Product.class);
+		Product product = productRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, Product.class));
+		return product;
 	}
 
 	@Override
 	public Product findByName(String name) {
-		Product product = productRepository.findByName(name);
+		Product product = productRepository.findByName(name)
+				.orElseThrow(() -> new ResourceNotFoundException(name, Product.class));
 		return product;
 	}
 
@@ -41,17 +41,15 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Product update(Product productToUpdate, String id) {
-
-		Product product = productRepository.findById(id).orElse(null);
-		ThrowsException.resourceNotFound(Optional.ofNullable(product), id, Product.class);
+		Product product = productRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, Product.class));
 		productRepository.save(productToUpdate);
 		return product;
 	}
 
 	@Override
 	public void delete(String id) {
-		Product product = productRepository.findById(id).orElse(null);
-		ThrowsException.resourceNotFound(Optional.ofNullable(product), id, Product.class);
+		productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Product.class));
 		productRepository.deleteById(id);
 	}
 

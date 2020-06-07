@@ -1,4 +1,4 @@
-package mx.ikii.products.config.security;
+package mx.ikii.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
