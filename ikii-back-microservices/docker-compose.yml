@@ -59,7 +59,6 @@ services:
     image: ikii/customers:2.0.0
     ports:
       - "${USERS_PORT}:8002"   
-      - "9004:8000"
     networks:
       - ikiinet-local 
     links:
@@ -74,7 +73,6 @@ services:
     image : ikii/security:2.0.0
     ports:
       - "${SECURITY_PORT}:8003"  
-      - "9005:8000"  
     networks:
       - ikiinet-local 
     links:
@@ -82,7 +80,21 @@ services:
     depends_on:
       - ikii-back-config
       - ikii-back-registry
-      - mongo                   
+      - mongo  
+
+  ikii-back-business:
+    container_name: ikii-back-business
+    image : ikii/business:1.0.0
+    ports:
+      - "${BUSINESS_PORT}:8004"  
+    networks:
+      - ikiinet-local 
+    links:
+      - ikii-back-config:ikii-back-config
+    depends_on:
+      - ikii-back-config
+      - ikii-back-registry
+      - mongo                         
                  
 networks:
   ikiinet-local:
