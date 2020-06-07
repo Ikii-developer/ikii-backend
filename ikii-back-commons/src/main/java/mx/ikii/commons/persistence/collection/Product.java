@@ -1,5 +1,8 @@
 package mx.ikii.commons.persistence.collection;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,19 +10,21 @@ import lombok.Data;
 
 @Document
 @Data
-public class Business {
+public class Product {
 	
-	@Id	
+	@Id
 	private String id;
+	
+	private String code;
 	
 	private String name;
 	
-	private String image;
-	
-	private String category;
-	
 	private String description;
 	
-	private String postalCode;
+	private Map<String, String> fullDescription; // for Food
+	
+	private BigDecimal price;
+	
+	private String pathImage;
 
 }

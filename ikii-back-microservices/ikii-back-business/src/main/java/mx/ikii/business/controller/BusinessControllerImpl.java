@@ -17,37 +17,38 @@ import mx.ikii.commons.payload.response.business.BusinessResponse;
 public class BusinessControllerImpl implements IBusinessController {
 
 	@Autowired
-	private IBusinessServiceWrapper userClipServiceWrapper;
+	private IBusinessServiceWrapper businessServiceWrapper;
 
-	@Override
-	public ResponseEntity<BusinessResponse> getById(@PathVariable String id) {
-		return ResponseEntity.ok(userClipServiceWrapper.findById(id));
-	}
-
-	@Override
-	public ResponseEntity<BusinessResponse> getByUserName(@PathVariable String userName) {
-		return ResponseEntity.ok(userClipServiceWrapper.findByUseName(userName));
-	}
 
 	@Override
 	public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable) {
-		return ResponseEntity.ok(userClipServiceWrapper.findAll(pageable));
+		return ResponseEntity.ok(businessServiceWrapper.findAll(pageable));
 	}
+	
+	@Override
+	public ResponseEntity<BusinessResponse> getById(@PathVariable String id) {
+		return ResponseEntity.ok(businessServiceWrapper.findById(id));
+	}
+
+	@Override
+	public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String userName) {
+		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(userName));
+	}
+
 
 	@Override
 	public ResponseEntity<BusinessResponse> create(@RequestBody BusinessRequest businessRequest) {
-		return ResponseEntity.ok(userClipServiceWrapper.create(businessRequest));
+		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
 	}
 
 	@Override
-	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest,
-			@PathVariable String id) {
-		return ResponseEntity.ok(userClipServiceWrapper.update(businessRequest, id));
+	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest, @PathVariable String id) {
+		return ResponseEntity.ok(businessServiceWrapper.update(businessRequest, id));
 	}
 
 	@Override
 	public ResponseEntity<Void> delete(@PathVariable String id) {
-		userClipServiceWrapper.delete(id);
+		businessServiceWrapper.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

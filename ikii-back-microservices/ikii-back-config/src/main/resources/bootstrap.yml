@@ -11,6 +11,7 @@ spring:
           skipSslValidation: true          
           username: arturo199
           password: Ajedrez94#
+
 eureka:
   client:
     region: default

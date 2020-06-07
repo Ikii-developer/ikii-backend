@@ -1,4 +1,4 @@
-package mx.ikii.business.controller;
+package mx.ikii.products.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.ikii.commons.payload.request.business.BusinessRequest;
-import mx.ikii.commons.payload.response.business.BusinessResponse;
+import mx.ikii.commons.payload.request.product.ProductRequest;
+import mx.ikii.commons.payload.response.product.ProductResponse;
 
 @RestController
 @RequestMapping("/")
-public interface IBusinessController {
+public interface IProductController {
 
 	@GetMapping
-	ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable);
+	ResponseEntity<Page<ProductResponse>> getAll(Pageable pageable);
 
 	@GetMapping("{id}")
-	ResponseEntity<BusinessResponse> getById(String id);
+	ResponseEntity<ProductResponse> getById(String id);
 
-	@GetMapping("/business/{name}")
-	ResponseEntity<BusinessResponse> getByBusinesName(String name);
+	@GetMapping("/product/{name}")
+	ResponseEntity<ProductResponse> getByProductName(String name);
 
 	@PostMapping
-	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
+	ResponseEntity<ProductResponse> create(ProductRequest productRequest);
 
 	@PutMapping("{id}")
-	ResponseEntity<BusinessResponse> update(BusinessRequest userRequest, String id);
+	ResponseEntity<ProductResponse> update(ProductRequest productRequest, String id);
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);
