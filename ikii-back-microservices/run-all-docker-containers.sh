@@ -8,7 +8,7 @@ cd .. && cd ikii-back-commons && mvn clean install
 cd .. && cd ikii-back-microservices && mvn clean install -DskipTests -P development
 
 #START RUNNING
-docker-compose up -d
+docker-compose up --build -d
 
 echo "All containers are now online."
 
