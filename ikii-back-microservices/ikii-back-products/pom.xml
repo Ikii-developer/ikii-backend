@@ -147,7 +147,7 @@
 						<configuration>
 							<container>
 								<ports>
-									<port>8005</port>
+									<port>8006</port>
 								</ports>
 							</container>
 							<from>

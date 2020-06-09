@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo:
-    image: mongo:4.2.7
+    image: mongo:3.4
     volumes:
       - db-mongo-data-local:/data/db
       - db-mongo-conf-local:/data/configdb
@@ -58,7 +58,7 @@ services:
     container_name: ikii-back-customers
     image: ikii/customers:2.0.0
     ports:
-      - "${USERS_PORT}:8002"   
+      - "8002:8002"   
     networks:
       - ikiinet-local 
     links:
@@ -72,7 +72,7 @@ services:
     container_name: ikii-back-security
     image : ikii/security:2.0.0
     ports:
-      - "${SECURITY_PORT}:8003"  
+      - "8003:8003"  
     networks:
       - ikiinet-local 
     links:
@@ -86,7 +86,7 @@ services:
     container_name: ikii-back-business
     image : ikii/business:1.0.0
     ports:
-      - "${BUSINESS_PORT}:8004"  
+      - "8004:8004"  
     networks:
       - ikiinet-local 
     links:
@@ -94,7 +94,21 @@ services:
     depends_on:
       - ikii-back-config
       - ikii-back-registry
-      - mongo                         
+      - mongo      
+      
+  ikii-back-products:
+    container_name: ikii-back-products
+    image : ikii/products:1.0.0
+    ports:
+      - "8006:8006"  
+    networks:
+      - ikiinet-local 
+    links:
+      - ikii-back-config:ikii-back-config
+    depends_on:
+      - ikii-back-config
+      - ikii-back-registry
+      - mongo                            
                  
 networks:
   ikiinet-local:
