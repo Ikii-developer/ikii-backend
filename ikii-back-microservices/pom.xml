@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mx.ikii</groupId>
 	<artifactId>ikii-back-full-main</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2.0.0</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -74,6 +74,7 @@
 	<modules>
 		<module>ikii-back-security</module>
 		<module>ikii-back-business</module>
+		<module>ikii-back-products</module>
 		<module>ikii-back-customers</module>
 		<module>ikii-back-config</module>
 		<module>ikii-back-gateway</module>

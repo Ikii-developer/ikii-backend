@@ -1,4 +1,4 @@
-package mx.ikii.business;
+package mx.ikii.products;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,15 +13,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class IkiiBackBusinessApplication {
+public class IkiiBackProductsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IkiiBackBusinessApplication.class, args);
+		SpringApplication.run(IkiiBackProductsApplication.class, args);
 	}
-
+	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 }

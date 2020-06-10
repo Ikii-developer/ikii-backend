@@ -10,10 +10,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>ikii-back-business</artifactId>
+	<artifactId>ikii-back-products</artifactId>
 	<version>1.0.0</version>
-	<name>ikii-back-business</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ikii-back-products</name>
+	<description>Spring Product Microservice</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
@@ -128,7 +129,7 @@
 				</dependency>
 			</dependencies>
 			<build>
-				<finalName>ikii-back-business</finalName>
+				<finalName>ikii-back-products</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -146,14 +147,14 @@
 						<configuration>
 							<container>
 								<ports>
-									<port>8004</port>
+									<port>8006</port>
 								</ports>
 							</container>
 							<from>
 								<image>openjdk:8u212-jre</image>
 							</from>
 							<to>
-								<image>ikii/business:${project.version}</image>
+								<image>ikii/products:${project.version}</image>
 							</to>
 						</configuration>
 						<executions>

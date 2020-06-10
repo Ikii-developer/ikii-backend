@@ -14,6 +14,7 @@ services:
     container_name: ikii-back-config
     image : ikii/config:2.0.0
     restart: always
+    tty: false
     ports:
         - "${SERVER_CONFIG_PORT}:8888"  
     networks:
@@ -27,6 +28,7 @@ services:
     container_name: ikii-back-registry
     image : ikii/registry:2.0.0
     restart: always
+    tty: false
     ports:
         - "${SERVER_REGISTRY_PORT}:8761" 
     networks:
@@ -43,6 +45,8 @@ services:
   ikii-back-gateway:
     container_name: ikii-back-gateway
     image : ikii/gateway:2.0.0
+    restart: always    
+    tty: false    
     ports:
       - "${GATEWAY_PORT}:4000"
     networks:
@@ -57,8 +61,10 @@ services:
   ikii-back-customers:
     container_name: ikii-back-customers
     image: ikii/customers:2.0.0
+    tty: false    
+    restart: always
     ports:
-      - "${USERS_PORT}:8002"   
+      - "8002:8002"   
     networks:
       - ikiinet-local 
     links:
@@ -68,11 +74,29 @@ services:
       - ikii-back-registry
       - mongo 
 
+  ikii-back-business:
+    container_name: ikii-back-business
+    image : ikii/business:1.0.0
+    tty: false    
+    restart: always
+    ports:
+      - "8004:8004"  
+    networks:
+      - ikiinet-local 
+    links:
+      - ikii-back-config:ikii-back-config
+    depends_on:
+      - ikii-back-config
+      - ikii-back-registry
+      - mongo      
+
   ikii-back-security:
     container_name: ikii-back-security
     image : ikii/security:2.0.0
+    tty: false    
+    restart: always
     ports:
-      - "${SECURITY_PORT}:8003"  
+      - "8003:8003"  
     networks:
       - ikiinet-local 
     links:
@@ -81,12 +105,14 @@ services:
       - ikii-back-config
       - ikii-back-registry
       - mongo  
-
-  ikii-back-business:
-    container_name: ikii-back-business
-    image : ikii/business:1.0.0
+            
+  ikii-back-products:
+    container_name: ikii-back-products
+    image : ikii/products:1.0.0
+    tty: false    
+    restart: always
     ports:
-      - "${BUSINESS_PORT}:8004"  
+      - "8006:8006"  
     networks:
       - ikiinet-local 
     links:
@@ -94,7 +120,7 @@ services:
     depends_on:
       - ikii-back-config
       - ikii-back-registry
-      - mongo                         
+      - mongo                            
                  
 networks:
   ikiinet-local:

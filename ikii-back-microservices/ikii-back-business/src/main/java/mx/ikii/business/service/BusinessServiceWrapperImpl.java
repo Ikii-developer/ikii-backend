@@ -28,8 +28,8 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 	}
 
 	@Override
-	public BusinessResponse findByUseName(String userName) {
-		return businessMapper.entityToResponse(businessService.findByUserName(userName));
+	public BusinessResponse getByBusinesName(String businessName) {
+		return businessMapper.entityToResponse(businessService.findByUserName(businessName));
 	}
 
 	@Override

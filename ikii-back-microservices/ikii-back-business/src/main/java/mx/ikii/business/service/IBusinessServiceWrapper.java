@@ -10,7 +10,7 @@ public interface IBusinessServiceWrapper {
 
 	BusinessResponse findById(String id);
 
-	BusinessResponse findByUseName(String userName);
+	BusinessResponse getByBusinesName(String businessName);
 
 	Page<BusinessResponse> findAll(Pageable pageable);
 
