@@ -64,5 +64,3 @@ Establish conection with the mongodb server
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
-test
