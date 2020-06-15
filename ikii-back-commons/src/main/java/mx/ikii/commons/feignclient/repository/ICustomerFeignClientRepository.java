@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 

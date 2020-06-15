@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;

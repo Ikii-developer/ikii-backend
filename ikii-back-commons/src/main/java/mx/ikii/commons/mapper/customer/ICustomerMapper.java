@@ -1,10 +1,10 @@
-package mx.ikii.commons.mapper.user;
+package mx.ikii.commons.mapper.customer;
 
 import org.mapstruct.Mapper;
 
 import mx.ikii.commons.mapper.utils.GenericMapper;
 import mx.ikii.commons.mapper.utils.StringObjectIdMapper;
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;

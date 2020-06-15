@@ -3,7 +3,7 @@ package mx.ikii.customers.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.user.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;
