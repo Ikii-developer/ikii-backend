@@ -1,4 +1,4 @@
-package mx.ikii.commons.mapper.Product;
+package mx.ikii.commons.mapper.product;
 
 import org.mapstruct.Mapper;
 

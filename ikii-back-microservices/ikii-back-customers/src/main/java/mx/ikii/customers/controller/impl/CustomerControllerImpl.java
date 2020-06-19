@@ -8,14 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
-import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
-import mx.ikii.commons.payload.response.user.CustomerResponse;
+import mx.ikii.commons.payload.response.customer.CustomerAuthResponse;
+import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 import mx.ikii.customers.controller.ICustomerController;
