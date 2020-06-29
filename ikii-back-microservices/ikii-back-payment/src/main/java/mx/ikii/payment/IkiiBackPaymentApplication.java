@@ -2,12 +2,26 @@ package mx.ikii.payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootApplication
+@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient" })
+@EnableFeignClients({ "mx.ikii.commons.feignclient" })
+@EnableDiscoveryClient
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class IkiiBackPaymentApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IkiiBackPaymentApplication.class, args);
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
