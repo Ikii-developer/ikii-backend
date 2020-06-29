@@ -1,10 +1,17 @@
 version: '3'
 services:
   mongo:
-    image: mongo:3.4
+    image: mongo:4.2.5
     volumes:
+      - ./resources/mongo-entrypoint:/docker-entrypoint-initdb.d
       - db-mongo-data-local:/data/db
       - db-mongo-conf-local:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ikii@dm1ndB
+      MONGO_INITDB_ROOT_PASSWORD: pass1Ki1Db
+      MONGO_INITDB_DATABASE: ikiidb
+      MONGO_INITDB_USERNAME: ik1iU53r<3
+      MONGO_INITDB_PASSWORD: iki1P@5s<3
     ports:
       - "${MONGODB_PORT}:27017"
     networks:
@@ -120,7 +127,23 @@ services:
     depends_on:
       - ikii-back-config
       - ikii-back-registry
-      - mongo                            
+      - mongo      
+
+  ikii-back-payment-method:
+    container_name: ikii-back-payment-method
+    image : ikii/payment-method:1.0.0
+    tty: false
+    restart: always
+    ports:
+      - "8006:8006"  
+    networks:
+      - ikiinet-local 
+    links:
+      - ikii-back-config:ikii-back-config
+    depends_on:
+      - ikii-back-config
+      - ikii-back-registry
+      - mongo     
                  
 networks:
   ikiinet-local:
