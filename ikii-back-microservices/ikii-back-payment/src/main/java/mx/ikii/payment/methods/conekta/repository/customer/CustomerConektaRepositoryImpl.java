@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.repository.customer;
+package mx.ikii.payment.methods.conekta.repository.customer;
 
 import java.util.Optional;
 

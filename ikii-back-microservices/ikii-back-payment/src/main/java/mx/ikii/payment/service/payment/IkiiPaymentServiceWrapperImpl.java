@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.conekta.PaymentSource;
-import mx.ikii.payment.conekta.service.payments.IPaymentsConektaService;
 import mx.ikii.payment.mapper.PaymentMethodMapper;
+import mx.ikii.payment.methods.conekta.service.payments.IPaymentsConektaService;
 import mx.ikii.payment.payload.dto.PaymentMethodDTO;
 import mx.ikii.payment.payload.request.PaymentSourceRequest;
 import mx.ikii.payment.payload.response.PaymentMethodResponse;

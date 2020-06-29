@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.customer;
+package mx.ikii.payment.methods.conekta.service.customer;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import io.conekta.Customer;
 import lombok.extern.slf4j.Slf4j;
-import mx.ikii.payment.conekta.repository.customer.ICustomerConektaRepository;
+import mx.ikii.payment.methods.conekta.repository.customer.ICustomerConektaRepository;
 import mx.ikii.payment.payload.request.CustomerConektaRequest;
 
 /**

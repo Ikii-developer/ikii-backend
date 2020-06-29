@@ -1,123 +1,57 @@
-package mx.ikii.payment.conekta.repository.orders;
+package mx.ikii.payment.methods.conekta.repository.payments;
 
-import java.util.Optional;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import io.conekta.Conekta;
+import io.conekta.Customer;
 import io.conekta.Error;
 import io.conekta.ErrorList;
-import io.conekta.Order;
+import io.conekta.PaymentSource;
 import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.exception.handler.ConektaRepositoryException;
-import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 
 @Slf4j
-@Service
-public class OrdersConektaRepositoryImpl implements IOrdersConektaRepository {
+@Repository
+public class PaymentsConektaRepositoryImpl implements IPaymentsConektaRepository {
 	
 	@Value("${conekta.api-key}")
 	private String apiKey;
 
 	@Value("${conekta.api-version}")
 	private String apiVersion;
-
 	
 	@Override
-	public Order findOrder(String orderId) {
-		Conekta.setApiKey(apiKey);
-		
-		Order order;
+	public PaymentSource create(Customer customer, JSONObject paymentSourceJSON) {
+		PaymentSource paymentSource = null;
 		try {
-			order = Order.find(orderId);
-			
-		} catch (ErrorList | Error e) {
+			paymentSource = customer.createPaymentSource(paymentSourceJSON);
+		} catch (JSONException | NoSuchFieldException | 
+				IllegalArgumentException | IllegalAccessException | 
+				Error | ErrorList e) {
 			log.info(e.getMessage());
 			e.printStackTrace();
 			throw new ConektaRepositoryException(e.getMessage());
 		}
-		
-		if(!Optional.ofNullable(order).isPresent()) {
-			throw new ResourceNotFoundException(orderId);
-		}
-		
-		return order;
-	}
-	
-	@Override
-	public Order createOrder(JSONObject orderRequestJSON) {
-		Conekta.setApiKey(apiKey);
-		
-		Order completeOrder;
-		try {
-			completeOrder = Order.create(orderRequestJSON);
-		} catch (ErrorList | Error e) {
-			log.info(e.getMessage());
-			e.printStackTrace();
-			throw new ConektaRepositoryException(e.getMessage());
-		}
-		
-		return completeOrder;
+		return paymentSource;
 	}
 
 	@Override
-	public Order updateOrder(JSONObject orderRequestJSON) {
-		Conekta.setApiKey(apiKey);
-		
-		Order updatedOrder = findOrder(orderRequestJSON.getString("order_id"));
-		
+	public void update(JSONObject paymentSourceJSON, PaymentSource paymentSourceUpdated) {
 		try {
-			updatedOrder.update(orderRequestJSON);
-			
+			paymentSourceUpdated.update(paymentSourceJSON);
 		} catch (Error | ErrorList e) {
 			log.info(e.getMessage());
 			e.printStackTrace();
 			throw new ConektaRepositoryException(e.getMessage());
 		}
-		return updatedOrder;
 	}
 
 	@Override
-	public void captureOrder(String orderId) {
-		Conekta.setApiKey(apiKey);
-		
-		Order order = findOrder(orderId);
-		
+	public void delete(PaymentSource paymentSourceDeleted) {
 		try {
-			order.capture();
-			
-		} catch (ErrorList | Error e) {
-			log.info(e.getMessage());
-			e.printStackTrace();
-			throw new ConektaRepositoryException(e.getMessage());
-		}
-	}
-	
-	@Override
-	public Order refoundOrder(Order order, JSONObject orderRefoundJSON) {
-		Conekta.setApiKey(apiKey);
-		
-		try {
-			order.refund(orderRefoundJSON);
-			
-		} catch (Exception e) {
-			log.info(e.getMessage());
-			e.printStackTrace();
-			throw new ConektaRepositoryException(e.getMessage());
-		}
-		return order;
-	}
-
-	@Override
-	public void deleteOrder(String orderId) {
-		
-		Order order = findOrder(orderId);
-		
-		try {
-			order.delete();
-			
+			paymentSourceDeleted.delete();
 		} catch (Error | ErrorList e) {
 			log.info(e.getMessage());
 			e.printStackTrace();
@@ -126,7 +60,6 @@ public class OrdersConektaRepositoryImpl implements IOrdersConektaRepository {
 	}
 
 }
-
 
 /**
  * CONEKTA ERRORS

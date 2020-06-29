@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.repository.orders;
+package mx.ikii.payment.methods.conekta.repository.orders;
 
 import org.json.JSONObject;
 

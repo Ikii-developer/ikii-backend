@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.conekta.Customer;
-import mx.ikii.payment.conekta.service.customer.ICustomerConektaService;
 import mx.ikii.payment.mapper.CustomerConektaMapper;
+import mx.ikii.payment.methods.conekta.service.customer.ICustomerConektaService;
 import mx.ikii.payment.payload.request.CustomerConektaRequest;
 import mx.ikii.payment.payload.response.CustomerConektaResponse;
 

@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.orders;
+package mx.ikii.payment.methods.conekta.service.orders;
 
 import io.conekta.Order;
 import mx.ikii.payment.payload.request.OrderConektaRequest;

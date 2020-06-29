@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.payments;
+package mx.ikii.payment.methods.conekta.service.payments;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import io.conekta.ConektaList;
 import io.conekta.Customer;
 import io.conekta.PaymentSource;
 import lombok.extern.slf4j.Slf4j;
-import mx.ikii.payment.conekta.repository.payments.IPaymentsConektaRepository;
-import mx.ikii.payment.conekta.service.customer.ICustomerConektaService;
+import mx.ikii.payment.methods.conekta.repository.payments.IPaymentsConektaRepository;
+import mx.ikii.payment.methods.conekta.service.customer.ICustomerConektaService;
 import mx.ikii.payment.payload.dto.PaymentMethodDTO;
 import mx.ikii.payment.payload.request.PaymentSourceRequest;
 

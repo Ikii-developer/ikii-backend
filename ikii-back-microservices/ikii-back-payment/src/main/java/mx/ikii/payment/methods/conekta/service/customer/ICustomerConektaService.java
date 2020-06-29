@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.customer;
+package mx.ikii.payment.methods.conekta.service.customer;
 
 import io.conekta.Customer;
 import mx.ikii.payment.payload.request.CustomerConektaRequest;

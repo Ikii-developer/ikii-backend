@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.payments;
+package mx.ikii.payment.methods.conekta.service.payments;
 
 import java.util.List;
 

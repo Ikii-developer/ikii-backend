@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.examples;
+package mx.ikii.payment.methods.conekta.examples;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.conekta.Order;
-import mx.ikii.payment.conekta.service.orders.IOrdersConektaService;
 import mx.ikii.payment.mapper.OrderConektaMapper;
+import mx.ikii.payment.methods.conekta.service.orders.IOrdersConektaService;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
 import mx.ikii.payment.payload.response.OrderConektaResponse;

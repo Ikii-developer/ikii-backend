@@ -1,4 +1,4 @@
-package mx.ikii.payment.conekta.service.orders;
+package mx.ikii.payment.methods.conekta.service.orders;
 
 import java.math.BigDecimal;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import io.conekta.Order;
 import lombok.extern.slf4j.Slf4j;
-import mx.ikii.payment.conekta.repository.orders.IOrdersConektaRepository;
+import mx.ikii.payment.methods.conekta.repository.orders.IOrdersConektaRepository;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
 
