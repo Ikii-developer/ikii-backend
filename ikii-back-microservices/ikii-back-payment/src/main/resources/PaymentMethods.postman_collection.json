@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "b3b5f526-37bc-4320-8c19-47602e90df8a",
+		"name": "PaymentMethods",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "createCustomerPayment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Angelopolis\",\n    \"email\":\"angel@gmail.com\",\n    \"phone\":\"+5213353319758\",\n    \"payment_sources\":[\n        {\n            \"type\":\"card\",\n            \"token_id\": \"tok_test_visa_4242\"\n        }\n    ],\n    \"shipping_contacts\": [\n      {\n      \"phone\": \"+5215555555555\",\n      \"receiver\": \"Marvin Fuller\",\n      \"address\": {\n          \"street1\": \"Nuevo Leon 4\",\n          \"country\": \"MX\",\n          \"postal_code\": \"06100\"\n        }\n      }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer-payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer-payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomerPayment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer-payment/cus_2nwyeHZtr1EQChkD2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer-payment",
+								"cus_2nwyeHZtr1EQChkD2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomerPayment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"cus_2nwyeHZtr1EQChkD2\",\n    \"name\": \"Angel\",\n    \"email\": \"angel@gmail.com\",\n    \"phone\": \"+5213353319758\",\n    \"payment_sources\": [\n        {\n            \"type\": \"card\",\n            \"token_id\": \"tok_test_mastercard_4444\"\n        }\n    ],\n    \"shipping_contacts\": [\n        {\n            \"phone\": \"+5215555555555\",\n            \"receiver\": \"Marvin Fuller\",\n            \"address\": {\n                \"street1\": \"Nuevo Leon 4\",\n                \"country\": \"MX\",\n                \"postal_code\": \"06100\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer-payment/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer-payment",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PaymentMethod",
+			"item": [
+				{
+					"name": "getPaymentMethod",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/payment-method/cus_2nwyYgRvxyBnwPehT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-method",
+								"cus_2nwyYgRvxyBnwPehT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPaymentMethod",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"card\",\n    \"token_id\": \"tok_test_amex_0005\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/payment-method/cus_2nwyYgRvxyBnwPehT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-method",
+								"cus_2nwyYgRvxyBnwPehT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePaymentMethod",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"src_2nwya4TsypM1u1k4T\",\n\t\"name\":\"Jorge Lopez Ramos\",\n    \"exp_month\":\"07\",\n\t\"exp_year\":\"22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/payment-method/cus_2nwyYgRvxyBnwPehT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-method",
+								"cus_2nwyYgRvxyBnwPehT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePaymentMethod",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"card\",\n    \"token_id\": \"tok_test_mastercard_4444\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/payment-method/cus_2nwyYgRvxyBnwPehT/src_2nwyYgRvxyBnwPehX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-method",
+								"cus_2nwyYgRvxyBnwPehT",
+								"src_2nwyYgRvxyBnwPehX"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "createOrderConekta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currency\":\"MXN\",\n    \"customer_info\": {\n        \"customer_id\":\"cus_2nwnv2fj6crgSvBRC\"\n    },\n    \"line_items\":[\n        {\n            \"name\":\"Coca cola\",\n            \"unit_price\":\"15.90\",\n            \"quantity\":\"1\"\n        },\n        {\n            \"name\":\"Sabritas\",\n            \"unit_price\":\"12.50\",\n            \"quantity\":\"1\"\n        },\n        {\n            \"name\":\"Boing\",\n            \"unit_price\":\"12.30\",\n            \"quantity\":\"1\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order-payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order-payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrderConekta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"ord_2nwyfZPpuwQgkYVyc\",\n    \"currency\": \"MXN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order-payment/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order-payment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderConekta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/order-payment/ord_2nwyfZPpuwQgkYVyc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order-payment",
+								"ord_2nwyfZPpuwQgkYVyc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refoundOrderConekta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"order_id\": \"ord_2nwyfZPpuwQgkYVyc\",\n    \"reason\": \"requested_by_client\",\n    \"amount\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order-payment/refound",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order-payment",
+								"refound"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

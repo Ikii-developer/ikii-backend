@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    config:
+      name: paymenth-method
+      uri: http://ikii-back-config:8888
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        initial-interval: 1500
+        multiplier: 1.5 
+  profiles:
+   active:
+   - development
+
+conekta:
+  api-key: key_eYvWV7gSDkNYXsmr
+  api-version: 2.0.0
+
+logging:
+  level:
+    mx:
+      ikii:
+        payment: DEBUG

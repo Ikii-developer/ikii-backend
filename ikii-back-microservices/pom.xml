@@ -74,6 +74,7 @@
 	<modules>
 		<module>ikii-back-security</module>
 		<module>ikii-back-business</module>
+		<module>ikii-back-payment</module>
 		<module>ikii-back-products</module>
 		<module>ikii-back-customers</module>
 		<module>ikii-back-config</module>
