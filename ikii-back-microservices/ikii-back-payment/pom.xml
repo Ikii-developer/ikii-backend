@@ -131,7 +131,7 @@
 				</dependency>
 			</dependencies>
 			<build>
-				<finalName>customers</finalName>
+				<finalName>payment</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -160,14 +160,14 @@
 						<configuration>
 							<container>
 								<ports>
-									<port>8002</port>
+									<port>8006</port>
 								</ports>
 							</container>
 							<from>
 								<image>openjdk:8u212-jre</image>
 							</from>
 							<to>
-								<image>ikii/customers:${project.version}</image>
+								<image>ikii/payment:${project.version}</image>
 							</to>
 						</configuration>
 						<executions>
