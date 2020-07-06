@@ -60,7 +60,7 @@ services:
 ##----FUNCTIONAL MICROSERVICES----##
   ikii-back-customers:
     container_name: ikii-back-customers
-    image: ikii/customers:2.0.0
+    image: ikii/customers:2.0.1
     tty: false    
     restart: always
     ports:

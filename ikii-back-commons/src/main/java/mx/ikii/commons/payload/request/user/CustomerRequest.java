@@ -24,7 +24,6 @@ public class CustomerRequest implements Serializable{
 	private String secondLastName;
 	@Email(message = "Email should be valid")
 	private String email;
-	@NotNull(message = "PhoneNumber cannot be null")
 	private String phoneNumber;
 	@NotNull(message = "Password cannot be null")
 	private String password;
