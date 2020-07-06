@@ -3,12 +3,14 @@ package mx.ikii.customers.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 import mx.ikii.customers.repository.ICustomerAdressRepository;
 import mx.ikii.customers.service.ICustomerAdressService;
 
+@Service
 public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Autowired
