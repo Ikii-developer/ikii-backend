@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.feignclient.repository.ICustomerFeignClientRepository;
-import mx.ikii.commons.mapper.user.ICustomerMapper;
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.mapper.customer.ICustomerMapper;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.utils.ResponseEntityHelper;
 

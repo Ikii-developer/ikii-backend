@@ -1,4 +1,4 @@
-package mx.ikii.commons.payload.response.user;
+package mx.ikii.commons.payload.response.customer;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package mx.ikii.commons.payload.request.user;
+package mx.ikii.commons.payload.request.customer;
 
 import java.io.Serializable;
 
