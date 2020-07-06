@@ -160,7 +160,7 @@
 						<configuration>
 							<container>
 								<ports>
-									<port>8006</port>
+									<port>8007</port>
 								</ports>
 							</container>
 							<from>
