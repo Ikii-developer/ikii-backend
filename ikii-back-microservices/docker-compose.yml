@@ -65,21 +65,21 @@ services:
       - ikii-back-registry            
 
 ##----FUNCTIONAL MICROSERVICES----##
-  ikii-back-customers:
-    container_name: ikii-back-customers
-    image: ikii/customers:2.0.0
-    tty: false    
-    restart: always
-    ports:
-      - "8002:8002"   
-    networks:
-      - ikiinet-local 
-    links:
-      - ikii-back-config:ikii-back-config
-    depends_on:
-      - ikii-back-config
-      - ikii-back-registry
-      - mongo 
+#  ikii-back-customers:
+#    container_name: ikii-back-customers
+#    image: alfonsotovar/customers:2.0.0
+#    tty: false    
+#    restart: always
+#    ports:
+#      - "8002:8002"   
+#    networks:
+#      - ikiinet-local 
+#    links:
+#      - ikii-back-config:ikii-back-config
+#    depends_on:
+#      - ikii-back-config
+#      - ikii-back-registry
+#      - mongo 
 
   ikii-back-business:
     container_name: ikii-back-business
@@ -135,7 +135,7 @@ services:
     tty: false
     restart: always
     ports:
-      - "8006:8006"  
+      - "8007:8006"  
     networks:
       - ikiinet-local 
     links:
