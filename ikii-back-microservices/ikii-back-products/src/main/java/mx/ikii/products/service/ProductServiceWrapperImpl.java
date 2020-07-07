@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import mx.ikii.commons.mapper.Product.IProductMapper;
+import mx.ikii.commons.mapper.product.IProductMapper;
 import mx.ikii.commons.payload.request.product.ProductRequest;
 import mx.ikii.commons.payload.response.product.ProductResponse;
 import mx.ikii.commons.persistence.collection.Product;

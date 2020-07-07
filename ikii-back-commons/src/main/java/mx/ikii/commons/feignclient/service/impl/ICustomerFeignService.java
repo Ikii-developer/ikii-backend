@@ -1,6 +1,6 @@
 package mx.ikii.commons.feignclient.service.impl;
 
-import mx.ikii.commons.payload.request.user.CustomerRequest;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;
 
 /**

@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import mx.ikii.commons.mapper.user.ICustomerMapper;
-import mx.ikii.commons.payload.request.user.CustomerRequest;
-import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
-import mx.ikii.commons.payload.response.user.CustomerResponse;
+import mx.ikii.commons.mapper.customer.ICustomerMapper;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
+import mx.ikii.commons.payload.response.customer.CustomerAuthResponse;
+import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;

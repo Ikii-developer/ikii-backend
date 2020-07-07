@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.ikii.commons.payload.request.user.CustomerRequest;
-import mx.ikii.commons.payload.response.user.CustomerAuthResponse;
-import mx.ikii.commons.payload.response.user.CustomerResponse;
+import mx.ikii.commons.payload.request.customer.CustomerRequest;
+import mx.ikii.commons.payload.response.customer.CustomerAuthResponse;
+import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 
