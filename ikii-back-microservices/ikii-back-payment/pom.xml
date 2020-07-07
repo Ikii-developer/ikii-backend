@@ -11,7 +11,7 @@
 	
 	<groupId>mx.ikii.payment</groupId>
 	<artifactId>ikii-back-payment</artifactId>
-	<version>2.0.0</version>
+	<version>1.0.0</version>
 	<description>Payment Methods Like Conekta, Stripe, OpenPay, etc...</description>
 
 	<properties>
@@ -167,7 +167,7 @@
 								<image>openjdk:8u212-jre</image>
 							</from>
 							<to>
-								<image>ikii/payment:${project.version}</image>
+								<image>ikii/payment-methods:${project.version}</image>
 							</to>
 						</configuration>
 						<executions>

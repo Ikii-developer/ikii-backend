@@ -15,12 +15,6 @@ import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.service.ICustomerDetailsService;
 import mx.ikii.customers.service.ICustomerDetailsServiceWrapper;
 
-/**
- * 
- * This class acts as a wrapper layer to the business logic in the UserClip
- * service
- * 
- */
 @Service
 public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServiceWrapper {
 	

@@ -9,15 +9,15 @@ import mx.ikii.commons.persistence.collection.CustomerDetails;
 public interface ICustomerDetailsService {
 
 	CustomerDetails getById(String customerDetailsId);
-	
+
 	CustomerDetails getByCustomerId(String customerId);
-	
+
 	List<CustomerDetails> getAll(Pageable pageable);
-	
+
 	CustomerDetails create(CustomerDetails customerDetails);
-	
+
 	CustomerDetails update(CustomerDetails customerDetails, String id);
-	
+
 	void delete(String customerDetailsId);
-	
+
 }

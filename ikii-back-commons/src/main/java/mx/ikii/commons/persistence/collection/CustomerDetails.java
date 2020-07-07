@@ -12,7 +12,7 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class CustomerDetails {
 
-	private String idCustomer;
+	private String customerId;
 	private Boolean isValidAccount;
 	private String image;
 	private Integer type;
