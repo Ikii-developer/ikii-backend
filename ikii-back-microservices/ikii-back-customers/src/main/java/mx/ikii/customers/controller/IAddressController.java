@@ -14,22 +14,22 @@ import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/address")
 public interface IAddressController {
 
-	@GetMapping("/adress/{id}")
+	@GetMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> getById(String id);
 	
-	@GetMapping("/adress/{name}")
+	@GetMapping("/{name}")
 	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId,Pageable pageable);
 	
-	@PostMapping("/adress/{id}")
+	@PostMapping
 	ResponseEntity<CustomerAdressResponse> create(CustomerAdressRequest request);
 	
-	@PutMapping("/adress/{id}")
+	@PutMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> update(CustomerAdressRequest request, String id);
 	
-	@DeleteMapping("/adress/{id}")
+	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
 	
 }
