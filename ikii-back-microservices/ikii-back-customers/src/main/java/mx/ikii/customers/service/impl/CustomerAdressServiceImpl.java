@@ -3,6 +3,8 @@ package mx.ikii.customers.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
@@ -16,6 +18,11 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	@Autowired
 	private ICustomerAdressRepository customerAdressRepository;
 
+	@Override
+	public Page<CustomerAdress> getAll(Pageable pageable) {
+		return customerAdressRepository.findAll(pageable);
+	}
+	
 	@Override
 	public CustomerAdress getById(String id) {
 		return customerAdressRepository.findById(id)

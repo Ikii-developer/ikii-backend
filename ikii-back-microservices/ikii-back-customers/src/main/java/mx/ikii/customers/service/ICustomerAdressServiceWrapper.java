@@ -11,6 +11,8 @@ import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
  */
 public interface ICustomerAdressServiceWrapper {
 
+	Page<CustomerAdressResponse> getAll(Pageable pageable);
+	
 	CustomerAdressResponse getById(String customerAddressId);
 	
 	Page<CustomerAdressResponse> getByCustomerId(String customerId, Pageable pageable);

@@ -17,10 +17,13 @@ import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 @RequestMapping("/address")
 public interface IAddressController {
 
+	@GetMapping
+	ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable);
+	
 	@GetMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> getById(String id);
 	
-	@GetMapping("/{name}")
+	@GetMapping("/customer/{name}")
 	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId,Pageable pageable);
 	
 	@PostMapping
