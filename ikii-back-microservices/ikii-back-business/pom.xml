@@ -53,6 +53,9 @@
 	<profiles>
 		<profile>
 			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.springframework.retry</groupId>

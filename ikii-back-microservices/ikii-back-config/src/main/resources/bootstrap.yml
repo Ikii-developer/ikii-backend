@@ -17,4 +17,4 @@ eureka:
     region: default
     registryFetchIntervalSeconds: 10
     serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+      defaultZone: ${EUREKA:http://127.0.0.1:8761/eureka/}

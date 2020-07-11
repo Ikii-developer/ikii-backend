@@ -2,7 +2,7 @@ spring:
   cloud:
     config:
       name: payment-method
-      uri: http://ikii-back-config:8888
+      uri: ${CLOUD_CONFIG_URI:http://127.0.0.1:8888}
       fail-fast: true
       retry:
         max-attempts: 20
@@ -10,4 +10,4 @@ spring:
         multiplier: 1.5 
   profiles:
    active:
-   - development
+   - ${PROFILE:development}
