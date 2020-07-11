@@ -21,7 +21,7 @@ services:
     container_name: ikii-back-config
     image : ikii/config:2.0.0
     environment:
-      - KIWIIKDATA_PROFILE_ACTIVE=prod
+      - PROFILE=prod
       - EUREKA=ikii-back-registry
     restart: always
     tty: false
@@ -150,6 +150,9 @@ services:
   ikii-back-payment-method:
     container_name: ikii-back-payment-methods
     image : ikii/payment-methods:1.0.0
+    environment:
+      - CLOUD_CONFIG_URI=http://ikii-back-config:8888
+      - PROFILE=prod
     tty: false
     restart: always
     ports:
