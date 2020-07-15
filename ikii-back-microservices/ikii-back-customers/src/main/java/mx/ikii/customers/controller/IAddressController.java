@@ -23,7 +23,7 @@ public interface IAddressController {
 	@GetMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> getById(String id);
 	
-	@GetMapping("/customer/{name}")
+	@GetMapping("/customer/{customerId}")
 	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId,Pageable pageable);
 	
 	@PostMapping
