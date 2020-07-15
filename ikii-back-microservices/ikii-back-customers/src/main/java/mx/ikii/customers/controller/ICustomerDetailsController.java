@@ -7,28 +7,32 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import mx.ikii.commons.payload.request.customer.CustomerDetailsRequest;
 import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
 
+@RestController
+@RequestMapping("/customer-details")
 public interface ICustomerDetailsController {
 
-	@GetMapping("/customer-details/{id}")
+	@GetMapping("/{id}")
 	ResponseEntity<CustomerDetailsResponse> getById(String id);
 	
-	@GetMapping("/customer-details/{id}")
+	@GetMapping("/customer/{id}")
 	ResponseEntity<CustomerDetailsResponse> getByCustomerId(String customerId);
 	
-	@GetMapping("/customer-details")
+	@GetMapping
 	ResponseEntity<Page<CustomerDetailsResponse>> getAll(Pageable pageable);
 	
-	@PostMapping("/customer-details")
+	@PostMapping
 	ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetails);
 	
-	@PutMapping("/customer-details/{id}")
+	@PutMapping("/{id}")
 	ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetails, String id);
 	
-	@DeleteMapping("/customer-details/{id}")
+	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
 
 }

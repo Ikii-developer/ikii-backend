@@ -7,6 +7,7 @@ spring:
     config:
       server:
         git:
+          default-label: develop
           uri: https://github.com/Ikii-developer/ikii-config-server.git
           skipSslValidation: true          
           username: arturo199
@@ -17,4 +18,4 @@ eureka:
     region: default
     registryFetchIntervalSeconds: 10
     serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+      defaultZone: ${EUREKA:http://127.0.0.1:8761/eureka/}

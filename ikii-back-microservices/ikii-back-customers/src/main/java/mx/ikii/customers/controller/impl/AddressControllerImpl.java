@@ -21,6 +21,11 @@ public class AddressControllerImpl implements IAddressController {
 	private ICustomerAdressServiceWrapper customerAddressServiceWrapper;
 
 	@Override
+	public ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable) {
+		return ResponseEntity.ok(customerAddressServiceWrapper.getAll(pageable));
+	}
+	
+	@Override
 	public ResponseEntity<CustomerAdressResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(customerAddressServiceWrapper.getById(id));
 	}

@@ -25,6 +25,13 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	private ICustomerAdressMapper customerAdressMapper;
 
 	@Override
+	public Page<CustomerAdressResponse> getAll(Pageable pageable) {
+		Page<CustomerAdress> customerAddress = customerAdressService.getAll(pageable);
+		List<CustomerAdressResponse> usersResponse = customerAdressMapper.entityToResponse(customerAddress.getContent());
+		return PageHelper.createPage(usersResponse, pageable, customerAddress.getTotalElements());
+	}
+	
+	@Override
 	public CustomerAdressResponse getById(String customerAddressId) {
 		return customerAdressMapper.entityToResponse(customerAdressService.getById(customerAddressId));
 	}
@@ -52,5 +59,5 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	public void delete(String customerAddressId) {
 		customerAdressService.deleteCustomerAddress(customerAddressId);
 	}
-	
+
 }

@@ -8,12 +8,11 @@ import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 
 /**
  * This interface contains the methods related to CRUD operations to Customer address
- * 
- * @author Francisco Javier Martínez Arazo
- *
  */
 public interface ICustomerAdressServiceWrapper {
 
+	Page<CustomerAdressResponse> getAll(Pageable pageable);
+	
 	CustomerAdressResponse getById(String customerAddressId);
 	
 	Page<CustomerAdressResponse> getByCustomerId(String customerId, Pageable pageable);

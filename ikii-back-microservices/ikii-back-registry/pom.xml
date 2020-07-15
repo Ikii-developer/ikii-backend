@@ -19,7 +19,8 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<id>development</id>
+			<id>production</id>
+			
 			<dependencies>
 				<dependency>
 					<groupId>org.springframework.cloud</groupId>

@@ -15,7 +15,6 @@ import mx.ikii.commons.utils.constants.EnumCity;
 @Document(collection = "CustomerAddress")
 @JsonInclude(Include.NON_NULL)
 public class CustomerAdress implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
