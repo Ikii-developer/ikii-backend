@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.0.3
+* Allow consumptoin without required token in order to allow change password 
+
 ## 2.0.2
 * Resolves missing dependencies in customerDetailsService
 
