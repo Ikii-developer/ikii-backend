@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.0.4
+* Encrypt password when updating the customer
+
 ## 2.0.3
 * Allow consumptoin without required token in order to allow change password 
 

@@ -78,6 +78,7 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	@Override
 	public CustomerResponse update(CustomerRequest customerRequest, String id) {
 		Customer customerEntity = customerMapper.requestToEntity(customerRequest);
+		customerEntity.setPassword(bCryptPasswordEncoder.encode(customerRequest.getPassword()));
 		return customerMapper.entityToResponse(customerService.update(customerEntity, id));
 	}
 
