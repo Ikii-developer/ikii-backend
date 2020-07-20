@@ -1,5 +1,6 @@
 package mx.ikii.commons.persistence.collection;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +13,7 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class CustomerDetails {
 
-	private String customerId;
+	private ObjectId customerId;
 	private Boolean isValidAccount;
 	private String image;
 	private Integer type;
