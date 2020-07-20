@@ -31,19 +31,19 @@ public class BusinessCategoryControllerImpl implements IBusinessCategoryControll
 	}
 
 	@Override
-	public ResponseEntity<BusinessCategoryResponse> getByBusinesName(@PathVariable String userName) {
-		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(userName));
+	public ResponseEntity<BusinessCategoryResponse> getByBusinesName(@PathVariable String name) {
+		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(name));
 	}
 
 
 	@Override
-	public ResponseEntity<BusinessCategoryResponse> create(@RequestBody BusinessCategoryRequest businessRequest) {
-		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
+	public ResponseEntity<BusinessCategoryResponse> create(@RequestBody BusinessCategoryRequest businessCategoryRequest) {
+		return ResponseEntity.ok(businessServiceWrapper.create(businessCategoryRequest));
 	}
 
 	@Override
-	public ResponseEntity<BusinessCategoryResponse> update(@RequestBody BusinessCategoryRequest businessRequest, @PathVariable String id) {
-		return ResponseEntity.ok(businessServiceWrapper.update(businessRequest, id));
+	public ResponseEntity<BusinessCategoryResponse> update(@RequestBody BusinessCategoryRequest businessCategoryRequest, @PathVariable String id) {
+		return ResponseEntity.ok(businessServiceWrapper.update(businessCategoryRequest, id));
 	}
 
 	@Override

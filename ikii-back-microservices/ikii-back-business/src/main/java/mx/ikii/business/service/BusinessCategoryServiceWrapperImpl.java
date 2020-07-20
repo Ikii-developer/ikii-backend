@@ -28,27 +28,27 @@ public class BusinessCategoryServiceWrapperImpl implements IBusinessCategoryServ
 	}
 
 	@Override
-	public BusinessCategoryResponse getByBusinesName(String businessName) {
-		return businessCategoryMapper.entityToResponse(businessCategoryService.findByUserName(businessName));
+	public BusinessCategoryResponse getByBusinesName(String name) {
+		return businessCategoryMapper.entityToResponse(businessCategoryService.findByUserName(name));
 	}
 
 	@Override
 	public Page<BusinessCategoryResponse> findAll(Pageable pageable) {
-		Page<BusinessCategory> userClip = businessCategoryService.findAll(pageable);
-		List<BusinessCategoryResponse> usersResponse = businessCategoryMapper.entityToResponse(userClip.getContent());
-		return PageHelper.createPage(usersResponse, pageable, userClip.getTotalElements());
+		Page<BusinessCategory> businessCategories = businessCategoryService.findAll(pageable);
+		List<BusinessCategoryResponse> usersResponse = businessCategoryMapper.entityToResponse(businessCategories.getContent());
+		return PageHelper.createPage(usersResponse, pageable, businessCategories.getTotalElements());
 	}
 
 	@Override
-	public BusinessCategoryResponse create(BusinessCategoryRequest userRequest) {
-		BusinessCategory userEntity = businessCategoryMapper.requestToEntity(userRequest);
-		return businessCategoryMapper.entityToResponse(businessCategoryService.create(userEntity));
+	public BusinessCategoryResponse create(BusinessCategoryRequest businessCategoryRequest) {
+		BusinessCategory businessCategory = businessCategoryMapper.requestToEntity(businessCategoryRequest);
+		return businessCategoryMapper.entityToResponse(businessCategoryService.create(businessCategory));
 	}
 
 	@Override
-	public BusinessCategoryResponse update(BusinessCategoryRequest userRequest, String id) {
-		BusinessCategory userEntity = businessCategoryMapper.requestToEntity(userRequest);
-		return businessCategoryMapper.entityToResponse(businessCategoryService.update(userEntity, id));
+	public BusinessCategoryResponse update(BusinessCategoryRequest businessCategoryRequest, String id) {
+		BusinessCategory businessCategory = businessCategoryMapper.requestToEntity(businessCategoryRequest);
+		return businessCategoryMapper.entityToResponse(businessCategoryService.update(businessCategory, id));
 	}
 
 	@Override

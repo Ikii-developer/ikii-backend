@@ -14,7 +14,7 @@ import mx.ikii.commons.payload.request.business.BusinessCategoryRequest;
 import mx.ikii.commons.payload.response.business.BusinessCategoryResponse;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/category")
 public interface IBusinessCategoryController {
 
 	@GetMapping
@@ -27,10 +27,10 @@ public interface IBusinessCategoryController {
 	ResponseEntity<BusinessCategoryResponse> getByBusinesName(String name);
 
 	@PostMapping
-	ResponseEntity<BusinessCategoryResponse> create(BusinessCategoryRequest userRequest);
+	ResponseEntity<BusinessCategoryResponse> create(BusinessCategoryRequest businessCategoryRequest);
 
 	@PutMapping("{id}")
-	ResponseEntity<BusinessCategoryResponse> update(BusinessCategoryRequest userRequest, String id);
+	ResponseEntity<BusinessCategoryResponse> update(BusinessCategoryRequest businessCategoryRequest, String id);
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);

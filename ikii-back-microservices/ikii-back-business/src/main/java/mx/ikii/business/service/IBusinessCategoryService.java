@@ -9,13 +9,13 @@ public interface IBusinessCategoryService {
 
 	BusinessCategory findById(String id);
 
-	BusinessCategory findByUserName(String userName);
+	BusinessCategory findByUserName(String name);
 
 	Page<BusinessCategory> findAll(Pageable pageable);
 
-	BusinessCategory create(BusinessCategory transaction);
+	BusinessCategory create(BusinessCategory businessCategory);
 
-	BusinessCategory update(BusinessCategory transaction, String id);
+	BusinessCategory update(BusinessCategory businessCategory, String id);
 
 	void delete(String id);
 

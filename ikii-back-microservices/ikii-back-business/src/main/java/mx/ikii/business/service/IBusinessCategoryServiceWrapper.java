@@ -10,13 +10,13 @@ public interface IBusinessCategoryServiceWrapper {
 
 	BusinessCategoryResponse findById(String id);
 
-	BusinessCategoryResponse getByBusinesName(String businessName);
+	BusinessCategoryResponse getByBusinesName(String name);
 
 	Page<BusinessCategoryResponse> findAll(Pageable pageable);
 
-	BusinessCategoryResponse create(BusinessCategoryRequest transaction);
+	BusinessCategoryResponse create(BusinessCategoryRequest businessCategoryRequest);
 
-	BusinessCategoryResponse update(BusinessCategoryRequest transaction, String id);
+	BusinessCategoryResponse update(BusinessCategoryRequest businessCategoryRequest, String id);
 
 	void delete(String id);
 

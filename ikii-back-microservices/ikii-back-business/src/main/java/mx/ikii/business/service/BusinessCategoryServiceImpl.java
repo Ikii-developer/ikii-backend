@@ -24,8 +24,8 @@ public class BusinessCategoryServiceImpl implements IBusinessCategoryService {
 	}
 
 	@Override
-	public BusinessCategory findByUserName(String userName) {
-		BusinessCategory business = businessRepository.findByName(userName);
+	public BusinessCategory findByUserName(String name) {
+		BusinessCategory business = businessRepository.findByName(name);
 		return business;
 	}
 
