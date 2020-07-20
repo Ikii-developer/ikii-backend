@@ -41,14 +41,14 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 	}
 
 	@Override
-	public CustomerDetailsResponse create(CustomerDetailsRequest request) {
-		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(request);
+	public CustomerDetailsResponse create(CustomerDetailsRequest customerDetailsRequest) {
+		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
 		return customerDetailsMapper.entityToResponse(customerDetailsService.create(customerDetails));
 	}
 
 	@Override
-	public CustomerDetailsResponse update(CustomerDetailsRequest request, String id) {
-		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(request);
+	public CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id) {
+		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
 		return customerDetailsMapper.entityToResponse(customerDetailsService.update(customerDetails, id));
 	}
 

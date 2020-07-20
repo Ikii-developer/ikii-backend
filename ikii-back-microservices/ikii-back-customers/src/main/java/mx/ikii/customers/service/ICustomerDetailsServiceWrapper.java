@@ -14,9 +14,9 @@ public interface ICustomerDetailsServiceWrapper {
 	
 	Page<CustomerDetailsResponse> getAll(Pageable pageable);
 	
-	CustomerDetailsResponse create(CustomerDetailsRequest customerDetails);
+	CustomerDetailsResponse create(CustomerDetailsRequest customerDetailsRequest);
 	
-	CustomerDetailsResponse update(CustomerDetailsRequest customerDetails, String id);
+	CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id);
 	
 	void delete(String id);
 	

@@ -19,9 +19,9 @@ public interface ICustomerService {
 
 	Page<Customer> findAll(Pageable pageable);
 
-	Customer signUp(Customer transaction);
+	Customer signUp(Customer customer);
 
-	Customer update(Customer transaction, String id);
+	Customer update(Customer customer, String id);
 
 	void delete(String id);
 	

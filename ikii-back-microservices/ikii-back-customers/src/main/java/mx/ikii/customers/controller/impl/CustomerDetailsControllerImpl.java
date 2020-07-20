@@ -35,13 +35,13 @@ public class CustomerDetailsControllerImpl implements ICustomerDetailsController
 	}
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetails) {
-		return ResponseEntity.ok(customerDetailsServiceWrapper.create(customerDetails));
+	public ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetailsRequest) {
+		return ResponseEntity.ok(customerDetailsServiceWrapper.create(customerDetailsRequest));
 	}
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetails, String id) {
-		return ResponseEntity.ok(customerDetailsServiceWrapper.update(customerDetails,id));
+	public ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetailsRequest, String id) {
+		return ResponseEntity.ok(customerDetailsServiceWrapper.update(customerDetailsRequest,id));
 	}
 
 	@Override

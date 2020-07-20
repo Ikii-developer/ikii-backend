@@ -44,14 +44,14 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	}
 
 	@Override
-	public CustomerAdressResponse create(CustomerAdressRequest request) {
-		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(request);
+	public CustomerAdressResponse create(CustomerAdressRequest customerAdressRequest) {
+		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
 		return customerAdressMapper.entityToResponse(customerAdressService.createCustomerAddress(customerAdress));
 	}
 
 	@Override
-	public CustomerAdressResponse update(CustomerAdressRequest request, String id) {
-		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(request);
+	public CustomerAdressResponse update(CustomerAdressRequest customerAdressRequest, String id) {
+		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
 		return customerAdressMapper.entityToResponse(customerAdressService.updateCustomerAddress(customerAdress,id));
 	}
 

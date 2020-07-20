@@ -15,7 +15,7 @@ import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 
 @RestController
 @RequestMapping("/address")
-public interface IAddressController {
+public interface ICustomerAddressController {
 
 	@GetMapping
 	ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable);
@@ -27,10 +27,10 @@ public interface IAddressController {
 	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId,Pageable pageable);
 	
 	@PostMapping
-	ResponseEntity<CustomerAdressResponse> create(CustomerAdressRequest request);
+	ResponseEntity<CustomerAdressResponse> create(CustomerAdressRequest customerAdressRequest);
 	
 	@PutMapping("/{id}")
-	ResponseEntity<CustomerAdressResponse> update(CustomerAdressRequest request, String id);
+	ResponseEntity<CustomerAdressResponse> update(CustomerAdressRequest customerAdressRequest, String id);
 	
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);

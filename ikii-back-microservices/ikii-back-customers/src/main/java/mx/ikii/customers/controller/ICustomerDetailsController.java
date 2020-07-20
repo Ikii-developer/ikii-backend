@@ -27,10 +27,10 @@ public interface ICustomerDetailsController {
 	ResponseEntity<Page<CustomerDetailsResponse>> getAll(Pageable pageable);
 	
 	@PostMapping
-	ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetails);
+	ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetailsRequest);
 	
 	@PutMapping("/{id}")
-	ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetails, String id);
+	ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetailsRequest, String id);
 	
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);

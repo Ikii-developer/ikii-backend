@@ -15,9 +15,9 @@ public interface ICustomerAdressService {
 	
 	List<CustomerAdress> getByCustomerId(String customerId);
 	
-	CustomerAdress createCustomerAddress(CustomerAdress request);
+	CustomerAdress createCustomerAddress(CustomerAdress customerAdress);
 	
 	void deleteCustomerAddress(String customerAdressId);
 	
-	CustomerAdress updateCustomerAddress(CustomerAdress request, String id);
+	CustomerAdress updateCustomerAddress(CustomerAdress customerAdress, String id);
 }

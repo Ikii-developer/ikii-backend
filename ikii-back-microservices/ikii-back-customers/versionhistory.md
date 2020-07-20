@@ -2,6 +2,7 @@
 
 ## 2.0.5
 * add customerId in customerAddress model and customerDetail model
+* renaming of misnamed attributes
 
 ## 2.0.4
 * Encrypt password when updating the customer
