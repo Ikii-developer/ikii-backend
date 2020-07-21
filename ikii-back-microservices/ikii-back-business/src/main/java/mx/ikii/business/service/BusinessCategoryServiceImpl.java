@@ -41,10 +41,10 @@ public class BusinessCategoryServiceImpl implements IBusinessCategoryService {
 
 	@Override
 	public BusinessCategory update(BusinessCategory businessCategory, String id) {
-		BusinessCategory business = businessRepository.findById(id)
+		businessRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
-		businessRepository.save(business);
-		return business;
+		businessCategory.setId(id);
+		return businessRepository.save(businessCategory);
 	}
 
 	@Override

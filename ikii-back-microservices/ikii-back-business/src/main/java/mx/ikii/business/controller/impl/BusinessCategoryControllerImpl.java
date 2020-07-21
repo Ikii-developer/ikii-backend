@@ -1,4 +1,4 @@
-package mx.ikii.business.controller;
+package mx.ikii.business.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import mx.ikii.business.controller.IBusinessCategoryController;
 import mx.ikii.business.service.IBusinessCategoryServiceWrapper;
 import mx.ikii.commons.payload.request.business.BusinessCategoryRequest;
 import mx.ikii.commons.payload.response.business.BusinessCategoryResponse;

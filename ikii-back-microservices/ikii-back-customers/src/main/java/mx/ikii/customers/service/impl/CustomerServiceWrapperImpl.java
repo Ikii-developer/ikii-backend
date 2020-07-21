@@ -16,6 +16,7 @@ import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.repository.ICustomerPrivilegeRepository;
 import mx.ikii.customers.repository.ICustomerRoleRepository;
@@ -78,7 +79,9 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	@Override
 	public CustomerResponse update(CustomerRequest customerRequest, String id) {
 		Customer customerEntity = customerMapper.requestToEntity(customerRequest);
-		customerEntity.setPassword(bCryptPasswordEncoder.encode(customerRequest.getPassword()));
+		if(Nullable.isNotNull(customerRequest.getPassword())) {
+			customerEntity.setPassword(bCryptPasswordEncoder.encode(customerRequest.getPassword()));
+		}
 		return customerMapper.entityToResponse(customerService.update(customerEntity, id));
 	}
 

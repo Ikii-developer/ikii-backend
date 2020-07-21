@@ -23,8 +23,8 @@ public class BusinessServiceImpl implements IBusinessService {
 	}
 
 	@Override
-	public Business findByUserName(String userName) {
-		Business business = businessRepository.findByName(userName);
+	public Business findByUserName(String name) {
+		Business business = businessRepository.findByName(name);
 		return business;
 	}
 
@@ -34,14 +34,15 @@ public class BusinessServiceImpl implements IBusinessService {
 	}
 
 	@Override
-	public Business create(Business user) {
-		return businessRepository.insert(user);
+	public Business create(Business business) {
+		return businessRepository.insert(business);
 	}
 
 	@Override
-	public Business update(Business user, String id) {
-		Business business = businessRepository.findById(id)
+	public Business update(Business business, String id) {
+		businessRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
+		business.setId(id);
 		businessRepository.save(business);
 		return business;
 	}

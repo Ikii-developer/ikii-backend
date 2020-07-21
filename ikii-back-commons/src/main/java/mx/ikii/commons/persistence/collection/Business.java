@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-@Document
 @Data
+@Document(collection = "Business")
 public class Business {
 	
 	@Id	
@@ -19,7 +19,7 @@ public class Business {
 	
 	private String image;
 	
-	private String category;
+	private ObjectId categoryId;
 	
 	private String description;
 	

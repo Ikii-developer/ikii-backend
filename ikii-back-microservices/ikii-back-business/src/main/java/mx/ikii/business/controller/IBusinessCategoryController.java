@@ -23,7 +23,7 @@ public interface IBusinessCategoryController {
 	@GetMapping("{id}")
 	ResponseEntity<BusinessCategoryResponse> getById(String id);
 
-	@GetMapping("/business/{name}")
+	@GetMapping("/name/{name}")
 	ResponseEntity<BusinessCategoryResponse> getByBusinesName(String name);
 
 	@PostMapping

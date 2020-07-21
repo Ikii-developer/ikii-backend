@@ -9,13 +9,13 @@ public interface IBusinessService {
 
 	Business findById(String id);
 
-	Business findByUserName(String userName);
+	Business findByUserName(String name);
 
 	Page<Business> findAll(Pageable pageable);
 
-	Business create(Business transaction);
+	Business create(Business business);
 
-	Business update(Business transaction, String id);
+	Business update(Business business, String id);
 
 	void delete(String id);
 

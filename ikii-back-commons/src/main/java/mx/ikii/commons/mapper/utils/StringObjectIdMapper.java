@@ -12,6 +12,7 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public class StringObjectIdMapper {
+	
 	public ObjectId asObjectId(String id) {
 		return new ObjectId(id);
 	}
@@ -19,4 +20,5 @@ public class StringObjectIdMapper {
 	public String asString(ObjectId id) {
 		return id.toHexString();
 	}
+	
 }

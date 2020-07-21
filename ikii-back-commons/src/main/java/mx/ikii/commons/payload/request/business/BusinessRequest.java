@@ -11,7 +11,7 @@ public class BusinessRequest {
 	
 	private String image;
 	
-	private String category;
+	private String categoryId;
 	
 	private String description;
 	

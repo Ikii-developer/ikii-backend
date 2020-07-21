@@ -8,6 +8,8 @@ import lombok.Data;
 public class BusinessCategoryResponse implements Serializable{
 	private static final long serialVersionUID = -4518072196012491851L;
 
+	private String id;
+	
 	private String name;
 	
 	private String picture;

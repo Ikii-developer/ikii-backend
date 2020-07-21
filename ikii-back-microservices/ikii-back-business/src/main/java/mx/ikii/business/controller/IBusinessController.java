@@ -23,8 +23,8 @@ public interface IBusinessController {
 	@GetMapping("{id}")
 	ResponseEntity<BusinessResponse> getById(String id);
 
-	@GetMapping("/business/{name}")
-	ResponseEntity<BusinessResponse> getByBusinesName(String name);
+	@GetMapping("/name/{businessName}")
+	ResponseEntity<BusinessResponse> getByBusinesName(String businessName);
 
 	@PostMapping
 	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
