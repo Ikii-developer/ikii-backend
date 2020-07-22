@@ -13,9 +13,9 @@ public interface ICategoryProductService {
 	
 	Page<CategoryProduct> findAll(Pageable pageable);
 	
-	CategoryProduct create(CategoryProduct request);
+	CategoryProduct create(CategoryProduct categoryProduct);
 	
-	CategoryProduct update(CategoryProduct request, String id);
+	CategoryProduct update(CategoryProduct categoryProduct, String id);
 	
 	void delete(String id);
 }

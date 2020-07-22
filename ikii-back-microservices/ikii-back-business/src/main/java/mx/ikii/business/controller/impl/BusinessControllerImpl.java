@@ -1,4 +1,4 @@
-package mx.ikii.business.controller;
+package mx.ikii.business.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import mx.ikii.business.controller.IBusinessController;
 import mx.ikii.business.service.IBusinessServiceWrapper;
 import mx.ikii.commons.payload.request.business.BusinessRequest;
 import mx.ikii.commons.payload.response.business.BusinessResponse;
@@ -31,8 +32,8 @@ public class BusinessControllerImpl implements IBusinessController {
 	}
 
 	@Override
-	public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String userName) {
-		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(userName));
+	public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String businessName) {
+		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(businessName));
 	}
 
 

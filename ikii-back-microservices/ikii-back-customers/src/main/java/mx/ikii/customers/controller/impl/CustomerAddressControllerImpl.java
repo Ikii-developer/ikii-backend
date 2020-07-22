@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
-import mx.ikii.customers.controller.IAddressController;
+import mx.ikii.customers.controller.ICustomerAddressController;
 import mx.ikii.customers.service.ICustomerAdressServiceWrapper;
 
 @Component
-public class AddressControllerImpl implements IAddressController {
+public class CustomerAddressControllerImpl implements ICustomerAddressController {
 
 	@Autowired
 	private ICustomerAdressServiceWrapper customerAddressServiceWrapper;
@@ -37,14 +37,14 @@ public class AddressControllerImpl implements IAddressController {
 	}
 
 	@Override
-	public ResponseEntity<CustomerAdressResponse> create(@RequestBody CustomerAdressRequest request) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.create(request));
+	public ResponseEntity<CustomerAdressResponse> create(@RequestBody CustomerAdressRequest customerAdressRequest) {
+		return ResponseEntity.ok(customerAddressServiceWrapper.create(customerAdressRequest));
 	}
 
 	@Override
-	public ResponseEntity<CustomerAdressResponse> update(@RequestBody CustomerAdressRequest request,
+	public ResponseEntity<CustomerAdressResponse> update(@RequestBody CustomerAdressRequest customerAdressRequest,
 			@PathVariable String id) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.update(request, id));
+		return ResponseEntity.ok(customerAddressServiceWrapper.update(customerAdressRequest, id));
 	}
 
 	@Override

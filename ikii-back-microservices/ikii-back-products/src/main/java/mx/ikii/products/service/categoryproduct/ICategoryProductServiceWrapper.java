@@ -14,9 +14,9 @@ public interface ICategoryProductServiceWrapper {
 	
 	Page<CategoryProductResponse> findAll(Pageable pageable);
 	
-	CategoryProductResponse create(CategoryProductRequest request);
+	CategoryProductResponse create(CategoryProductRequest categoryProductRequest);
 	
-	CategoryProductResponse update(CategoryProductRequest request, String id);
+	CategoryProductResponse update(CategoryProductRequest categoryProductRequest, String id);
 	
 	void delete(String id);
 	

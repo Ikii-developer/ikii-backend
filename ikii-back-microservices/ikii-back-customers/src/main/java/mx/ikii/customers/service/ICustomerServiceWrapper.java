@@ -25,9 +25,9 @@ public interface ICustomerServiceWrapper {
 
 	Page<CustomerResponse> findAll(Pageable pageable);
 
-	CustomerResponse signUp(CustomerRequest transaction);
+	CustomerResponse signUp(CustomerRequest customerRequest);
 
-	CustomerResponse update(CustomerRequest transaction, String id);
+	CustomerResponse update(CustomerRequest customerRequest, String id);
 	
 	CustomerResponse findByPhoneNumber(String id);
 

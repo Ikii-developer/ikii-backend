@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.ikii.commons.payload.request.business.BusinessRequest;
-import mx.ikii.commons.payload.response.business.BusinessResponse;
+import mx.ikii.commons.payload.request.business.BusinessCategoryRequest;
+import mx.ikii.commons.payload.response.business.BusinessCategoryResponse;
 
 @RestController
-@RequestMapping("/")
-public interface IBusinessController {
+@RequestMapping("/category")
+public interface IBusinessCategoryController {
 
 	@GetMapping
-	ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable);
+	ResponseEntity<Page<BusinessCategoryResponse>> getAll(Pageable pageable);
 
 	@GetMapping("{id}")
-	ResponseEntity<BusinessResponse> getById(String id);
+	ResponseEntity<BusinessCategoryResponse> getById(String id);
 
-	@GetMapping("/name/{businessName}")
-	ResponseEntity<BusinessResponse> getByBusinesName(String businessName);
+	@GetMapping("/name/{name}")
+	ResponseEntity<BusinessCategoryResponse> getByBusinesName(String name);
 
 	@PostMapping
-	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
+	ResponseEntity<BusinessCategoryResponse> create(BusinessCategoryRequest businessCategoryRequest);
 
 	@PutMapping("{id}")
-	ResponseEntity<BusinessResponse> update(BusinessRequest userRequest, String id);
+	ResponseEntity<BusinessCategoryResponse> update(BusinessCategoryRequest businessCategoryRequest, String id);
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);

@@ -17,17 +17,25 @@ public class CustomerRequest implements Serializable{
 	private static final long serialVersionUID = 3511156059169211894L;
 	
 	private String id;
+	
 	@NotNull(message = "Name cannot be null")
 	private String name;
+	
 	@NotNull(message = "Name cannot be null")
 	private String lastName;
+	
 	private String secondLastName;
+	
 	@Email(message = "Email should be valid")
 	private String email;
+	
 	private String phoneNumber;
+	
 	@NotNull(message = "Password cannot be null")
 	private String password;
+	
 	private String birthday;
+	
 	private Boolean isEnabled;
 
 }

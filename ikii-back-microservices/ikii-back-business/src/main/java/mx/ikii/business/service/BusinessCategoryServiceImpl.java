@@ -5,46 +5,46 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import mx.ikii.business.repository.IBusinessRepository;
+import mx.ikii.business.repository.IBusinessCategoryRepository;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Business;
+import mx.ikii.commons.persistence.collection.BusinessCategory;
 
 @Service
-public class BusinessServiceImpl implements IBusinessService {
+public class BusinessCategoryServiceImpl implements IBusinessCategoryService {
 
 	@Autowired
-	private IBusinessRepository businessRepository;
+	private IBusinessCategoryRepository businessRepository;
 
 	@Override
-	public Business findById(String id) {
-		Business business = businessRepository.findById(id)
+	public BusinessCategory findById(String id) {
+		BusinessCategory business = businessRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
 		return business;
 	}
 
 	@Override
-	public Business findByUserName(String name) {
-		Business business = businessRepository.findByName(name);
+	public BusinessCategory findByUserName(String name) {
+		BusinessCategory business = businessRepository.findByName(name);
 		return business;
 	}
 
 	@Override
-	public Page<Business> findAll(Pageable pageable) {
+	public Page<BusinessCategory> findAll(Pageable pageable) {
 		return businessRepository.findAll(pageable);
 	}
 
 	@Override
-	public Business create(Business business) {
-		return businessRepository.insert(business);
+	public BusinessCategory create(BusinessCategory businessCategory) {
+		return businessRepository.insert(businessCategory);
 	}
 
 	@Override
-	public Business update(Business business, String id) {
+	public BusinessCategory update(BusinessCategory businessCategory, String id) {
 		businessRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
-		business.setId(id);
-		businessRepository.save(business);
-		return business;
+		businessCategory.setId(id);
+		return businessRepository.save(businessCategory);
 	}
 
 	@Override

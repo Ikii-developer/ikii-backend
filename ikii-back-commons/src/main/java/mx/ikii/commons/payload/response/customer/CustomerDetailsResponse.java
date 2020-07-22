@@ -14,8 +14,11 @@ public class CustomerDetailsResponse implements Serializable{
 	private static final long serialVersionUID = 1093093193518619781L;
 	
 	private String customerId;
+	
 	private Boolean isValidAccount;
+
 	private String image;
+	
 	private Integer type;
 	
 }

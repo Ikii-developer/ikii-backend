@@ -73,7 +73,7 @@ public interface ICustomerController {
 	 * @return the HTTP DTO response wrapping the user
 	 */
 	@PutMapping("{id}")
-	ResponseEntity<CustomerResponse> update(CustomerRequest userRequest, String id);
+	ResponseEntity<CustomerResponse> update(CustomerRequest customerRequest, String id);
 
 	/**
 	 * This method is used to delete a user resource
@@ -90,7 +90,7 @@ public interface ICustomerController {
 	 * @return
 	 */
 	@PostMapping("/sign-up")
-	ResponseEntity<CustomerResponse> signUp(CustomerRequest userRequest);
+	ResponseEntity<CustomerResponse> signUp(CustomerRequest customerRequest);
 
 	/**
 	 * 

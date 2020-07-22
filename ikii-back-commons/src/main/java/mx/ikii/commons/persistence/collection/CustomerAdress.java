@@ -2,6 +2,7 @@ package mx.ikii.commons.persistence.collection;
 
 import java.io.Serializable;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,7 +20,7 @@ public class CustomerAdress implements Serializable{
 
 	@Id
 	private String id;
-	private String customerId;
+	private ObjectId customerId;
 	private Boolean isMain;
 	private String postalCode;
 	private String street;

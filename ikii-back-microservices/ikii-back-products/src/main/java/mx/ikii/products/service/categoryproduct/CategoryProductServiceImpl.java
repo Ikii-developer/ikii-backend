@@ -31,14 +31,14 @@ public class CategoryProductServiceImpl implements ICategoryProductService{
 	}
 
 	@Override
-	public CategoryProduct create(CategoryProduct request) {
-		return categoryProductRepository.insert(request);
+	public CategoryProduct create(CategoryProduct categoryProduct) {
+		return categoryProductRepository.insert(categoryProduct);
 	}
 
 	@Override
-	public CategoryProduct update(CategoryProduct request, String id) {
+	public CategoryProduct update(CategoryProduct categoryProduct, String id) {
 		categoryProductRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id,CategoryProduct.class));
-		return categoryProductRepository.save(request);
+		return categoryProductRepository.save(categoryProduct);
 	}
 
 	@Override

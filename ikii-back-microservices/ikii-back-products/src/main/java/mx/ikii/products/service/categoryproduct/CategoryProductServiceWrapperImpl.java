@@ -17,43 +17,43 @@ import mx.ikii.commons.utils.PageHelper;
 public class CategoryProductServiceWrapperImpl implements ICategoryProductServiceWrapper{
 
 	@Autowired
-	private CategoryProductServiceImpl categoryProductServiceImpl;
+	private ICategoryProductService categoryProductService;
 	
 	@Autowired
 	private ICategoryProductMapper categoryProductMapper;
 	
 	@Override
 	public CategoryProductResponse findById(String id) {
-		return categoryProductMapper.entityToResponse(categoryProductServiceImpl.findById(id));
+		return categoryProductMapper.entityToResponse(categoryProductService.findById(id));
 	}
 
 	@Override
 	public CategoryProductResponse findByName(String name) {
-		return categoryProductMapper.entityToResponse(categoryProductServiceImpl.findByName(name));
+		return categoryProductMapper.entityToResponse(categoryProductService.findByName(name));
 	}
 
 	@Override
 	public Page<CategoryProductResponse> findAll(Pageable pageable) {
-		Page<CategoryProduct> categoryProduct = categoryProductServiceImpl.findAll(pageable);
+		Page<CategoryProduct> categoryProduct = categoryProductService.findAll(pageable);
 		List<CategoryProductResponse> categoryProductResponses = categoryProductMapper.entityToResponse(categoryProduct.getContent());
 		return PageHelper.createPage(categoryProductResponses, pageable, categoryProduct.getTotalElements());
 	}
 
 	@Override
-	public CategoryProductResponse create(CategoryProductRequest request) {
-		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(request);
-		return categoryProductMapper.entityToResponse(categoryProductServiceImpl.create(categoryProduct));
+	public CategoryProductResponse create(CategoryProductRequest categoryProductRequest) {
+		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(categoryProductRequest);
+		return categoryProductMapper.entityToResponse(categoryProductService.create(categoryProduct));
 	}
 
 	@Override
-	public CategoryProductResponse update(CategoryProductRequest request, String id) {
-		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(request);
-		return categoryProductMapper.entityToResponse(categoryProductServiceImpl.update(categoryProduct,id));
+	public CategoryProductResponse update(CategoryProductRequest categoryProductRequest, String id) {
+		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(categoryProductRequest);
+		return categoryProductMapper.entityToResponse(categoryProductService.update(categoryProduct,id));
 	}
 
 	@Override
 	public void delete(String id) {
-		categoryProductServiceImpl.delete(id);
+		categoryProductService.delete(id);
 	}
 	
 }

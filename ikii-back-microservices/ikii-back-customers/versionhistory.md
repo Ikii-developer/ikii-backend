@@ -1,5 +1,10 @@
 ## ikii-back-customers
 
+## 2.0.5
+* add customerId in customerAddress model and customerDetail model
+* renaming of misnamed attributes
+* fix update customer when the password is null
+
 ## 2.0.4
 * Encrypt password when updating the customer
 

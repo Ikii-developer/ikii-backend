@@ -27,8 +27,8 @@ public class CustomerControllerImpl implements ICustomerController {
 	private ICustomerServiceWrapper customerServiceWrapper;
 
 	@Override
-	public ResponseEntity<CustomerResponse> signUp(@RequestBody @Valid CustomerRequest userRequest) {
-		return ResponseEntity.ok(customerServiceWrapper.signUp(userRequest));
+	public ResponseEntity<CustomerResponse> signUp(@RequestBody @Valid CustomerRequest customerRequest) {
+		return ResponseEntity.ok(customerServiceWrapper.signUp(customerRequest));
 	}
 
 	@Override
@@ -52,9 +52,9 @@ public class CustomerControllerImpl implements ICustomerController {
 	}
 
 	@Override
-	public ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest userRequest,
+	public ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest customerRequest,
 			@PathVariable @NotEmpty String id) {
-		return ResponseEntity.ok(customerServiceWrapper.update(userRequest, id));
+		return ResponseEntity.ok(customerServiceWrapper.update(customerRequest, id));
 	}
 
 	@Override

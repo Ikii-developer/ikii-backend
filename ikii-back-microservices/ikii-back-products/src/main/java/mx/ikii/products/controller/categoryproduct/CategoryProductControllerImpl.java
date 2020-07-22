@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -12,6 +13,7 @@ import mx.ikii.commons.payload.request.categoryproduct.CategoryProductRequest;
 import mx.ikii.commons.payload.response.categoryproduct.CategoryProductResponse;
 import mx.ikii.products.service.categoryproduct.ICategoryProductServiceWrapper;
 
+@Component
 public class CategoryProductControllerImpl implements ICategoryProductController{
 	
 	@Autowired
@@ -33,13 +35,13 @@ public class CategoryProductControllerImpl implements ICategoryProductController
 	}
 
 	@Override
-	public ResponseEntity<CategoryProductResponse> create(@RequestBody CategoryProductRequest request) {
-		return ResponseEntity.ok(categoryProductServiceWrapper.create(request));
+	public ResponseEntity<CategoryProductResponse> create(@RequestBody CategoryProductRequest categoryProductRequest) {
+		return ResponseEntity.ok(categoryProductServiceWrapper.create(categoryProductRequest));
 	}
 
 	@Override
-	public ResponseEntity<CategoryProductResponse> update(@RequestBody CategoryProductRequest request, @PathVariable("id")String id) {
-		return ResponseEntity.ok(categoryProductServiceWrapper.update(request, id));
+	public ResponseEntity<CategoryProductResponse> update(@RequestBody CategoryProductRequest categoryProductRequest, @PathVariable("id")String id) {
+		return ResponseEntity.ok(categoryProductServiceWrapper.update(categoryProductRequest, id));
 	}
 
 	@Override
