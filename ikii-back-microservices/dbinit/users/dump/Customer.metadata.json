@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"ikiidb.Customer"}],"uuid":"f81e498190614c9ca8df6dc83dccbbbf"}
