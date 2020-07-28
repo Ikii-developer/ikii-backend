@@ -18,15 +18,15 @@ public class BusinessCategoryServiceImpl implements IBusinessCategoryService {
 
 	@Override
 	public BusinessCategory findById(String id) {
-		BusinessCategory business = businessRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
-		return business;
+		BusinessCategory businessCategory = businessRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, BusinessCategory.class));
+		return businessCategory;
 	}
 
 	@Override
 	public BusinessCategory findByUserName(String name) {
-		BusinessCategory business = businessRepository.findByName(name);
-		return business;
+		BusinessCategory businessCategory = businessRepository.findByName(name);
+		return businessCategory;
 	}
 
 	@Override

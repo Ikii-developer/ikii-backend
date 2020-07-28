@@ -14,7 +14,7 @@ import mx.ikii.commons.payload.request.business.BusinessCategoryRequest;
 import mx.ikii.commons.payload.response.business.BusinessCategoryResponse;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public interface IBusinessCategoryController {
 
 	@GetMapping
