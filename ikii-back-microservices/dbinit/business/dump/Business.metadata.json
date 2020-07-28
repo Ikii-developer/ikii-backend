@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"ikiidb.Business"}],"uuid":"2dcf4ba80f0d46f8ac3b5799cb21fc82"}
