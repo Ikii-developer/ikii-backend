@@ -8,14 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.ikii.commons.domain.BusinessStatus;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
-import mx.ikii.commons.feignclient.service.impl.IBusinessFeignService;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.mapper.business.IBusinessMapper;
 import mx.ikii.commons.payload.request.business.BusinessRequest;
 import mx.ikii.commons.payload.response.business.BusinessResponse;
 import mx.ikii.commons.persistence.collection.Business;
-import mx.ikii.commons.persistence.collection.BusinessCategory;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.utils.PageHelper;
 
@@ -65,6 +64,7 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 			throw new ResourceNotFoundException(businessRequest.getCustomerId(), Customer.class);
 		}
 		Business businessEntity = businessMapper.requestToEntity(businessRequest);
+		businessEntity.setStatus(BusinessStatus.ACTIVE.getName());
 		return businessMapper.entityToResponse(businessService.create(businessEntity));
 	}
 

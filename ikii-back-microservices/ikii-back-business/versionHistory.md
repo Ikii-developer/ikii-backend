@@ -1,5 +1,10 @@
 ## ikii-back-business
 
+## 1.2.1
+* Adds BusinessStatus as enum
+* Adds deliveryTime, closeTime and status to business Model
+* Sets ACTIVE when the business is created
+
 ## 1.2.0
 * adds customerId in businessRequest and validates whether the customer and the category exist and creates the business
 * changes Categories end-point to categories 
