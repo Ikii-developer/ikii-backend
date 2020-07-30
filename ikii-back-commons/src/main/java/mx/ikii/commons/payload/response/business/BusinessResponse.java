@@ -15,6 +15,7 @@ public class BusinessResponse {
 	private String description;
 	private String deliveryTime;
 	private String closeTime;
+	private Boolean isOpen;
 	private String status;
 	private String postalCode;
 

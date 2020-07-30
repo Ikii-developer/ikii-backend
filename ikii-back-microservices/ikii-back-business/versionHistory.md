@@ -1,8 +1,9 @@
 ## ikii-back-business
 
 ## 1.2.1
+* Adds Batch to create business
 * Adds BusinessStatus as enum
-* Adds deliveryTime, closeTime and status to business Model
+* Adds deliveryTime, closeTime, isOpen and status to business Model
 * Sets ACTIVE when the business is created
 
 ## 1.2.0

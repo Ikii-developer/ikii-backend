@@ -1,6 +1,7 @@
 package mx.ikii.business.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,9 +28,9 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 
 	@Autowired
 	private IBusinessService businessService;
-	
+
 	@Autowired
-	private IBusinessCategoryService businessCategoryService; 
+	private IBusinessCategoryService businessCategoryService;
 
 	@Autowired
 	private ICustomerFeignService customerFeignService;
@@ -65,7 +66,15 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 		}
 		Business businessEntity = businessMapper.requestToEntity(businessRequest);
 		businessEntity.setStatus(BusinessStatus.ACTIVE.getName());
+		businessEntity.setIsOpen(true);
 		return businessMapper.entityToResponse(businessService.create(businessEntity));
+	}
+
+	@Override
+	public List<BusinessResponse> create(List<BusinessRequest> businessRequest) {
+		return businessRequest.stream().map(business -> {
+			return create(business);
+		}).collect(Collectors.toList());
 	}
 
 	@Override
