@@ -1,5 +1,7 @@
 package mx.ikii.business.controller.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +22,11 @@ public class BusinessControllerImpl implements IBusinessController {
 	@Autowired
 	private IBusinessServiceWrapper businessServiceWrapper;
 
-
 	@Override
 	public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable) {
 		return ResponseEntity.ok(businessServiceWrapper.findAll(pageable));
 	}
-	
+
 	@Override
 	public ResponseEntity<BusinessResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(businessServiceWrapper.findById(id));
@@ -36,14 +37,19 @@ public class BusinessControllerImpl implements IBusinessController {
 		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(businessName));
 	}
 
-
 	@Override
 	public ResponseEntity<BusinessResponse> create(@RequestBody BusinessRequest businessRequest) {
 		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
 	}
 
 	@Override
-	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest, @PathVariable String id) {
+	public ResponseEntity<List<BusinessResponse>> create(@RequestBody List<BusinessRequest> businessRequest) {
+		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
+	}
+
+	@Override
+	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest,
+			@PathVariable String id) {
 		return ResponseEntity.ok(businessServiceWrapper.update(businessRequest, id));
 	}
 

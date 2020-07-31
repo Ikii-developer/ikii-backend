@@ -1,5 +1,7 @@
 package mx.ikii.business.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ public interface IBusinessController {
 
 	@PostMapping
 	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
+	
+	@PostMapping("/batch")
+	ResponseEntity<List<BusinessResponse>> create(List<BusinessRequest> userRequest);
 
 	@PutMapping("{id}")
 	ResponseEntity<BusinessResponse> update(BusinessRequest userRequest, String id);

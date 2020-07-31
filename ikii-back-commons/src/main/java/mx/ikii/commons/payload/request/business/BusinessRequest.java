@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class BusinessRequest {
-
 	private String id;
 	@NotNull(message = "name can not be null")
 	private String name;
@@ -22,7 +21,9 @@ public class BusinessRequest {
 
 	@NotNull(message = "description can not be null")
 	private String description;
-
+	private String deliveryTime;
+	private String closeTime;
+	private Boolean isOpen;
 	private String postalCode;
 
 }
