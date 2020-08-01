@@ -1,0 +1,267 @@
+db.getCollection('CustomerAddress').insertMany([
+{
+    "_id" : ObjectId("5f1e2b5d45969b2133459369"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva",
+    "colony" : "colony-marte",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a1",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.1337335, 
+            19.4120414
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2b8045969b213345936a"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva2",
+    "colony" : "colony-marte2",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a2",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.132832, 
+            19.41196
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2b9745969b213345936b"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva3",
+    "colony" : "colony-marte3",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a3",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.130912, 
+            19.412011
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2bad45969b213345936c"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva4",
+    "colony" : "colony-marte4",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a4",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.131792, 
+            19.411571
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2c0d45969b213345936d"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva5",
+    "colony" : "colony-marte5",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a5",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.131126, 
+            19.408618
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2c2345969b213345936e"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva6",
+    "colony" : "colony-marte6",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-a6",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.136254, 
+            19.40788
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e2c3b45969b213345936f"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva7",
+    "colony" : "colony-marte7",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano-Asturias",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.133679, 
+            19.407788
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e34f5a3c3fded2912c45d"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva8",
+    "colony" : "colony-marte8",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Xola-Metro-Moderna",
+    "isValidate" : true,
+    "nickname" : "Xola",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.134367, 
+            19.394728
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e355fa3c3fded2912c4a9"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva9",
+    "colony" : "colony-marte9",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "VillaDeCortes-Metro-MiguelAleman",
+    "isValidate" : true,
+    "nickname" : "VillaDeCortes",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.144157, 
+            19.389038
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e36fba3c3fded2912c5d1"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva10",
+    "colony" : "colony-marte10",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Chabacano TallerYLaViga",
+    "isValidate" : true,
+    "nickname" : "Chabacano",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.128185, 
+            19.411899
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e3a63a3c3fded2912c81b"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva11",
+    "colony" : "colony-marte11",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Iztacalco - Metro",
+    "isValidate" : true,
+    "nickname" : "Iztacalco",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.108667, 
+            19.392067
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress"
+},
+{
+    "_id" : ObjectId("5f1e3b14a3c3fded2912c89e"),
+    "customerId" : ObjectId("5edada2a0e8e3d000187b445"),
+    "isMain" : true,
+    "postalCode" : "06890",
+    "street" : "calle siempre viva12",
+    "colony" : "colony-marte12",
+    "city" : "CDMX",
+    "interiorNumber" : 666,
+    "description" : "Xochimilco",
+    "isValidate" : true,
+    "nickname" : "Xochimilco",
+    "location" : {
+        "type" : "Point",
+        "coordinates" : [ 
+            -99.085509, 
+            19.303598
+        ]
+    },
+    "isCurrent" : true,
+    "_class" : "mx.ikii.commons.persistence.collection.CustomerAdress",
+    "distance" : 19623309.6457763
+}
+])
