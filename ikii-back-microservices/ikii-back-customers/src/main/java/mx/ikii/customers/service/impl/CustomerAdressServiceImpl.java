@@ -24,10 +24,7 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Autowired
 	private ICustomerAdressRepository customerAdressRepository;
-	
-	@Autowired
-	private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
-	
+
 	@Autowired
 	private ICustomerAdressMapper customerAdressMapper;
 
@@ -35,7 +32,7 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	public Page<CustomerAdress> getAll(Pageable pageable) {
 		return customerAdressRepository.findAll(pageable);
 	}
-	
+
 	@Override
 	public CustomerAdress getById(String id) {
 		return customerAdressRepository.findById(id)
@@ -54,45 +51,41 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Override
 	public CustomerAdress updateCustomerAddress(CustomerAdress request, String id) {
-		CustomerAdress customerAdress = customerAdressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id,CustomerAdress.class));
+		CustomerAdress customerAdress = customerAdressRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
 		customerAdressMapper.updateEntity(customerAdress, request);
 		return customerAdressRepository.save(customerAdress);
 	}
 
 	@Override
 	public void deleteCustomerAddress(String id) {
-		customerAdressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
+		customerAdressRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
 		customerAdressRepository.deleteById(id);
 	}
-	
+
 	@Override
 	public List<CustomerAdress> nearByMe(String latitude, String longitude, Double maxDistance) {
-		
-		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));  
+		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
 		Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
 		
 		GeoResults<CustomerAdress> geoResult = customerAdressRepository.findByLocationNear(location, distance);
-		
 		List<GeoResult<CustomerAdress>> listGeoResult = geoResult.getContent();
-		listGeoResult.forEach(e->{
+		listGeoResult.forEach(e -> {
 			System.out.println(e.getContent().getDescription());
 		});
 		return null;
 	}
-	
+
 	@Override
 	public List<CustomerAdress> nearByMe2(String latitude, String longitude, Double maxDistance) {
-		
-		customerAdressRepositoryCustom.nearByMe2(latitude, longitude, maxDistance);
-		
+		customerAdressRepository.nearByMe2(latitude, longitude, maxDistance);
 		return null;
 	}
-	
+
 	@Override
 	public List<CustomerAdress> nearByMe3(String latitude, String longitude, Double maxDistance) {
-		
-		customerAdressRepositoryCustom.nearByMe3(latitude, longitude, maxDistance);
-		
+		customerAdressRepository.nearByMe3(latitude, longitude, maxDistance);
 		return null;
 	}
 

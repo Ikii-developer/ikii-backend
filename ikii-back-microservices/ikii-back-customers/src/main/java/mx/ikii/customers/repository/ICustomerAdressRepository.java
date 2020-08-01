@@ -10,21 +10,25 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.customers.repository.impl.ICustomerAdressRepositoryCustom;
 
 /**
- * This interface interacts directly with the CustomerAddress Collection of the mongodb
- * database
+ * This interface interacts directly with the CustomerAddress Collection of the
+ * mongodb database
  * 
  * @author Francisco Javier Martínez Arazo
  *
  */
 @Repository
-public interface ICustomerAdressRepository extends MongoRepository<CustomerAdress, String> {
+public interface ICustomerAdressRepository
+		extends MongoRepository<CustomerAdress, String>, ICustomerAdressRepositoryCustom {
 
 	List<CustomerAdress> findByCustomerId(String customerId);
+
 	Optional<CustomerAdress> findCurrentByCustomerIdAndIsCurrent(String customerId);
+
 	CustomerAdress findByIsCurrent();
-	
+
 	GeoResults<CustomerAdress> findByLocationNear(Point location, Distance distance);
-	
+
 }

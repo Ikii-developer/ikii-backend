@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 
 @Repository
-public class ICustomerAdressRepositoryCustomImpl implements ICustomerAdressRepositoryCustom {
+public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCustom {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
