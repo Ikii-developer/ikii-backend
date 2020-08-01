@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import mx.ikii.commons.payload.dto.Location;
 import mx.ikii.commons.utils.constants.EnumCity;
 
 @Data
@@ -31,7 +34,9 @@ public class CustomerAdress implements Serializable{
 	private String description;
 	private Boolean isValidate;
 	private String nickname;
-	private String latitude;
-	private String longitude;
+	
+	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+	private Location location;
+	
 	private Boolean isCurrent;
 }

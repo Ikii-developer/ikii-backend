@@ -45,8 +45,7 @@ public interface ICustomerAdressMapper extends GenericMapper<CustomerAdress, Cus
 		source.setDescription(target.getDescription());
 		source.setIsValidate(target.getIsValidate());
 		source.setNickname(target.getNickname());
-		source.setLatitude(target.getLatitude());
-		source.setLongitude(target.getLongitude());
+		source.setLocation(target.getLocation());
 		source.setIsCurrent(target.getIsCurrent());
 	}
 	

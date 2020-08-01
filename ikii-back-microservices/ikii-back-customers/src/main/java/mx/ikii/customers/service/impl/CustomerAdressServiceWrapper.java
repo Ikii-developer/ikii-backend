@@ -11,6 +11,7 @@ import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.service.ICustomerAdressService;
 import mx.ikii.customers.service.ICustomerAdressServiceWrapper;
@@ -58,6 +59,47 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	@Override
 	public void delete(String customerAddressId) {
 		customerAdressService.deleteCustomerAddress(customerAddressId);
+	}
+
+	@Override
+	public List<CustomerAdressResponse> nearByMe(String latitude, String longitude, Integer maxDistance) {
+		maxDistance = (Nullable.isNull(maxDistance)?1000:maxDistance);
+		
+		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe(latitude, longitude, Double.valueOf(maxDistance));
+		if(customerAdresses.isEmpty()) {
+			maxDistance = 5000;
+			customerAdresses = customerAdressService.nearByMe(latitude, longitude, Double.valueOf(maxDistance));
+		}
+			
+		return customerAdressMapper.entityToResponse(customerAdresses);
+	}
+	
+	@Override
+	public List<CustomerAdressResponse> nearByMe2(String latitude, String longitude, Integer maxDistance) {
+		maxDistance = (Nullable.isNull(maxDistance)?1000:maxDistance);
+		
+		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe2(latitude, longitude, Double.valueOf(maxDistance));
+		if(customerAdresses.isEmpty()) {
+			maxDistance = 5000;
+			
+			customerAdresses = customerAdressService.nearByMe2(latitude, longitude, Double.valueOf(maxDistance));
+		}
+			
+		return customerAdressMapper.entityToResponse(customerAdresses);
+	}
+	
+	@Override
+	public List<CustomerAdressResponse> nearByMe3(String latitude, String longitude, Integer maxDistance) {
+		maxDistance = (Nullable.isNull(maxDistance)?1000:maxDistance);
+		
+		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe3(latitude, longitude, Double.valueOf(maxDistance));
+		if(customerAdresses.isEmpty()) {
+			maxDistance = 5000;
+			
+			customerAdresses = customerAdressService.nearByMe3(latitude, longitude, Double.valueOf(maxDistance));
+		}
+			
+		return customerAdressMapper.entityToResponse(customerAdresses);
 	}
 
 }

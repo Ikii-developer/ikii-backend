@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 import mx.ikii.customers.repository.ICustomerAdressRepository;
+import mx.ikii.customers.repository.impl.ICustomerAdressRepositoryCustom;
 import mx.ikii.customers.service.ICustomerAdressService;
 
 @Service
@@ -18,6 +24,9 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Autowired
 	private ICustomerAdressRepository customerAdressRepository;
+	
+	@Autowired
+	private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
 	
 	@Autowired
 	private ICustomerAdressMapper customerAdressMapper;
@@ -54,6 +63,37 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	public void deleteCustomerAddress(String id) {
 		customerAdressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
 		customerAdressRepository.deleteById(id);
+	}
+	
+	@Override
+	public List<CustomerAdress> nearByMe(String latitude, String longitude, Double maxDistance) {
+		
+		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));  
+		Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
+		
+		GeoResults<CustomerAdress> geoResult = customerAdressRepository.findByLocationNear(location, distance);
+		
+		List<GeoResult<CustomerAdress>> listGeoResult = geoResult.getContent();
+		listGeoResult.forEach(e->{
+			System.out.println(e.getContent().getDescription());
+		});
+		return null;
+	}
+	
+	@Override
+	public List<CustomerAdress> nearByMe2(String latitude, String longitude, Double maxDistance) {
+		
+		customerAdressRepositoryCustom.nearByMe2(latitude, longitude, maxDistance);
+		
+		return null;
+	}
+	
+	@Override
+	public List<CustomerAdress> nearByMe3(String latitude, String longitude, Double maxDistance) {
+		
+		customerAdressRepositoryCustom.nearByMe3(latitude, longitude, maxDistance);
+		
+		return null;
 	}
 
 }

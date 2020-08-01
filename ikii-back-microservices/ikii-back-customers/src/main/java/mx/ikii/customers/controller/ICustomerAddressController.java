@@ -1,5 +1,7 @@
 package mx.ikii.customers.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +36,14 @@ public interface ICustomerAddressController {
 	
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
+	
+	@GetMapping("/near-by-me")
+	ResponseEntity<List<CustomerAdressResponse>> nearByMe(String latitude, String longitude, Integer distance);
+	
+	@GetMapping("/near-by-me2")
+	ResponseEntity<List<CustomerAdressResponse>> nearByMe2(String latitude, String longitude, Integer distance);
+	
+	@GetMapping("/near-by-me3")
+	ResponseEntity<List<CustomerAdressResponse>> nearByMe3(String latitude, String longitude, Integer distance);
 	
 }

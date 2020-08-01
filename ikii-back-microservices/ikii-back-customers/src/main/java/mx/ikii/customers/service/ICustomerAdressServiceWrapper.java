@@ -1,5 +1,7 @@
 package mx.ikii.customers.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,5 +24,11 @@ public interface ICustomerAdressServiceWrapper {
 	CustomerAdressResponse update(CustomerAdressRequest customerAddressRequest, String id);
 	
 	void delete(String customerAddressId);
+	
+	List<CustomerAdressResponse> nearByMe(String latitude, String longitude, Integer distance);
+	
+	List<CustomerAdressResponse> nearByMe2(String latitude, String longitude, Integer distance);
+	
+	List<CustomerAdressResponse> nearByMe3(String latitude, String longitude, Integer distance);
 	
 }

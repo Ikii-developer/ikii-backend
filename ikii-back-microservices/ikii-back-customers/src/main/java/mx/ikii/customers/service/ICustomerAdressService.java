@@ -20,4 +20,10 @@ public interface ICustomerAdressService {
 	void deleteCustomerAddress(String customerAdressId);
 	
 	CustomerAdress updateCustomerAddress(CustomerAdress customerAdress, String id);
+	
+	List<CustomerAdress> nearByMe(String latitude, String longitude, Double maxDistance);
+	
+	List<CustomerAdress> nearByMe2(String latitude, String longitude, Double maxDistance);
+	
+	List<CustomerAdress> nearByMe3(String latitude, String longitude, Double maxDistance);
 }
