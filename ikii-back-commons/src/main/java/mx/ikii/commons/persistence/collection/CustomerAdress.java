@@ -24,6 +24,7 @@ public class CustomerAdress implements Serializable{
 	@Id
 	private String id;
 	private ObjectId customerId;
+	private ObjectId bussinesId;
 	private Boolean isMain;
 	private String postalCode;
 	private String street;
@@ -37,6 +38,8 @@ public class CustomerAdress implements Serializable{
 	
 	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
 	private Location location;
+	
+	private Double distance;
 	
 	private Boolean isCurrent;
 }

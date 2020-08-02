@@ -24,6 +24,9 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Autowired
 	private ICustomerAdressRepository customerAdressRepository;
+	
+	@Autowired
+	private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
 
 	@Autowired
 	private ICustomerAdressMapper customerAdressMapper;
@@ -65,7 +68,7 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	}
 
 	@Override
-	public List<CustomerAdress> nearByMe(String latitude, String longitude, Double maxDistance) {
+	public List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance) {
 		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
 		Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
 		
@@ -74,19 +77,30 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 		listGeoResult.forEach(e -> {
 			System.out.println(e.getContent().getDescription());
 		});
-		return null;
+		return listGeoResult;
 	}
-
+	
 	@Override
-	public List<CustomerAdress> nearByMe2(String latitude, String longitude, Double maxDistance) {
-		customerAdressRepository.nearByMe2(latitude, longitude, maxDistance);
-		return null;
-	}
+	public List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+		
+		/** OPTION 1: with Aggregation, remove the comments to try */
+		List<CustomerAdress> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
 
-	@Override
-	public List<CustomerAdress> nearByMe3(String latitude, String longitude, Double maxDistance) {
-		customerAdressRepository.nearByMe3(latitude, longitude, maxDistance);
-		return null;
+
+		/** OPTION 2: With Query geoNear, remove the comments to try */
+//		List<GeoResult<CustomerAdress>> customerAddressGR = customerAdressRepositoryCustom.nearByMe2(latitude, longitude, maxDistance);
+		
+		
+		/** OPTION 3: with SpringData, remove the comments to try: */
+//		Point location = new Point(latitude, longitude);
+//		Distance distance = new Distance(1, Metrics.KILOMETERS);
+//		
+//		GeoResults<CustomerAdress> customerAddress = 
+//				customerAdressRepository.findByLocationNear(location, distance);
+//		
+//		customerAddress.forEach(e->System.out.println(e.getContent().getDescription()));
+		
+		return null; 
 	}
 
 }

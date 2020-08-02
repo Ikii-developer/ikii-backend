@@ -63,41 +63,17 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	}
 
 	@Override
-	public List<CustomerAdressResponse> nearByMe(String latitude, String longitude, Integer maxDistance) {
+	public List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Integer maxDistance) {
 		maxDistance = (Nullable.isNull(maxDistance) ? 1000 : maxDistance);
+		
 		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
 				Double.valueOf(maxDistance));
-		if (customerAdresses.isEmpty()) {
+		
+		if (Nullable.isNullOrEmpty(customerAdresses)) {
 			maxDistance = 5000;
 			customerAdresses = customerAdressService.nearByMe(latitude, longitude, Double.valueOf(maxDistance));
 		}
 
-		return customerAdressMapper.entityToResponse(customerAdresses);
-	}
-
-	@Override
-	public List<CustomerAdressResponse> nearByMe2(String latitude, String longitude, Integer maxDistance) {
-		maxDistance = (Nullable.isNull(maxDistance) ? 1000 : maxDistance);
-		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe2(latitude, longitude,
-				Double.valueOf(maxDistance));
-		if (customerAdresses.isEmpty()) {
-			maxDistance = 5000;
-
-			customerAdresses = customerAdressService.nearByMe2(latitude, longitude, Double.valueOf(maxDistance));
-		}
-		return customerAdressMapper.entityToResponse(customerAdresses);
-	}
-
-	@Override
-	public List<CustomerAdressResponse> nearByMe3(String latitude, String longitude, Integer maxDistance) {
-		maxDistance = (Nullable.isNull(maxDistance) ? 1000 : maxDistance);
-		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe3(latitude, longitude,
-				Double.valueOf(maxDistance));
-		if (customerAdresses.isEmpty()) {
-			maxDistance = 5000;
-
-			customerAdresses = customerAdressService.nearByMe3(latitude, longitude, Double.valueOf(maxDistance));
-		}
 		return customerAdressMapper.entityToResponse(customerAdresses);
 	}
 

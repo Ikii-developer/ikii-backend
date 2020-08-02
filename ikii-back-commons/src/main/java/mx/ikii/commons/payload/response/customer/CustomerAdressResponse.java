@@ -21,6 +21,8 @@ public class CustomerAdressResponse implements Serializable{
 	
 	private String customerId;
 	
+	private String bussinesId;
+	
 	private Boolean isMain;
 	
 	private String postalCode;

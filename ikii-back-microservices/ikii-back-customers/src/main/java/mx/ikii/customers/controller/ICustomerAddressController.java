@@ -38,12 +38,6 @@ public interface ICustomerAddressController {
 	ResponseEntity<Void> delete(String id);
 	
 	@GetMapping("/near-by-me")
-	ResponseEntity<List<CustomerAdressResponse>> nearByMe(String latitude, String longitude, Integer distance);
-	
-	@GetMapping("/near-by-me2")
-	ResponseEntity<List<CustomerAdressResponse>> nearByMe2(String latitude, String longitude, Integer distance);
-	
-	@GetMapping("/near-by-me3")
-	ResponseEntity<List<CustomerAdressResponse>> nearByMe3(String latitude, String longitude, Integer distance);
+	ResponseEntity<List<CustomerAdressResponse>> nearByMe(Double latitude, Double longitude, Integer distance);
 	
 }

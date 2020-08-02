@@ -23,36 +23,43 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	
+
 	@Autowired
 	private MongoOperations mongoOperations;
 
-	public List<CustomerAdress> nearByMe2(String latitude, String longitude, Double distance) {
+	public List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 
-		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
-		NearQuery nearQuery = NearQuery.near(location).maxDistance(new Distance(distance, Metrics.KILOMETERS));
-		GeoResults<CustomerAdress> ca = mongoOperations.geoNear(nearQuery, CustomerAdress.class, "CustomerAdress");
-		List<GeoResult<CustomerAdress>> grCa = ca.getContent();
-
-		return null;
-	}
-	
-	public List<CustomerAdress> nearByMe3(String latitude, String longitude, Double distance) {
+		Point point = new Point(latitude, longitude);
 		
-		Point point = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
-		NearQuery nearQuery = NearQuery.near(point).spherical(true).maxDistance(distance).distanceMultiplier(6371)
-				.inKilometers();
+		NearQuery nearQuery = NearQuery.near(point, Metrics.KILOMETERS)
+				.spherical(true)
+				.minDistance(10)
+				.maxDistance(100)
+				.distanceMultiplier(6371);
 
 		GeoNearOperation geoNearOperation = Aggregation.geoNear(nearQuery, "distance");
 
 		Aggregation agg = Aggregation.newAggregation(geoNearOperation);
 
-		AggregationResults<CustomerAdress> aggResponse = mongoTemplate.aggregate(agg, "CustomerAdress",
+		AggregationResults<CustomerAdress> aggResponse = mongoOperations.aggregate(agg, "CustomerAdress",
 				CustomerAdress.class);
 
-		aggResponse.getMappedResults();
+		return aggResponse.getMappedResults();
 
-		return null;
 	}
 
+	public List<GeoResult<CustomerAdress>> nearByMe2(Double latitude, Double longitude, Double maxDistance) {
+
+		Point location = new Point(latitude, longitude);
+		NearQuery nearQuery = NearQuery.near(location).maxDistance(new Distance(maxDistance, Metrics.KILOMETERS));
+		GeoResults<CustomerAdress> ca = mongoTemplate.geoNear(nearQuery, CustomerAdress.class, "CustomerAdress");
+		List<GeoResult<CustomerAdress>> grCa = ca.getContent();
+		
+		grCa.forEach(e->{
+			System.out.println(e.getContent().getDescription());
+		});
+		
+		return grCa;
+	}
+	
 }

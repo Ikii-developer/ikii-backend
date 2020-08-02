@@ -21,7 +21,7 @@ import mx.ikii.customers.repository.impl.ICustomerAdressRepositoryCustom;
  */
 @Repository
 public interface ICustomerAdressRepository
-		extends MongoRepository<CustomerAdress, String>, ICustomerAdressRepositoryCustom {
+		extends MongoRepository<CustomerAdress, String> {
 
 	List<CustomerAdress> findByCustomerId(String customerId);
 

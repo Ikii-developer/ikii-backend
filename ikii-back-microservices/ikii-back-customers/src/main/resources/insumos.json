@@ -17,9 +17,18 @@ db.getCollection('CustomerAddress').aggregate([
             from: 'Business', 
             foreignField: '_id', 
             localField: 'businessId', 
-            as: 'Business'
+            as: 'business'
         }
-    }
+    },
+    {
+        $project: {
+            "postalCode":0, "street":0, "colony":0, "city":0,
+            "interiorNumber":0, "description":0, "nickname":0,
+            "location":0, "distance":0, "isMain":0, "isCurrent":0,
+            "isValidate":0, "_class":0,
+            "business._id":0, "business.customerId":0, "business._class":0
+        }
+    },
 ])
 
 /* INSUMOS DE EJEMPLO */

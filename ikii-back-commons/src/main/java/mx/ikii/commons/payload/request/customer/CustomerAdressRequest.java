@@ -27,6 +27,8 @@ public class CustomerAdressRequest implements Serializable{
 	@NotEmpty
 	private String customerId;
 	
+	private String bussinesId;
+	
 	private Boolean isMain;
 	
 	@NotEmpty

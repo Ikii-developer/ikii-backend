@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.geo.GeoResult;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 
@@ -21,9 +22,8 @@ public interface ICustomerAdressService {
 	
 	CustomerAdress updateCustomerAddress(CustomerAdress customerAdress, String id);
 	
-	List<CustomerAdress> nearByMe(String latitude, String longitude, Double maxDistance);
+	List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance);
 	
-	List<CustomerAdress> nearByMe2(String latitude, String longitude, Double maxDistance);
+	List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance);
 	
-	List<CustomerAdress> nearByMe3(String latitude, String longitude, Double maxDistance);
 }
