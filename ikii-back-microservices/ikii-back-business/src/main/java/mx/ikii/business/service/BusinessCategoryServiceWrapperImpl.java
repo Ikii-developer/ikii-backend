@@ -35,7 +35,8 @@ public class BusinessCategoryServiceWrapperImpl implements IBusinessCategoryServ
 	@Override
 	public Page<BusinessCategoryResponse> findAll(Pageable pageable) {
 		Page<BusinessCategory> businessCategories = businessCategoryService.findAll(pageable);
-		List<BusinessCategoryResponse> usersResponse = businessCategoryMapper.entityToResponse(businessCategories.getContent());
+		List<BusinessCategoryResponse> usersResponse = businessCategoryMapper
+				.entityToResponse(businessCategories.getContent());
 		return PageHelper.createPage(usersResponse, pageable, businessCategories.getTotalElements());
 	}
 

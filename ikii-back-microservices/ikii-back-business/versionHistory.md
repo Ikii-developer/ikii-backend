@@ -1,5 +1,8 @@
 ## ikii-back-business
 
+## 1.3.0
+* Adds overviewTitle, sectionTitle to BusinessCategory Model
+
 ## 1.2.1
 * Adds Batch to create business
 * Adds BusinessStatus as enum

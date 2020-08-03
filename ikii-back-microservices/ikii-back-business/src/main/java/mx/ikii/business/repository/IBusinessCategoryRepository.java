@@ -7,7 +7,7 @@ import mx.ikii.commons.persistence.collection.BusinessCategory;
 
 @Repository
 public interface IBusinessCategoryRepository extends MongoRepository<BusinessCategory, String> {
-	
+
 	BusinessCategory findByName(String name);
 
 }

@@ -13,7 +13,7 @@ public interface IBusinessCategoryServiceWrapper {
 	BusinessCategoryResponse getByBusinesName(String name);
 
 	Page<BusinessCategoryResponse> findAll(Pageable pageable);
-
+	
 	BusinessCategoryResponse create(BusinessCategoryRequest businessCategoryRequest);
 
 	BusinessCategoryResponse update(BusinessCategoryRequest businessCategoryRequest, String id);

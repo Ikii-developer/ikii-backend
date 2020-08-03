@@ -41,8 +41,7 @@ public class BusinessCategoryServiceImpl implements IBusinessCategoryService {
 
 	@Override
 	public BusinessCategory update(BusinessCategory businessCategory, String id) {
-		businessRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
+		businessRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
 		businessCategory.setId(id);
 		return businessRepository.save(businessCategory);
 	}
