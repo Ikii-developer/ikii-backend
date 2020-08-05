@@ -1,23 +1,14 @@
 package mx.ikii.commons.payload.dto;
 
-import java.util.List;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 
 import lombok.Data;
 
 @Data
 public class Location {
 
-	private String type;
-	
-	private List<Double> coordinates;
-	
-//	@Data
-//	public static class Coordinates {
-//		
-//		public Double longitude;
-//		
-//		public Double latitude;
-//		
-//	}
-	
+	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
+	private double[] locationCoord;
+
 }
