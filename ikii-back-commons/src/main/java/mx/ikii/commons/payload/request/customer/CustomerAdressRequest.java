@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
-import mx.ikii.commons.payload.dto.Location;
 import mx.ikii.commons.utils.constants.EnumCity;
 
 /**
@@ -60,8 +59,8 @@ public class CustomerAdressRequest implements Serializable{
 	@NotNull
 	private String nickname;
 	
-	@NotNull
-	private Location location;
+//	@NotNull
+//	private Location location;
 	
 	@NotNull
 	private Boolean isCurrent;

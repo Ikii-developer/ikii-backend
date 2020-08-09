@@ -13,7 +13,10 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.stereotype.Repository;
 
@@ -32,14 +35,35 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		List<CustomerAdress> result = null;
 		List<AggregationOperation> list = new ArrayList<AggregationOperation>();
 		
-		Point p = new Point(longitude, latitude);
-		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS).maxDistance(maxDistance);
+		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
+		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
+				//.minDistance(new Distance(1, Metrics.KILOMETERS))
+				.spherical(true)
+				.maxDistance(new Distance(maxDistance, Metrics.KILOMETERS))
+				.distanceMultiplier(6371)
+				.inKilometers();
 		
 		list.add(Aggregation.geoNear(nearQuery, "distance"));
-		list.add(Aggregation.project("id", "location"));
+		
+		LookupOperation lookup = LookupOperation.newLookup().from("Business").localField("businessId")
+				.foreignField("_id").as("business");
+		list.add(lookup);
+		
+		ProjectionOperation projectionOperationRenameFields = 
+				Aggregation.project("businessId", "customerId")
+				.andExclude("postalCode", "street", "colony","city","interiorNumber","description","nickname",
+						"location","distance","isMain", "isCurrent","isValidate","business._id","business.customerId")
+				.andExpression("business.name").as("businessName")
+				.andExpression("business.image").as("businessImage")
+				.andExpression("business.categoryId").as("businessCategoryId")
+				.andExpression("business.description").as("businessDescription")
+				.andExpression("business.deliveryTime").as("businessDeliveryTime")
+				.andExpression("business.closeTime").as("businessCloseTime")
+				.andExpression("business.isOpen").as("businessIsOpen");
+		list.add(projectionOperationRenameFields);
 		
 		TypedAggregation<CustomerAdress> agg = Aggregation.newAggregation(CustomerAdress.class, list);
-		result = mongoOperations.aggregate(agg, CustomerAdress.class).getMappedResults();
+		result = mongoTemplate.aggregate(agg, CustomerAdress.class).getMappedResults();
 		return result;
 
 	}
@@ -53,7 +77,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		grCa.forEach(e -> {
 			System.out.println(e.getContent().getDescription());
 		});
-
 		return grCa;
 	}
 

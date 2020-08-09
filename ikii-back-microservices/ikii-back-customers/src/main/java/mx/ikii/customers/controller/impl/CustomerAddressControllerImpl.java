@@ -58,7 +58,7 @@ public class CustomerAddressControllerImpl implements ICustomerAddressController
 
 	@Override
 	public ResponseEntity<List<CustomerAdressResponse>> nearByMe(@RequestParam Double latitude,@RequestParam Double longitude,
-			@RequestParam Integer distance) {
+			@RequestParam Double distance) {
 		return ResponseEntity.ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance));
 	}
 
