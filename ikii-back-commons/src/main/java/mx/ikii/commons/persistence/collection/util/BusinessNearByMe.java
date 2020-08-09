@@ -1,0 +1,28 @@
+package mx.ikii.commons.persistence.collection.util;
+
+import org.bson.types.ObjectId;
+
+import lombok.Data;
+
+@Data
+public class BusinessNearByMe {
+	
+	private ObjectId businessId;
+	
+	private ObjectId customerId;
+	
+	private String businessName;
+	
+	private String businessImage;
+	
+	private ObjectId businessCategoryId;
+	
+	private String businessDescription;
+	
+	private String businessDeliveryTime;
+	
+	private String businessCloseTime;
+	
+	private Boolean businessIsOpen;
+
+}

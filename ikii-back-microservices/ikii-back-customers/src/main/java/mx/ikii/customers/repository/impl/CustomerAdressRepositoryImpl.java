@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.stereotype.Repository;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 @Repository
 public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCustom {
@@ -31,8 +32,8 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	@Autowired
 	private MongoOperations mongoOperations;
 
-	public List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance) {
-		List<CustomerAdress> result = null;
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+		List<BusinessNearByMe> result = null;
 		List<AggregationOperation> list = new ArrayList<AggregationOperation>();
 		
 		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
@@ -62,8 +63,8 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.andExpression("business.isOpen").as("businessIsOpen");
 		list.add(projectionOperationRenameFields);
 		
-		TypedAggregation<CustomerAdress> agg = Aggregation.newAggregation(CustomerAdress.class, list);
-		result = mongoTemplate.aggregate(agg, CustomerAdress.class).getMappedResults();
+		TypedAggregation<BusinessNearByMe> agg = Aggregation.newAggregation(BusinessNearByMe.class, list);
+		result = mongoTemplate.aggregate(agg, BusinessNearByMe.class).getMappedResults();
 		return result;
 
 	}

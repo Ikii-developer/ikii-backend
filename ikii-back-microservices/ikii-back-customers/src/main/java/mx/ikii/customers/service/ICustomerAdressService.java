@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.GeoResult;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 public interface ICustomerAdressService {
 
@@ -24,6 +25,6 @@ public interface ICustomerAdressService {
 	
 	List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance);
 	
-	List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance);
+	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance);
 	
 }

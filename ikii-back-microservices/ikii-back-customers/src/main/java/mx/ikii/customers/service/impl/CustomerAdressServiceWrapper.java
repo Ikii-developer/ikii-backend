@@ -11,6 +11,7 @@ import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.service.ICustomerAdressService;
@@ -66,15 +67,17 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	public List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 		maxDistance = (Nullable.isNull(maxDistance) ? 1.0 : maxDistance); // 1.0 == 1 KM
 		System.out.println("maxDistance: "+maxDistance);
-		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
+		List<BusinessNearByMe> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
 				Double.valueOf(maxDistance));
 		
 		if (Nullable.isNullOrEmpty(customerAdresses)) {
 			maxDistance = 5.0;
 			customerAdresses = customerAdressService.nearByMe(latitude, longitude, maxDistance);
 		}
+		
+		customerAdresses.forEach(e->System.out.println(e.getBusinessName()));
 
-		return customerAdressMapper.entityToResponse(customerAdresses);
+		return null;
 	}
 
 }

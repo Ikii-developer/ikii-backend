@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 import mx.ikii.customers.repository.ICustomerAdressRepository;
 import mx.ikii.customers.repository.impl.ICustomerAdressRepositoryCustom;
 import mx.ikii.customers.service.ICustomerAdressService;
@@ -81,11 +82,9 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	}
 	
 	@Override
-	public List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 		
-		List<CustomerAdress> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
-		
-		customeAddress.forEach(e->System.out.println(e.getDescription()));
+		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
 		
 		return customeAddress; 
 	}
