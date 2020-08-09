@@ -24,7 +24,7 @@ public class CustomerAdress implements Serializable{
 	@Id
 	private String id;
 	private ObjectId customerId;
-	private ObjectId businesId;
+	private ObjectId businessId;
 	private Boolean isMain;
 	private String postalCode;
 	private String street;

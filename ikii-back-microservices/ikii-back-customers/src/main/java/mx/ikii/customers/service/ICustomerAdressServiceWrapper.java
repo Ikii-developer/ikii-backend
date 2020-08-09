@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 /**
  * This interface contains the methods related to CRUD operations to Customer address
@@ -25,6 +26,6 @@ public interface ICustomerAdressServiceWrapper {
 	
 	void delete(String customerAddressId);
 	
-	List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Double distance);
+	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double distance);
 	
 }

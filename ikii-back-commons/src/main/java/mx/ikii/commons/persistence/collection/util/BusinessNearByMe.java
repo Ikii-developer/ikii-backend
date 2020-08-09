@@ -25,4 +25,16 @@ public class BusinessNearByMe {
 	
 	private Boolean businessIsOpen;
 
+	public String getBusinessId() {
+		return businessId.toHexString();
+	}
+
+	public String getCustomerId() {
+		return customerId.toHexString();
+	}
+
+	public String getBusinessCategoryId() {
+		return businessCategoryId.toHexString();
+	}
+
 }

@@ -13,6 +13,9 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
@@ -33,7 +36,98 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	private MongoOperations mongoOperations;
 
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
-		List<BusinessNearByMe> result = null;
+
+		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
+		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
+				.spherical(true)
+				.maxDistance(new Distance(maxDistance, Metrics.KILOMETERS))
+				.distanceMultiplier(6371)
+				.inKilometers();
+				
+		GeoNearOperation geoNear = Aggregation.geoNear(nearQuery, "distance");
+		
+		LookupOperation lookupBusinessCustomer = LookupOperation.newLookup().from("Business")
+				.localField("businessId")
+				.foreignField("_id").as("business");
+		
+		ProjectionOperation projectionOperationRenameFields1 = 
+				Aggregation.project("businessId", "customerId","location", "description")
+				.and(ArrayOperators.ArrayElemAt.arrayOf("business").elementAt(0)).as("business");
+		
+		ProjectionOperation projectionOperationRenameFields2 = 
+				Aggregation.project("businessId", "customerId","location")
+				.andExpression("business.name").as("businessName")
+				.andExpression("business.image").as("businessImage")
+				.andExpression("business.categoryId").as("businessCategoryId")
+//				.andExpression("business.description").as("businessDescription")
+				.andExpression("description").as("businessDescription")
+				.andExpression("business.deliveryTime").as("businessDeliveryTime")
+				.andExpression("business.closeTime").as("businessCloseTime")
+				.andExpression("business.isOpen").as("businessIsOpen");
+		
+		TypedAggregation<CustomerAdress> aggregation = 
+				TypedAggregation.newAggregation(CustomerAdress.class, geoNear, 
+						lookupBusinessCustomer, 
+						projectionOperationRenameFields1, projectionOperationRenameFields2);
+		
+		AggregationResults<BusinessNearByMe> result = 
+				mongoTemplate.aggregate(aggregation, BusinessNearByMe.class);
+		
+		return result.getMappedResults();
+		
+	}
+	
+	/**
+	 * QUERY MONGO
+		db.getCollection('CustomerAddress').aggregate([
+		    {
+		        $geoNear: {
+		            spherical:true,
+		            near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
+		            distanceField: 'distance',
+		            maxDistance: 1000,
+		            distanceMultiplier: 6371
+		        }    
+		    },
+		    {
+		        $lookup: {
+		            from: 'Business', 
+		            foreignField: '_id', 
+		            localField: 'businessId', 
+		            as: 'business'
+		        }
+		    },
+		    {
+		        $project: {
+		            "businessId":1,"customerId":1,"nickname":1,
+		            "business": { $arrayElemAt: [ "$business", 0 ] }
+		        }
+		    },
+		    {
+		        $project: {
+		            "businessId":1, "customerId":1, "nickname":1,
+		            "business.name":1,"business.image":1,"business.categoryId":1,
+		            "business.description":1,"business.deliveryTime":1,
+		            "business.closeTime":1,"business.isOpen":1
+		        }
+		    }
+		])
+	 */
+
+	private List<GeoResult<CustomerAdress>> nearByMe2(Double latitude, Double longitude, Double maxDistance) {
+		Point location = new Point(latitude, longitude);
+		NearQuery nearQuery = NearQuery.near(location).maxDistance(new Distance(maxDistance, Metrics.KILOMETERS));
+		GeoResults<CustomerAdress> ca = mongoTemplate.geoNear(nearQuery, CustomerAdress.class, "CustomerAdress");
+		List<GeoResult<CustomerAdress>> grCa = ca.getContent();
+
+		grCa.forEach(e -> {
+			System.out.println(e.getContent().getDescription());
+		});
+		return grCa;
+	}
+	
+	private List<CustomerAdress> nearByMe3(Double latitude, Double longitude, Double maxDistance) {
+		List<CustomerAdress> result = null;
 		List<AggregationOperation> list = new ArrayList<AggregationOperation>();
 		
 		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
@@ -46,39 +140,12 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		
 		list.add(Aggregation.geoNear(nearQuery, "distance"));
 		
-		LookupOperation lookup = LookupOperation.newLookup().from("Business").localField("businessId")
-				.foreignField("_id").as("business");
-		list.add(lookup);
+		TypedAggregation<CustomerAdress> agg = Aggregation.newAggregation(CustomerAdress.class, list);
+		result = mongoTemplate.aggregate(agg, CustomerAdress.class).getMappedResults();
+
+		result.forEach(e->System.out.println(e.getDescription()));
 		
-		ProjectionOperation projectionOperationRenameFields = 
-				Aggregation.project("businessId", "customerId")
-				.andExclude("postalCode", "street", "colony","city","interiorNumber","description","nickname",
-						"location","distance","isMain", "isCurrent","isValidate","business._id","business.customerId")
-				.andExpression("business.name").as("businessName")
-				.andExpression("business.image").as("businessImage")
-				.andExpression("business.categoryId").as("businessCategoryId")
-				.andExpression("business.description").as("businessDescription")
-				.andExpression("business.deliveryTime").as("businessDeliveryTime")
-				.andExpression("business.closeTime").as("businessCloseTime")
-				.andExpression("business.isOpen").as("businessIsOpen");
-		list.add(projectionOperationRenameFields);
-		
-		TypedAggregation<BusinessNearByMe> agg = Aggregation.newAggregation(BusinessNearByMe.class, list);
-		result = mongoTemplate.aggregate(agg, BusinessNearByMe.class).getMappedResults();
 		return result;
-
-	}
-
-	public List<GeoResult<CustomerAdress>> nearByMe2(Double latitude, Double longitude, Double maxDistance) {
-		Point location = new Point(latitude, longitude);
-		NearQuery nearQuery = NearQuery.near(location).maxDistance(new Distance(maxDistance, Metrics.KILOMETERS));
-		GeoResults<CustomerAdress> ca = mongoTemplate.geoNear(nearQuery, CustomerAdress.class, "CustomerAdress");
-		List<GeoResult<CustomerAdress>> grCa = ca.getContent();
-
-		grCa.forEach(e -> {
-			System.out.println(e.getContent().getDescription());
-		});
-		return grCa;
 	}
 
 }

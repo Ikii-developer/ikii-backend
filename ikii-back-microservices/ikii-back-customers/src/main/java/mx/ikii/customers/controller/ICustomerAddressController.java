@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 @RestController
 @RequestMapping("/address")
@@ -38,6 +39,6 @@ public interface ICustomerAddressController {
 	ResponseEntity<Void> delete(String id);
 	
 	@GetMapping("/near-by-me")
-	ResponseEntity<List<CustomerAdressResponse>> nearByMe(Double latitude, Double longitude, Double distance);
+	ResponseEntity<List<BusinessNearByMe>> nearByMe(Double latitude, Double longitude, Double distance);
 	
 }

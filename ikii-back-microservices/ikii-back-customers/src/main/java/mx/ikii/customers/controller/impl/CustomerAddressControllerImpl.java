@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 import mx.ikii.customers.controller.ICustomerAddressController;
 import mx.ikii.customers.service.ICustomerAdressServiceWrapper;
 
@@ -57,7 +58,7 @@ public class CustomerAddressControllerImpl implements ICustomerAddressController
 	}
 
 	@Override
-	public ResponseEntity<List<CustomerAdressResponse>> nearByMe(@RequestParam Double latitude,@RequestParam Double longitude,
+	public ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam Double latitude,@RequestParam Double longitude,
 			@RequestParam Double distance) {
 		return ResponseEntity.ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance));
 	}

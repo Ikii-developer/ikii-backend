@@ -8,7 +8,7 @@ db.getCollection('CustomerAddress').aggregate([
             spherical:true,
             near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
             distanceField: 'distance',
-            maxDistance: 100,
+            maxDistance: 1000,
             distanceMultiplier: 6371
         }    
     },
@@ -22,13 +22,18 @@ db.getCollection('CustomerAddress').aggregate([
     },
     {
         $project: {
-            "postalCode":0, "street":0, "colony":0, "city":0,
-            "interiorNumber":0, "description":0, "nickname":0,
-            "location":0, "distance":0, "isMain":0, "isCurrent":0,
-            "isValidate":0, "_class":0,
-            "business._id":0, "business.customerId":0, "business._class":0
+            "businessId":1,"customerId":1,"nickname":1,
+            "business": { $arrayElemAt: [ "$business", 0 ] }
         }
     },
+    {
+        $project: {
+            "businessId":1, "customerId":1, "nickname":1,
+            "business.name":1,"business.image":1,"business.categoryId":1,
+            "business.description":1,"business.deliveryTime":1,
+            "business.closeTime":1,"business.isOpen":1
+        }
+    }
 ])
 
 /* INSUMOS DE EJEMPLO */
