@@ -83,24 +83,11 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	@Override
 	public List<CustomerAdress> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 		
-		/** OPTION 1: with Aggregation, remove the comments to try */
 		List<CustomerAdress> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
-
-
-		/** OPTION 2: With Query geoNear, remove the comments to try */
-//		List<GeoResult<CustomerAdress>> customerAddressGR = customerAdressRepositoryCustom.nearByMe2(latitude, longitude, maxDistance);
 		
+		customeAddress.forEach(e->System.out.println(e.getDescription()));
 		
-		/** OPTION 3: with SpringData, remove the comments to try: */
-//		Point location = new Point(latitude, longitude);
-//		Distance distance = new Distance(1, Metrics.KILOMETERS);
-//		
-//		GeoResults<CustomerAdress> customerAddress = 
-//				customerAdressRepository.findByLocationNear(location, distance);
-//		
-//		customerAddress.forEach(e->System.out.println(e.getContent().getDescription()));
-		
-		return null; 
+		return customeAddress; 
 	}
 
 }

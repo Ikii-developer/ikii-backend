@@ -43,7 +43,7 @@ public class CustomerAdressResponse implements Serializable{
 	
 	private String nickname;
 	
-	private Location location;
+//	private Location location;
 	
 	private Boolean isCurrent;
 	

@@ -60,8 +60,8 @@ public class CustomerAdressRequest implements Serializable{
 	@NotNull
 	private String nickname;
 	
-	@NotNull
-	private Location location;
+//	@NotNull
+//	private Location location;
 	
 	@NotNull
 	private Boolean isCurrent;

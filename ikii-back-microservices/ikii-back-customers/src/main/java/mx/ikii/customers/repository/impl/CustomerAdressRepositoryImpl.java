@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.stereotype.Repository;
@@ -33,13 +34,26 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		List<AggregationOperation> list = new ArrayList<AggregationOperation>();
 		
 		Point p = new Point(longitude, latitude);
-		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS).maxDistance(maxDistance);
+		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
+				//.minDistance(new Distance(1, Metrics.KILOMETERS))
+				.spherical(true)
+				.maxDistance(new Distance(maxDistance, Metrics.KILOMETERS));
+//				.distanceMultiplier(6371)
+//				.inKilometers();
+		GeoNearOperation geoNear = Aggregation.geoNear(nearQuery, "distance");
 		
-		list.add(Aggregation.geoNear(nearQuery, "distance"));
-		list.add(Aggregation.project("id", "location"));
 		
-		TypedAggregation<CustomerAdress> agg = Aggregation.newAggregation(CustomerAdress.class, list);
-		result = mongoOperations.aggregate(agg, CustomerAdress.class).getMappedResults();
+		TypedAggregation<CustomerAdress> typedAggregation = TypedAggregation.newAggregation(CustomerAdress.class, geoNear);
+		
+//		LookupOperation lookup = LookupOperation.newLookup().from("Business").localField("businessId")
+//				.foreignField("_id").as("business");
+//		AggregationResults<Person> result = mongoTemplate.aggregate(
+//				Aggregation.newAggregation(lookup,
+//						Aggregation.match(Criteria.where("cars.color").is(Color.RED.toString()))),
+//				"people", Person.class);
+//		Aggregation agg = Aggregation.newAggregation(geoNear);
+		
+		result = mongoTemplate.aggregate(typedAggregation, CustomerAdress.class).getMappedResults();
 		return result;
 
 	}
@@ -53,7 +67,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		grCa.forEach(e -> {
 			System.out.println(e.getContent().getDescription());
 		});
-
 		return grCa;
 	}
 

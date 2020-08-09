@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Location {
 
-	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
-	private double[] locationCoord;
+	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+	private double[] coordinates;
 
 }

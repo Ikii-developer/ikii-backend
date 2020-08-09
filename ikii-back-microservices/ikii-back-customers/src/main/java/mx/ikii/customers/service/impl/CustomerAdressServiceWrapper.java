@@ -64,7 +64,7 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 
 	@Override
 	public List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Integer maxDistance) {
-		maxDistance = (Nullable.isNull(maxDistance) ? 1000 : maxDistance);
+		maxDistance = (Nullable.isNull(maxDistance) ? 1000 : maxDistance); // 1000 == 1 KM
 		
 		List<CustomerAdress> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
 				Double.valueOf(maxDistance));
