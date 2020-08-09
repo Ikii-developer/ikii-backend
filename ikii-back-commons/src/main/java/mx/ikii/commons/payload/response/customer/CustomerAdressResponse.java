@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
-import mx.ikii.commons.payload.dto.Location;
 import mx.ikii.commons.utils.constants.EnumCity;
 
 /**

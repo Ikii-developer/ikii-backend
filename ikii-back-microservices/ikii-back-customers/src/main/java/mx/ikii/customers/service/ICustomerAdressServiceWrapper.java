@@ -25,6 +25,6 @@ public interface ICustomerAdressServiceWrapper {
 	
 	void delete(String customerAddressId);
 	
-	List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Integer distance);
+	List<CustomerAdressResponse> nearByMe(Double latitude, Double longitude, Double distance);
 	
 }
