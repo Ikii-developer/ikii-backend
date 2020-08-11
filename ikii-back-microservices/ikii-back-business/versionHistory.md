@@ -1,5 +1,10 @@
 ## ikii-back-business
 
+## 1.4.0
+* Adding BusinesRate
+* Adding Rate
+* Adding Repository, Service, Wrapper and Controller 
+
 ## 1.3.0
 * Adds overviewTitle, sectionTitle to BusinessCategory Model
 
