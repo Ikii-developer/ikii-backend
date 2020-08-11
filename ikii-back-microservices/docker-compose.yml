@@ -92,7 +92,7 @@ services:
 
   ikii-back-business:
     container_name: ikii-back-business
-    image : ikii/business:1.2.1
+    image : ikii/business:1.3.0
     environment:
       - CLOUD_CONFIG_URI=http://ikii-back-config:8888
       - PROFILE=prod
