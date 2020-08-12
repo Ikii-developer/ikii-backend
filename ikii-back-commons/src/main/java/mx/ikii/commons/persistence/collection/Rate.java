@@ -10,13 +10,9 @@ import lombok.Data;
 public class Rate {
 	
 	private String id;
-
 	private ObjectId customerId;
-	
 	private String comment;
-	
 	private LocalDateTime createdAt;
-	
 	private Double starsRate;
 
 }

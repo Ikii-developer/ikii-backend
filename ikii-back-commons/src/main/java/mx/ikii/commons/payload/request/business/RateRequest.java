@@ -9,15 +9,10 @@ import lombok.Data;
 public class RateRequest implements Serializable{
 
 	private static final long serialVersionUID = -2394394312728339451L;
-
 	private String id;
-
 	private String customerId;
-	
-	private String comment;
-	
+	private String comment;	
 	private LocalDateTime createdAt;
-	
 	private Double starsRate;
 	
 }

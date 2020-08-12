@@ -14,15 +14,11 @@ public class BusinessRate {
 	
 	@Id	
 	private String id;
-	
 	private String businessId;
-	
 	private LocalDateTime updatedAt;
-	
 	private Double average;
-	
 	private List<Rate> rates;
-
+	
 }
 
 
