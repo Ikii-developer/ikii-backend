@@ -1,8 +1,13 @@
 ## ikii-back-business
 
-## 1.4.0
+## 1.5.0
 * Adds updateProperties helper method in order to update specific properties
 * Adds customerId RequestParam to getAll business in order to retrieve whether it is favorite or not
+
+## 1.4.0
+* Adding BusinesRate
+* Adding Rate
+* Adding Repository, Service, Wrapper and Controller 
 
 ## 1.3.0
 * Adds overviewTitle, sectionTitle to BusinessCategory Model
