@@ -13,7 +13,7 @@ public interface IBusinessServiceWrapper {
 
 	BusinessResponse getByBusinesName(String businessName);
 
-	Page<BusinessResponse> findAll(Pageable pageable);
+	Page<BusinessResponse> findAll(Pageable pageable, String customerid);
 
 	BusinessResponse create(BusinessRequest businessRequest);
 

@@ -14,7 +14,7 @@ public interface ICustomerDetailsService {
 
 	List<CustomerDetails> getAll(Pageable pageable);
 
-	CustomerDetails create(CustomerDetails customerDetails);
+	CustomerDetails save(CustomerDetails customerDetails);
 
 	CustomerDetails update(CustomerDetails customerDetails, String id);
 

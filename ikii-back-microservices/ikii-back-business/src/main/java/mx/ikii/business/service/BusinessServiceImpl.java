@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import mx.ikii.business.repository.IBusinessRepository;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Business;
+import mx.ikii.helper.Helper;
 
 @Service
 public class BusinessServiceImpl implements IBusinessService {
@@ -40,11 +41,12 @@ public class BusinessServiceImpl implements IBusinessService {
 
 	@Override
 	public Business update(Business business, String id) {
-		businessRepository.findById(id)
+		Business businessEntity = businessRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, Business.class));
 		business.setId(id);
-		businessRepository.save(business);
-		return business;
+		Helper.setUpdateProperties(businessEntity, business);
+		businessRepository.save(businessEntity);
+		return businessEntity;
 	}
 
 	@Override

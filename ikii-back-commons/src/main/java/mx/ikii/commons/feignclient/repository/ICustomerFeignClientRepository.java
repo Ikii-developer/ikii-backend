@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAuthResponse;
+import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
 import mx.ikii.commons.payload.response.customer.CustomerResponse;
 
 /**
@@ -44,4 +45,7 @@ public interface ICustomerFeignClientRepository {
 
 	@PostMapping("customers/")
 	ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest);
+
+	@GetMapping("customers/customer-details/customers/{customerId}")
+	ResponseEntity<CustomerDetailsResponse> getCustomerDetailsByCustomerId(@PathVariable("customerId") String customerId);
 }

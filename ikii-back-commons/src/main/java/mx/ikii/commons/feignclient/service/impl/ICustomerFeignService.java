@@ -2,6 +2,7 @@ package mx.ikii.commons.feignclient.service.impl;
 
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
 
 /**
  * This interface is used as a low layered component in feingclient process,
@@ -51,5 +52,12 @@ public interface ICustomerFeignService {
 	 * @return the user updated
 	 */
 	Customer update(CustomerRequest userRequest, String id);
+
+	/**
+	 * 
+	 * @param id userId
+	 * @return the user fetched
+	 */
+	CustomerDetails getCustomerDetailsByCustomerId(String customerId);
 
 }
