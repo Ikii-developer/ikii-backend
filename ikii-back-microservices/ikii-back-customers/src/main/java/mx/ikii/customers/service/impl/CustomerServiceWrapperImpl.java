@@ -1,8 +1,10 @@
 package mx.ikii.customers.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +16,14 @@ import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAuthResponse;
 import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.Customer;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.repository.ICustomerPrivilegeRepository;
 import mx.ikii.customers.repository.ICustomerRoleRepository;
+import mx.ikii.customers.service.ICustomerDetailsService;
 import mx.ikii.customers.service.ICustomerService;
 import mx.ikii.customers.service.ICustomerServiceWrapper;
 
@@ -40,6 +44,9 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 
 	@Autowired
 	private ICustomerService customerService;
+
+	@Autowired
+	private ICustomerDetailsService customerDetailsService;
 
 	@Autowired
 	private ICustomerPrivilegeRepository customerPrivilegeRepository;
@@ -73,13 +80,20 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	public CustomerResponse signUp(CustomerRequest customerRequest) {
 		Customer customer = customerMapper.requestToEntity(customerRequest);
 		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-		return customerMapper.entityToResponse(customerService.signUp(customer));
+		customer = customerService.signUp(customer);
+		CustomerDetails customerDetails= CustomerDetails.builder()
+				.businessFavorites(Collections.emptyList())
+				.customerId(new ObjectId(customer.getId()))
+				.isValidAccount(true)
+				.build();
+		customerDetailsService.save(customerDetails);
+		return customerMapper.entityToResponse(customer);
 	}
 
 	@Override
 	public CustomerResponse update(CustomerRequest customerRequest, String id) {
 		Customer customerEntity = customerMapper.requestToEntity(customerRequest);
-		if(Nullable.isNotNull(customerRequest.getPassword())) {
+		if (Nullable.isNotNull(customerRequest.getPassword())) {
 			customerEntity.setPassword(bCryptPasswordEncoder.encode(customerRequest.getPassword()));
 		}
 		return customerMapper.entityToResponse(customerService.update(customerEntity, id));

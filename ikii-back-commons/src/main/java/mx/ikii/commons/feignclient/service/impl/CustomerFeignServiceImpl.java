@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.feignclient.repository.ICustomerFeignClientRepository;
+import mx.ikii.commons.mapper.customer.ICustomerDetailsMapper;
 import mx.ikii.commons.mapper.customer.ICustomerMapper;
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.utils.ResponseEntityHelper;
 
 /**
@@ -20,6 +22,9 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
 
 	@Autowired
 	private ICustomerMapper customerMapper;
+
+	@Autowired
+	private ICustomerDetailsMapper customerDetailsMapper;
 
 	@Override
 	public Customer getById(String id) {
@@ -49,5 +54,11 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
 	public Customer getByEmailForAuth(String email) {
 		return customerMapper.authResponseToentity(
 				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmailForAuth(email)));
+	}
+
+	@Override
+	public CustomerDetails getCustomerDetailsByCustomerId(String customerId) {
+		return customerDetailsMapper.responseToEntity(ResponseEntityHelper
+				.processingHttpStatus(customerFeignClientRepository.getCustomerDetailsByCustomerId(customerId)));
 	}
 }

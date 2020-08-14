@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.customer.CustomerDetailsRequest;
 import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
@@ -14,18 +15,18 @@ import mx.ikii.customers.controller.ICustomerDetailsController;
 import mx.ikii.customers.service.ICustomerDetailsServiceWrapper;
 
 @Component
-public class CustomerDetailsControllerImpl implements ICustomerDetailsController{
+public class CustomerDetailsControllerImpl implements ICustomerDetailsController {
 
 	@Autowired
 	private ICustomerDetailsServiceWrapper customerDetailsServiceWrapper;
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> getById(String id) {
+	public ResponseEntity<CustomerDetailsResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(customerDetailsServiceWrapper.getById(id));
 	}
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> getByCustomerId(String customerId) {
+	public ResponseEntity<CustomerDetailsResponse> getByCustomerId(@PathVariable String customerId) {
 		return ResponseEntity.ok(customerDetailsServiceWrapper.getByCustomerId(customerId));
 	}
 
@@ -35,13 +36,14 @@ public class CustomerDetailsControllerImpl implements ICustomerDetailsController
 	}
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> create(CustomerDetailsRequest customerDetailsRequest) {
+	public ResponseEntity<CustomerDetailsResponse> create(@RequestBody CustomerDetailsRequest customerDetailsRequest) {
 		return ResponseEntity.ok(customerDetailsServiceWrapper.create(customerDetailsRequest));
 	}
 
 	@Override
-	public ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetailsRequest, String id) {
-		return ResponseEntity.ok(customerDetailsServiceWrapper.update(customerDetailsRequest,id));
+	public ResponseEntity<CustomerDetailsResponse> update(@RequestBody CustomerDetailsRequest customerDetailsRequest,
+			@PathVariable String id) {
+		return ResponseEntity.ok(customerDetailsServiceWrapper.update(customerDetailsRequest, id));
 	}
 
 	@Override
@@ -49,6 +51,12 @@ public class CustomerDetailsControllerImpl implements ICustomerDetailsController
 		customerDetailsServiceWrapper.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
-	
+
+	@Override
+	public ResponseEntity<Void> toggleBusinessFavorite(@PathVariable String customerId,
+			@PathVariable String businessId) {
+		customerDetailsServiceWrapper.toggleFavorite(customerId, businessId);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
 
 }

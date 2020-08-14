@@ -1,5 +1,12 @@
 ## ikii-back-customers
 
+## 2.1.0
+* Adds annotation to CustomerDetailsController related to rest calls (@PathVariable, @RequestBody)
+* Adds method to toggle business in favorites
+* Adds Helper to CustomerDetails
+* Adds method to feing client method to retrieve CustomerDetails by customerId
+* Creates CustomerDetails each time a Customer is created
+
 ## 2.0.5
 * add customerId in customerAddress model and customerDetail model
 * renaming of misnamed attributes

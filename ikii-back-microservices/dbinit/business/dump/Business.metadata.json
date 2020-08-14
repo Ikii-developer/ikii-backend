@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"ikiidb.Business"}],"uuid":"2d28273ff19e43c8b903fb525c43d69a"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"ikiidb.Business"}],"uuid":"b54af738e5ab47198de6b0e554f80f7b"}

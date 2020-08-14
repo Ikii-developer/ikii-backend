@@ -19,9 +19,7 @@ public class Helper {
 	 * @param newEntity new entity
 	 */
 	public static void setUpdateProperties(Customer entity, Customer newEntity) {
-
 		if (Nullable.isNotNull(newEntity)) {
-
 			if (Nullable.isNotNull(newEntity.getRoles())) {
 				entity.setRoles(newEntity.getRoles());
 			}
@@ -47,7 +45,6 @@ public class Helper {
 				entity.setSecondLastName(newEntity.getSecondLastName());
 			}
 		}
-
 	}
 
 }

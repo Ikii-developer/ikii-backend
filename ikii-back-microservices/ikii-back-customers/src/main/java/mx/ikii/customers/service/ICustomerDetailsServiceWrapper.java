@@ -18,6 +18,8 @@ public interface ICustomerDetailsServiceWrapper {
 	
 	CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id);
 	
+	void toggleFavorite(String customerId, String favorite);
+	
 	void delete(String id);
 	
 }

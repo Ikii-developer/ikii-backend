@@ -3,6 +3,7 @@ package mx.ikii.business.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import mx.ikii.commons.payload.request.business.BusinessRequest;
 import mx.ikii.commons.payload.response.business.BusinessResponse;
 import mx.ikii.commons.persistence.collection.Business;
 import mx.ikii.commons.persistence.collection.Customer;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 
 @Service
@@ -46,9 +49,25 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 	}
 
 	@Override
-	public Page<BusinessResponse> findAll(Pageable pageable) {
+	public Page<BusinessResponse> findAll(Pageable pageable, String customerId) {
 		Page<Business> businessPage = businessService.findAll(pageable);
 		List<BusinessResponse> businessList = businessMapper.entityToResponse(businessPage.getContent());
+		if (Nullable.isNotNull(customerId)) {
+			try {
+				CustomerDetails customerDetails = customerFeignService.getCustomerDetailsByCustomerId(customerId);
+				List<ObjectId> businessFavorites = customerDetails.getBusinessFavorites();
+				if (!Nullable.isNullOrEmpty(businessFavorites)) {
+					businessList = businessList.stream().map(businessMap -> {
+						if (businessFavorites.contains(new ObjectId(businessMap.getId()))) {
+							businessMap.setFavorite(true);
+						}
+						return businessMap;
+					}).collect(Collectors.toList());
+				}
+			} catch (Exception e) {
+				log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId, e.getMessage());
+			}
+		}
 		return PageHelper.createPage(businessList, pageable, businessPage.getTotalElements());
 	}
 
