@@ -25,6 +25,10 @@ public class BusinessNearByMe {
 	
 	private Boolean businessIsOpen;
 
+	private Double distance;
+	
+	private Double average;
+
 	public String getBusinessId() {
 		return businessId.toHexString();
 	}

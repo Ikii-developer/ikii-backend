@@ -23,22 +23,36 @@ public class CustomerAdress implements Serializable{
 
 	@Id
 	private String id;
+	
 	private ObjectId customerId;
+	
 	private ObjectId businessId;
+	
 	private Boolean isMain;
+	
 	private String postalCode;
+	
 	private String street;
+	
 	private String colony;
+	
 	private EnumCity city;
+	
 	private Integer interiorNumber;
+	
 	private Integer exteriorNumber;
+	
 	private String description;
+	
 	private Boolean isValidate;
+	
 	private String nickname;
 	
 	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
 	private GeoJsonPoint location;
 	
 	private Double distance;
+	
 	private Boolean isCurrent;
+	
 }

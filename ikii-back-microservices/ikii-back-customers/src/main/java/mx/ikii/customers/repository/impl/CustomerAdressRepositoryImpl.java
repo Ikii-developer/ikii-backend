@@ -50,24 +50,30 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.localField("businessId")
 				.foreignField("_id").as("business");
 		
+		LookupOperation lookupBusinessRate = LookupOperation.newLookup().from("BusinessRate")
+				.localField("businessId")
+				.foreignField("businessId").as("rate");
+		
 		ProjectionOperation projectionOperationRenameFields1 = 
-				Aggregation.project("businessId", "customerId","location", "description")
-				.and(ArrayOperators.ArrayElemAt.arrayOf("business").elementAt(0)).as("business");
+				Aggregation.project("businessId", "customerId","location", "description", "distance")
+				.and(ArrayOperators.ArrayElemAt.arrayOf("business").elementAt(0)).as("business")
+				.and(ArrayOperators.ArrayElemAt.arrayOf("rate").elementAt(0)).as("rate");
 		
 		ProjectionOperation projectionOperationRenameFields2 = 
-				Aggregation.project("businessId", "customerId","location")
+				Aggregation.project("businessId", "customerId","location", "distance")
 				.andExpression("business.name").as("businessName")
 				.andExpression("business.image").as("businessImage")
 				.andExpression("business.categoryId").as("businessCategoryId")
-//				.andExpression("business.description").as("businessDescription")
-				.andExpression("description").as("businessDescription")
+				.andExpression("business.description").as("businessDescription")
+				//.andExpression("description").as("businessDescription")
 				.andExpression("business.deliveryTime").as("businessDeliveryTime")
 				.andExpression("business.closeTime").as("businessCloseTime")
-				.andExpression("business.isOpen").as("businessIsOpen");
+				.andExpression("business.isOpen").as("businessIsOpen")
+				.andExpression("rate.average").as("average");
 		
 		TypedAggregation<CustomerAdress> aggregation = 
 				TypedAggregation.newAggregation(CustomerAdress.class, geoNear, 
-						lookupBusinessCustomer, 
+						lookupBusinessCustomer, lookupBusinessRate,
 						projectionOperationRenameFields1, projectionOperationRenameFields2);
 		
 		AggregationResults<BusinessNearByMe> result = 

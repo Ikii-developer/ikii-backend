@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.1.1
+* add Method to find bussines Near By Me
+
 ## 2.1.0
 * Adds annotation to CustomerDetailsController related to rest calls (@PathVariable, @RequestBody)
 * Adds method to toggle business in favorites

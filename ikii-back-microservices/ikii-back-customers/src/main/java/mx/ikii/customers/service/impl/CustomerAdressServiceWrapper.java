@@ -1,5 +1,6 @@
 package mx.ikii.customers.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
@@ -66,7 +68,6 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	@Override
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 		maxDistance = (Nullable.isNull(maxDistance) ? 1.0 : maxDistance); // 1.0 == 1 KM
-		System.out.println("maxDistance: "+maxDistance);
 		
 		List<BusinessNearByMe> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
 				Double.valueOf(maxDistance));
@@ -76,7 +77,10 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 			customerAdresses = customerAdressService.nearByMe(latitude, longitude, maxDistance);
 		}
 		
-		customerAdresses.forEach(e->System.out.println(e.getBusinessDescription()));
+		if(Nullable.isNullOrEmpty(customerAdresses)) throw new ResourceNotFoundException("Business Not Found");
+		
+		DecimalFormat df = new DecimalFormat("#"); // #.##
+		customerAdresses.forEach(e-> e.setDistance( Double.parseDouble(df.format(e.getDistance()*1000)) ));
 		
 		return customerAdresses;
 	}

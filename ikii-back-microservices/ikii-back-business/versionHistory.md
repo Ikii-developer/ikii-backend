@@ -1,5 +1,8 @@
 ## ikii-back-business
 
+## 1.5.1
+* Change attribute "String businessId" to "ObjectId businessId" in BusinessRate
+
 ## 1.5.0
 * Adds updateProperties helper method in order to update specific properties
 * Adds customerId RequestParam to getAll business in order to retrieve whether it is favorite or not
