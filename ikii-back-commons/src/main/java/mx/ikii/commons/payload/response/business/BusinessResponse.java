@@ -17,6 +17,7 @@ public class BusinessResponse {
 	private String closeTime;
 	private Boolean isOpen;
 	private String status;
+	private boolean isFavorite;
 	private String postalCode;
 
 }

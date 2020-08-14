@@ -20,7 +20,7 @@ public interface ICustomerDetailsController {
 	@GetMapping("/{id}")
 	ResponseEntity<CustomerDetailsResponse> getById(String id);
 	
-	@GetMapping("/customer/{id}")
+	@GetMapping("/customers/{customerId}")
 	ResponseEntity<CustomerDetailsResponse> getByCustomerId(String customerId);
 	
 	@GetMapping
@@ -31,6 +31,9 @@ public interface ICustomerDetailsController {
 	
 	@PutMapping("/{id}")
 	ResponseEntity<CustomerDetailsResponse> update(CustomerDetailsRequest customerDetailsRequest, String id);
+	
+	@PutMapping("/customers/{customerId}/business-favorites/{businessId}")
+	ResponseEntity<Void> toggleBusinessFavorite(String customerId, String businessId);
 	
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);

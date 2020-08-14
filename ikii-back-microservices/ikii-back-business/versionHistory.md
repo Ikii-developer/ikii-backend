@@ -1,5 +1,9 @@
 ## ikii-back-business
 
+## 1.5.0
+* Adds updateProperties helper method in order to update specific properties
+* Adds customerId RequestParam to getAll business in order to retrieve whether it is favorite or not
+
 ## 1.4.0
 * Adding BusinesRate
 * Adding Rate

@@ -20,7 +20,7 @@ import mx.ikii.commons.payload.response.business.BusinessResponse;
 public interface IBusinessController {
 
 	@GetMapping
-	ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable);
+	ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable, String customerId);
 
 	@GetMapping("{id}")
 	ResponseEntity<BusinessResponse> getById(String id);
@@ -30,7 +30,7 @@ public interface IBusinessController {
 
 	@PostMapping
 	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
-	
+
 	@PostMapping("/batch")
 	ResponseEntity<List<BusinessResponse>> create(List<BusinessRequest> userRequest);
 
@@ -39,5 +39,5 @@ public interface IBusinessController {
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);
-	
+
 }

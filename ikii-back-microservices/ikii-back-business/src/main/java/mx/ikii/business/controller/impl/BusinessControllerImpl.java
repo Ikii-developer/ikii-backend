@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mx.ikii.business.controller.IBusinessController;
 import mx.ikii.business.service.IBusinessServiceWrapper;
@@ -23,8 +24,9 @@ public class BusinessControllerImpl implements IBusinessController {
 	private IBusinessServiceWrapper businessServiceWrapper;
 
 	@Override
-	public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable) {
-		return ResponseEntity.ok(businessServiceWrapper.findAll(pageable));
+	public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable,
+			@RequestParam(required = false) String customerId) {
+		return ResponseEntity.ok(businessServiceWrapper.findAll(pageable, customerId));
 	}
 
 	@Override
