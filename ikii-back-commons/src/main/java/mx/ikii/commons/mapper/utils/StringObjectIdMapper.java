@@ -1,5 +1,8 @@
 package mx.ikii.commons.mapper.utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 
@@ -12,7 +15,7 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public class StringObjectIdMapper {
-	
+
 	public ObjectId asObjectId(String id) {
 		return new ObjectId(id);
 	}
@@ -20,5 +23,9 @@ public class StringObjectIdMapper {
 	public String asString(ObjectId id) {
 		return id.toHexString();
 	}
-	
+
+	public List<String> asString(List<ObjectId> ids) {
+		return ids.stream().map(id -> id.toHexString()).collect(Collectors.toList());
+	}
+
 }

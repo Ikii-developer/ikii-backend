@@ -1,5 +1,9 @@
 ## ikii-back-business
 
+## 1.6.0
+* Removes security from business microservice in order to allow request between microservices
+* Adds mapper methor to map between List<ObjectId> to List<String>
+
 ## 1.5.0
 * Adds updateProperties helper method in order to update specific properties
 * Adds customerId RequestParam to getAll business in order to retrieve whether it is favorite or not
