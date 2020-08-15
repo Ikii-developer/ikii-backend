@@ -1,7 +1,7 @@
 ## ikii-back-customers
 
 ## 2.2.0
-* add Method to find bussines Near By Me
+* add request to find bussines "NearByMe" and optional filter by keyword 
 
 ## 2.1.1
 * Adds businessFavorites to Response
