@@ -25,6 +25,6 @@ public interface ICustomerAdressService {
 	
 	List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance);
 	
-	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance);
+	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords);
 	
 }

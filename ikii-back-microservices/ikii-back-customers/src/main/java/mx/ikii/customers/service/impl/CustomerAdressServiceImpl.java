@@ -82,9 +82,9 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	}
 	
 	@Override
-	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
 		
-		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
+		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance, keywords);
 		
 		return customeAddress; 
 	}

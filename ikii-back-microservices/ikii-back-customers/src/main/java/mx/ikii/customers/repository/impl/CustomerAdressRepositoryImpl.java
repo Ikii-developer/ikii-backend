@@ -25,6 +25,7 @@ import org.springframework.stereotype.Repository;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
+import mx.ikii.commons.utils.Nullable;
 
 @Repository
 public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCustom {
@@ -35,7 +36,7 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	@Autowired
 	private MongoOperations mongoOperations;
 
-	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
 
 		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
 		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
@@ -53,6 +54,10 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		LookupOperation lookupBusinessRate = LookupOperation.newLookup().from("BusinessRate")
 				.localField("businessId")
 				.foreignField("businessId").as("rate");
+		
+		if(Nullable.isNotNull(keywords)) {
+			
+		}
 		
 		ProjectionOperation projectionOperationRenameFields1 = 
 				Aggregation.project("businessId", "customerId","location", "description", "distance")
@@ -86,38 +91,48 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	/**
 	 * QUERY MONGO
 		db.getCollection('CustomerAddress').aggregate([
-		    {
-		        $geoNear: {
-		            spherical:true,
-		            near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
-		            distanceField: 'distance',
-		            maxDistance: 1000,
-		            distanceMultiplier: 6371
-		        }    
-		    },
-		    {
-		        $lookup: {
-		            from: 'Business', 
-		            foreignField: '_id', 
-		            localField: 'businessId', 
-		            as: 'business'
-		        }
-		    },
-		    {
-		        $project: {
-		            "businessId":1,"customerId":1,"nickname":1,
-		            "business": { $arrayElemAt: [ "$business", 0 ] }
-		        }
-		    },
-		    {
-		        $project: {
-		            "businessId":1, "customerId":1, "nickname":1,
-		            "business.name":1,"business.image":1,"business.categoryId":1,
-		            "business.description":1,"business.deliveryTime":1,
-		            "business.closeTime":1,"business.isOpen":1
-		        }
-		    }
-		])
+	    {
+	        $geoNear: {
+	            spherical:true,
+	            near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
+	            distanceField: 'distance',
+	            maxDistance: 100,
+	            distanceMultiplier: 6371
+	        }    
+	    },
+	    {
+	        $lookup: {
+	            from: 'Business', 
+	            foreignField: '_id', 
+	            localField: 'businessId', 
+	            as: 'business'
+	        }
+	    },
+	    {
+	        $lookup: {
+	            from: 'BusinessRate', 
+	            foreignField: 'businessId', 
+	            localField: 'businessId', 
+	            as: 'rate'
+	        }
+	    },
+	    {
+	        $project: {
+	            "businessId":1,"customerId":1,"nickname":1,
+	            "business": { $arrayElemAt: [ "$business", 0 ] },
+	            "rate": { $arrayElemAt: [ "$rate", 0 ] }
+	        }
+	    },
+	    {
+	        $project: {
+	            "businessId":1, "customerId":1, "nickname":1,
+	            "business.name":1,"business.image":1,"business.categoryId":1,
+	            "business.description":1,"business.deliveryTime":1,
+	            "business.closeTime":1,"business.isOpen":1,
+	            "rate.average":1
+	        }
+	    }
+	])
 	 */
 
 	private List<GeoResult<CustomerAdress>> nearByMe2(Double latitude, Double longitude, Double maxDistance) {
