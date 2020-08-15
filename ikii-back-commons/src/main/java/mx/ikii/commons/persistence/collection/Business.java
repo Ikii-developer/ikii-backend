@@ -2,12 +2,13 @@ package mx.ikii.commons.persistence.collection;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
 @Data
-@Document(collection = "Business")
+@Document(collection = "Business", language = "es")
 public class Business {
 
 	@Id
@@ -16,6 +17,8 @@ public class Business {
 	private String name;
 	private String image;
 	private ObjectId categoryId;
+	
+	@TextIndexed
 	private String description;
 	private String deliveryTime;
 	private String closeTime;	

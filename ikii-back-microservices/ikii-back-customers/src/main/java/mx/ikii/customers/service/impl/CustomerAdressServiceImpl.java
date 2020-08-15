@@ -1,6 +1,9 @@
 package mx.ikii.customers.service.impl;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +19,7 @@ import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.customers.repository.ICustomerAdressRepository;
 import mx.ikii.customers.repository.impl.ICustomerAdressRepositoryCustom;
 import mx.ikii.customers.service.ICustomerAdressService;
@@ -84,7 +88,12 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 	@Override
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
 		
-		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance, keywords);
+		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
+		
+		if(Nullable.isNotNull(keywords)) {
+			Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
+			customeAddress = customeAddress.stream().filter(ca -> pattern.matcher(ca.getBusinessDescription()).find() ).collect(Collectors.toList());
+		}
 		
 		return customeAddress; 
 	}
