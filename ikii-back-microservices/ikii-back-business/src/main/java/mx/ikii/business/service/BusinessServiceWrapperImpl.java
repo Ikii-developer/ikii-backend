@@ -50,6 +50,7 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 
 	@Override
 	public Page<BusinessResponse> findAll(Pageable pageable, String customerId) {
+		log.info("Find all business with customerId {}", customerId);
 		Page<Business> businessPage = businessService.findAll(pageable);
 		List<BusinessResponse> businessList = businessMapper.entityToResponse(businessPage.getContent());
 		if (Nullable.isNotNull(customerId)) {
