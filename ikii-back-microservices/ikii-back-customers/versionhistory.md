@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.1.2
+* Removes Serializable interface from request and adds the missing attributes to the DTO
+
 ## 2.1.1
 * Adds businessFavorites to Response
 * Adds id to CustomerDetails model
