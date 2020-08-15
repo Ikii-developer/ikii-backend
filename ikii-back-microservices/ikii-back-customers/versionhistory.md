@@ -1,7 +1,11 @@
 ## ikii-back-customers
 
-## 2.2.0
+
+## 2.1.3
 * add request to find bussines "NearByMe" and optional filter by keyword 
+
+## 2.1.2
+* Removes Serializable interface from request and adds the missing attributes to the DTO
 
 ## 2.1.1
 * Adds businessFavorites to Response
