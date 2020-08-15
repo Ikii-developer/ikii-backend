@@ -1,5 +1,6 @@
 package mx.ikii.customers.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.service.ICustomerAdressService;
 import mx.ikii.customers.service.ICustomerAdressServiceWrapper;
@@ -20,17 +24,18 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 
 	@Autowired
 	private ICustomerAdressService customerAdressService;
-	
+
 	@Autowired
 	private ICustomerAdressMapper customerAdressMapper;
 
 	@Override
 	public Page<CustomerAdressResponse> getAll(Pageable pageable) {
 		Page<CustomerAdress> customerAddress = customerAdressService.getAll(pageable);
-		List<CustomerAdressResponse> usersResponse = customerAdressMapper.entityToResponse(customerAddress.getContent());
+		List<CustomerAdressResponse> usersResponse = customerAdressMapper
+				.entityToResponse(customerAddress.getContent());
 		return PageHelper.createPage(usersResponse, pageable, customerAddress.getTotalElements());
 	}
-	
+
 	@Override
 	public CustomerAdressResponse getById(String customerAddressId) {
 		return customerAdressMapper.entityToResponse(customerAdressService.getById(customerAddressId));
@@ -52,12 +57,32 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 	@Override
 	public CustomerAdressResponse update(CustomerAdressRequest customerAdressRequest, String id) {
 		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
-		return customerAdressMapper.entityToResponse(customerAdressService.updateCustomerAddress(customerAdress,id));
+		return customerAdressMapper.entityToResponse(customerAdressService.updateCustomerAddress(customerAdress, id));
 	}
 
 	@Override
 	public void delete(String customerAddressId) {
 		customerAdressService.deleteCustomerAddress(customerAddressId);
+	}
+
+	@Override
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
+		maxDistance = (Nullable.isNull(maxDistance) ? 1.0 : maxDistance); // 1.0 == 1 KM
+		
+		List<BusinessNearByMe> customerAdresses = customerAdressService.nearByMe(latitude, longitude,
+				maxDistance, keywords);
+		
+		if (Nullable.isNullOrEmpty(customerAdresses)) {
+			maxDistance = 7.0;
+			customerAdresses = customerAdressService.nearByMe(latitude, longitude, maxDistance, keywords);
+		}
+		
+		if(Nullable.isNullOrEmpty(customerAdresses)) throw new ResourceNotFoundException("Business Not Found");
+		
+		DecimalFormat df = new DecimalFormat("#"); // #.##
+		customerAdresses.forEach(e-> e.setDistance( Double.parseDouble(df.format(e.getDistance()*1000)) ));
+		
+		return customerAdresses;
 	}
 
 }

@@ -1,5 +1,7 @@
 package mx.ikii.customers.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 @RestController
 @RequestMapping("/address")
@@ -34,5 +37,8 @@ public interface ICustomerAddressController {
 	
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
+	
+	@GetMapping("/near-by-me")
+	ResponseEntity<List<BusinessNearByMe>> nearByMe(Double latitude, Double longitude, Double distance, String keywords);
 	
 }

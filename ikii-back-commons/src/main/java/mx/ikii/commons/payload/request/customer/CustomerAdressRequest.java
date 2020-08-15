@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import mx.ikii.commons.payload.dto.LocationDTO;
 import mx.ikii.commons.utils.constants.EnumCity;
 
 /**
@@ -25,7 +26,7 @@ public class CustomerAdressRequest implements Serializable{
 	
 	@NotEmpty
 	private String customerId;
-	
+	private String businessId;
 	private Boolean isMain;
 	
 	@NotEmpty
@@ -49,21 +50,16 @@ public class CustomerAdressRequest implements Serializable{
 	@NumberFormat
 	@Min(1)
 	private Integer exteriorNumber;
-	
 	private String description;
-	
 	private Boolean isValidate;
 	
 	@NotNull
 	private String nickname;
 	
 	@NotNull
-	private String latitude;
-	
-	@NotNull
-	private String longitude;
+	private LocationDTO location;
 	
 	@NotNull
 	private Boolean isCurrent;
-	
+		
 }

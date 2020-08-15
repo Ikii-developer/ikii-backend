@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,6 +24,7 @@ public class CustomerAdress implements Serializable{
 	@Id
 	private String id;
 	private ObjectId customerId;
+	private ObjectId businessId;
 	private Boolean isMain;
 	private String postalCode;
 	private String street;
@@ -31,7 +35,10 @@ public class CustomerAdress implements Serializable{
 	private String description;
 	private Boolean isValidate;
 	private String nickname;
-	private String latitude;
-	private String longitude;
+	
+	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+	private GeoJsonPoint location;
+	private Double distance;
 	private Boolean isCurrent;
+	
 }

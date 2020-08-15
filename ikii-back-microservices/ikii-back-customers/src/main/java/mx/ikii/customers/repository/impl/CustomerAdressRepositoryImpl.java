@@ -1,0 +1,130 @@
+package mx.ikii.customers.repository.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.query.NearQuery;
+import org.springframework.stereotype.Repository;
+
+import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
+
+@Repository
+public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCustom {
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
+
+		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
+		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
+				.spherical(true)
+				.maxDistance(new Distance(maxDistance, Metrics.KILOMETERS))
+				.distanceMultiplier(6371)
+				.inKilometers();
+				
+		GeoNearOperation geoNear = Aggregation.geoNear(nearQuery, "distance");
+		
+		LookupOperation lookupBusinessCustomer = LookupOperation.newLookup().from("Business")
+				.localField("businessId")
+				.foreignField("_id").as("business");
+		
+		LookupOperation lookupBusinessRate = LookupOperation.newLookup().from("BusinessRate")
+				.localField("businessId")
+				.foreignField("businessId").as("rate");
+		
+		ProjectionOperation projectionOperationRenameFields1 = 
+				Aggregation.project("businessId", "customerId","location", "description", "distance")
+				.and(ArrayOperators.ArrayElemAt.arrayOf("business").elementAt(0)).as("business")
+				.and(ArrayOperators.ArrayElemAt.arrayOf("rate").elementAt(0)).as("rate");
+		
+		ProjectionOperation projectionOperationRenameFields2 = 
+				Aggregation.project("businessId", "customerId","location", "distance")
+				.andExpression("business.name").as("businessName")
+				.andExpression("business.image").as("businessImage")
+				.andExpression("business.categoryId").as("businessCategoryId")
+				.andExpression("business.description").as("businessDescription")
+				//.andExpression("description").as("businessDescription")
+				.andExpression("business.deliveryTime").as("businessDeliveryTime")
+				.andExpression("business.closeTime").as("businessCloseTime")
+				.andExpression("business.isOpen").as("businessIsOpen")
+				.andExpression("rate.average").as("average");
+		
+		TypedAggregation<CustomerAdress> aggregation = 
+				TypedAggregation.newAggregation(CustomerAdress.class, geoNear, 
+						lookupBusinessCustomer, lookupBusinessRate,
+						projectionOperationRenameFields1, projectionOperationRenameFields2);
+		
+		AggregationResults<BusinessNearByMe> result = 
+				mongoTemplate.aggregate(aggregation, BusinessNearByMe.class);
+		
+		return result.getMappedResults();
+		
+	}
+	
+	/**
+	 * QUERY MONGO
+		db.getCollection('CustomerAddress').aggregate([
+		    {
+		        $geoNear: {
+		            spherical:true,
+		            near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
+		            distanceField: 'distance',
+		            maxDistance: 100,
+		            distanceMultiplier: 6371
+		        }    
+		    },
+		    {
+		        $lookup: {
+		            from: 'Business', 
+		            foreignField: '_id', 
+		            localField: 'businessId', 
+		            as: 'business'
+		        }
+		    },
+		    {
+		        $lookup: {
+		            from: 'BusinessRate', 
+		            foreignField: 'businessId', 
+		            localField: 'businessId', 
+		            as: 'rate'
+		        }
+		    },
+		    {
+		        $project: {
+		            "businessId":1,"customerId":1,"nickname":1,
+		            "business": { $arrayElemAt: [ "$business", 0 ] },
+		            "rate": { $arrayElemAt: [ "$rate", 0 ] }
+		        }
+		    },
+		    {
+		        $project: {
+		            "businessId":1, "customerId":1, "nickname":1,
+		            "business.name":1,"business.image":1,"business.categoryId":1,
+		            "business.description":1,"business.deliveryTime":1,
+		            "business.closeTime":1,"business.isOpen":1,
+		            "rate.average":1
+		        }
+		    }
+		])
+	 */
+
+}

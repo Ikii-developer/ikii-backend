@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.geo.GeoResult;
 
 import mx.ikii.commons.persistence.collection.CustomerAdress;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 public interface ICustomerAdressService {
 
@@ -20,4 +22,9 @@ public interface ICustomerAdressService {
 	void deleteCustomerAddress(String customerAdressId);
 	
 	CustomerAdress updateCustomerAddress(CustomerAdress customerAdress, String id);
+	
+	List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance);
+	
+	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords);
+	
 }
