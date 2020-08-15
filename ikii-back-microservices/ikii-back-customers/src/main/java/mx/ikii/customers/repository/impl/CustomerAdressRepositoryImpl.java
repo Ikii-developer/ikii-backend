@@ -32,9 +32,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	@Autowired
-	private MongoOperations mongoOperations;
-
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
 
 		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
@@ -129,39 +126,5 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		    }
 		])
 	 */
-
-	private List<GeoResult<CustomerAdress>> nearByMe2(Double latitude, Double longitude, Double maxDistance) {
-		Point location = new Point(latitude, longitude);
-		NearQuery nearQuery = NearQuery.near(location).maxDistance(new Distance(maxDistance, Metrics.KILOMETERS));
-		GeoResults<CustomerAdress> ca = mongoTemplate.geoNear(nearQuery, CustomerAdress.class, "CustomerAdress");
-		List<GeoResult<CustomerAdress>> grCa = ca.getContent();
-
-		grCa.forEach(e -> {
-			System.out.println(e.getContent().getDescription());
-		});
-		return grCa;
-	}
-	
-	private List<CustomerAdress> nearByMe3(Double latitude, Double longitude, Double maxDistance) {
-		List<CustomerAdress> result = null;
-		List<AggregationOperation> list = new ArrayList<AggregationOperation>();
-		
-		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
-		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
-				//.minDistance(new Distance(1, Metrics.KILOMETERS))
-				.spherical(true)
-				.maxDistance(new Distance(maxDistance, Metrics.KILOMETERS))
-				.distanceMultiplier(6371)
-				.inKilometers();
-		
-		list.add(Aggregation.geoNear(nearQuery, "distance"));
-		
-		TypedAggregation<CustomerAdress> agg = Aggregation.newAggregation(CustomerAdress.class, list);
-		result = mongoTemplate.aggregate(agg, CustomerAdress.class).getMappedResults();
-
-		result.forEach(e->System.out.println(e.getDescription()));
-		
-		return result;
-	}
 
 }

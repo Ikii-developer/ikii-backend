@@ -8,25 +8,15 @@ import lombok.Data;
 public class BusinessNearByMe {
 	
 	private ObjectId businessId;
-	
 	private ObjectId customerId;
-	
 	private String businessName;
-	
 	private String businessImage;
-	
 	private ObjectId businessCategoryId;
-	
 	private String businessDescription;
-	
 	private String businessDeliveryTime;
-	
 	private String businessCloseTime;
-	
 	private Boolean businessIsOpen;
-
 	private Double distance;
-	
 	private Double average;
 
 	public String getBusinessId() {

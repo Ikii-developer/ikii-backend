@@ -26,9 +26,7 @@ public class CustomerAdressRequest implements Serializable{
 	
 	@NotEmpty
 	private String customerId;
-	
 	private String businessId;
-	
 	private Boolean isMain;
 	
 	@NotEmpty
@@ -52,9 +50,7 @@ public class CustomerAdressRequest implements Serializable{
 	@NumberFormat
 	@Min(1)
 	private Integer exteriorNumber;
-	
 	private String description;
-	
 	private Boolean isValidate;
 	
 	@NotNull

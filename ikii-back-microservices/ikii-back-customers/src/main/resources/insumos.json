@@ -1,6 +1,3 @@
-/* CREACION DE INDEX MANUAL */
-db.CustomerAddress.createIndex({location: '2dsphere'})
-
 /** QUERY */
 db.getCollection('CustomerAddress').aggregate([
     {
