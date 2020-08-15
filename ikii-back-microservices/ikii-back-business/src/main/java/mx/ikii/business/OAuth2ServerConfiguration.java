@@ -30,7 +30,7 @@ public class OAuth2ServerConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable().authorizeRequests().and().authorizeRequests().anyRequest().authenticated();
+			http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
 		}
 	}
 

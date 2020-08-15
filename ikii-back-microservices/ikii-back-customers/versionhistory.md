@@ -1,7 +1,11 @@
 ## ikii-back-customers
 
-## 2.1.1
+## 2.2.0
 * add Method to find bussines Near By Me
+
+## 2.1.1
+* Adds businessFavorites to Response
+* Adds id to CustomerDetails model
 
 ## 2.1.0
 * Adds annotation to CustomerDetailsController related to rest calls (@PathVariable, @RequestBody)

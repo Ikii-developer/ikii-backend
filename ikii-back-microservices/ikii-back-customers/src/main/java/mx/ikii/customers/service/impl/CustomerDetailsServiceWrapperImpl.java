@@ -65,6 +65,7 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 
 	@Override
 	public void toggleFavorite(String customerId, String businessId) {
+		log.info("Toggle favorite business with businessId {} and customerId {}", businessId, customerId);
 		CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
 		try {
 			businessFeignService.getById(businessId);
@@ -73,6 +74,8 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 			throw new ResourceNotFoundException(businessId, Business.class);
 		}
 		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getBusinessFavorites(), new ObjectId(businessId));
+		log.info("Favorites businessIds {} for customerId {}", customerDetailsEntity.getBusinessFavorites(),
+				customerId);
 		customerDetailsService.save(customerDetailsEntity);
 	}
 
