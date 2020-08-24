@@ -16,7 +16,7 @@ public class ProductResponse {
 
 	private String measureUnit;
 
-	private ObjectId bussinessId;
+	//private ObjectId bussinessId;
 
 	private String code;
 

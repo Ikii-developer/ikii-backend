@@ -1,5 +1,7 @@
 package mx.ikii.products.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.request.product.ProductRequest;
 import mx.ikii.commons.payload.response.product.ProductResponse;
 import mx.ikii.products.service.IProductServiceWrapper;
@@ -50,6 +53,11 @@ public class ProductControllerImpl implements IProductController {
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		productServiceWrapper.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@Override
+	public ResponseEntity<List<ProductResponse>> filterProduct(Pageable pageable, @RequestBody ProductFilter productFilter) {
+		return ResponseEntity.ok(productServiceWrapper.filterProduct(pageable, productFilter));
 	}
 
 }

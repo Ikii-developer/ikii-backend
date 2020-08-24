@@ -5,12 +5,13 @@ import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-@Document
 @Data
+@Document(collection = "Product", language = "es")
 public class Product {
 
 	@Id
@@ -25,7 +26,8 @@ public class Product {
 	private String code;
 
 	private String name;
-
+	
+	@TextIndexed
 	private String description;
 
 	private Map<String, String> fullDescription; // for Food
