@@ -24,10 +24,11 @@ public class Product {
 	private ObjectId bussinessId;
 
 	private String code;
-
+	
+	@TextIndexed(weight = 1)
 	private String name;
 	
-	@TextIndexed
+	@TextIndexed(weight = 2)
 	private String description;
 
 	private Map<String, String> fullDescription; // for Food

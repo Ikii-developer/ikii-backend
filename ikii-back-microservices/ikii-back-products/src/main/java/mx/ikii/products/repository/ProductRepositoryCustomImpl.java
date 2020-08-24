@@ -31,6 +31,18 @@ public class ProductRepositoryCustomImpl implements IProductRepositoryCustom {
 		return result;
 	}
 	
-	
+/**
+db.getCollection('Product').aggregate([
+    { $match: { 
+            $text: { 
+                $search: "cafe",
+                $language: "es",
+                $caseSensitive: true,
+                $diacriticSensitive:true
+            }
+        } 
+    }
+])	
+ */
 
 }
