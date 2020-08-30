@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
@@ -28,7 +29,7 @@ public class CustomerAddressControllerImpl implements ICustomerAddressController
 	public ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable) {
 		return ResponseEntity.ok(customerAddressServiceWrapper.getAll(pageable));
 	}
-	
+
 	@Override
 	public ResponseEntity<CustomerAdressResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(customerAddressServiceWrapper.getById(id));
@@ -37,7 +38,7 @@ public class CustomerAddressControllerImpl implements ICustomerAddressController
 	@Override
 	public ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(@PathVariable String customerId,
 			Pageable pageable) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.getByCustomerId(customerId,pageable));
+		return ResponseEntity.ok(customerAddressServiceWrapper.getByCustomerId(customerId, pageable));
 	}
 
 	@Override
@@ -58,9 +59,12 @@ public class CustomerAddressControllerImpl implements ICustomerAddressController
 	}
 
 	@Override
-	public ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam Double latitude,@RequestParam Double longitude,
-			@RequestParam Double distance, @RequestParam(required = false) String keywords) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance, keywords));
+	public ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam Double latitude,
+			@RequestParam Double longitude, @RequestParam Double distance,
+			@RequestParam(required = false) String customerId,
+			@RequestBody BusinessFilterRequest businessFilterRequest) {
+		return ResponseEntity.ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance, customerId,
+				businessFilterRequest));
 	}
 
 }
