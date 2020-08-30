@@ -52,7 +52,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		
 		ProjectionOperation projectionOperationRenameFields2 = 
 				Aggregation.project("businessId", "customerId","location", "distance")
-				.andExpression("businessId").as("id")
 				.andExpression("business.name").as("name")
 				.andExpression("business.image").as("image")
 				.andExpression("business.categoryId").as("categoryId")

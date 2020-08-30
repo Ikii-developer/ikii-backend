@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 import mx.ikii.commons.persistence.collection.Rate;
@@ -16,9 +17,13 @@ import mx.ikii.commons.utils.Nullable;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({ "id", "customerId", "name", "image", "categoryId", "description", "deliveryTime", "closeTieme",
+		"isOpen", "distance", "status", "average", "favorite" })
 public class BusinessNearByMe {
-	private ObjectId id;
 	private ObjectId customerId;
+
+	@JsonIgnore
+	private ObjectId businessId;
 	private String name;
 	private String image;
 	private ObjectId categoryId;
@@ -30,11 +35,13 @@ public class BusinessNearByMe {
 	private String status;
 	private Double average;
 	private boolean favorite;
+
 	@JsonIgnore
 	private List<Rate> rates;
 
+	@JsonProperty("id")
 	public String getId() {
-		return id.toHexString();
+		return this.getBusinessId();
 	}
 
 	public String getCustomerId() {
@@ -43,6 +50,10 @@ public class BusinessNearByMe {
 
 	public String getCategoryId() {
 		return categoryId.toHexString();
+	}
+
+	public String getBusinessId() {
+		return businessId.toHexString();
 	}
 
 	public Double getAverage() {
