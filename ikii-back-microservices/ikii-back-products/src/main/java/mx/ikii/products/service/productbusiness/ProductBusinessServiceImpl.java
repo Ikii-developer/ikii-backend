@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.payload.request.product.ProductFilter;
-import mx.ikii.commons.persistence.collection.ProductModel;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
+import mx.ikii.commons.persistence.collection.ProductModel;
 import mx.ikii.products.repository.productbusiness.IProductBusinessRepository;
 import mx.ikii.products.repository.productbusiness.IProductBusinessRepositoryCustom;
 
@@ -53,8 +53,7 @@ public class ProductBusinessServiceImpl implements IProductBusinessService {
 		ProductBusiness product = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, ProductBusiness.class));
 		productToUpdate.setId(id);
-		productRepository.save(productToUpdate);
-		return product;
+		return productRepository.save(productToUpdate);
 	}
 
 	@Override
