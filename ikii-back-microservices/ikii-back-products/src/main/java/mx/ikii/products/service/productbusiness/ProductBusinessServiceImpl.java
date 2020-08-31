@@ -53,7 +53,8 @@ public class ProductBusinessServiceImpl implements IProductBusinessService {
 		ProductBusiness product = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, ProductBusiness.class));
 		productToUpdate.setId(id);
-		return productRepository.save(productToUpdate);
+		product = productRepository.save(productToUpdate);
+		return product;
 	}
 
 	@Override
