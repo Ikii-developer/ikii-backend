@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.customer.CustomerAdressRequest;
 import mx.ikii.commons.payload.response.customer.CustomerAdressResponse;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
@@ -22,23 +23,24 @@ public interface ICustomerAddressController {
 
 	@GetMapping
 	ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable);
-	
+
 	@GetMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> getById(String id);
-	
+
 	@GetMapping("/customer/{customerId}")
-	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId,Pageable pageable);
-	
+	ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(String customerId, Pageable pageable);
+
 	@PostMapping
 	ResponseEntity<CustomerAdressResponse> create(CustomerAdressRequest customerAdressRequest);
-	
+
 	@PutMapping("/{id}")
 	ResponseEntity<CustomerAdressResponse> update(CustomerAdressRequest customerAdressRequest, String id);
-	
+
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
-	
+
 	@GetMapping("/near-by-me")
-	ResponseEntity<List<BusinessNearByMe>> nearByMe(Double latitude, Double longitude, Double distance, String keywords);
-	
+	ResponseEntity<List<BusinessNearByMe>> nearByMe(Double latitude, Double longitude, Double distance,
+			String customerId, BusinessFilterRequest businessFilterRequest);
+
 }

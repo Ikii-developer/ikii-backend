@@ -1,7 +1,6 @@
 package mx.ikii.customers.service.impl;
 
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,7 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Autowired
 	private ICustomerAdressRepository customerAdressRepository;
-	
+
 	@Autowired
 	private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
 
@@ -59,6 +58,7 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Override
 	public CustomerAdress updateCustomerAddress(CustomerAdress request, String id) {
+
 		CustomerAdress customerAdress = customerAdressRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
 		customerAdressMapper.updateEntity(customerAdress, request);
@@ -74,28 +74,29 @@ public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
 	@Override
 	public List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance) {
+
 		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
 		Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
-		
+
 		GeoResults<CustomerAdress> geoResult = customerAdressRepository.findByLocationNear(location, distance);
 		List<GeoResult<CustomerAdress>> listGeoResult = geoResult.getContent();
-		listGeoResult.forEach(e -> {
-			System.out.println(e.getContent().getDescription());
-		});
+
 		return listGeoResult;
 	}
-	
+
 	@Override
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
-		
-		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
-		
-		if(Nullable.isNotNull(keywords)) {
+
+		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude,
+				maxDistance);
+		if (Nullable.isNotNull(keywords)) {
 			Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
-			customeAddress = customeAddress.stream().filter(ca -> pattern.matcher(ca.getBusinessDescription()).find() ).collect(Collectors.toList());
+			customeAddress = customeAddress.stream()
+					.filter(ca -> pattern.matcher(ca.getDescription()).find() || pattern.matcher(ca.getName()).find())
+					.collect(Collectors.toList());
 		}
-		
-		return customeAddress; 
+
+		return customeAddress;
 	}
 
 }
