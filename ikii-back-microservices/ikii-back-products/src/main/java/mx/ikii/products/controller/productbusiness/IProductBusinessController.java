@@ -1,4 +1,4 @@
-package mx.ikii.products.controller;
+package mx.ikii.products.controller.productbusiness;
 
 import java.util.List;
 
@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
-import mx.ikii.commons.payload.request.product.ProductRequest;
-import mx.ikii.commons.payload.response.product.ProductResponse;
+import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
 
 @RestController
 @RequestMapping("/")
-public interface IProductController {
+public interface IProductBusinessController {
 
 	@GetMapping
-	ResponseEntity<Page<ProductResponse>> getAll(Pageable pageable);
+	ResponseEntity<Page<ProductBusinessResponse>> getAll(Pageable pageable);
 
 	@GetMapping("{id}")
-	ResponseEntity<ProductResponse> getById(String id);
+	ResponseEntity<ProductBusinessResponse> getById(String id);
 
-	@GetMapping("/product/{name}")
-	ResponseEntity<ProductResponse> getByProductName(String name);
+	@GetMapping("/name/{name}")
+	ResponseEntity<ProductBusinessResponse> getByProductName(String name);
 
 	@PostMapping
-	ResponseEntity<ProductResponse> create(ProductRequest productRequest);
+	ResponseEntity<ProductBusinessResponse> create(ProductBusinessRequest productRequest);
 
 	@PutMapping("{id}")
-	ResponseEntity<ProductResponse> update(ProductRequest productRequest, String id);
+	ResponseEntity<ProductBusinessResponse> update(ProductBusinessRequest productRequest, String id);
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);
 	
 	@PostMapping("/filter")
-	ResponseEntity<List<ProductResponse>> filterProduct(Pageable pageable, ProductFilter productFilter);
+	ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, ProductFilter productFilter);
 	
 }

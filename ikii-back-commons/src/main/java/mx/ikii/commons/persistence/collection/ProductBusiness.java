@@ -11,24 +11,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 @Data
-@Document(collection = "Product", language = "es")
-public class Product {
+@Document(collection = "ProductBusiness", language = "es")
+public class ProductBusiness {
 
 	@Id
 	private String id;
+	
+	private ObjectId businessId;
 
 	private String productCategory;
 
 	private String measureUnit;
 
-	private ObjectId bussinessId;
-
 	private String code;
 	
-	@TextIndexed(weight = 1)
+	@TextIndexed(weight = 2)
 	private String name;
 	
-	@TextIndexed(weight = 2)
+	@TextIndexed(weight = 1)
 	private String description;
 
 	private Map<String, String> fullDescription; // for Food

@@ -1,4 +1,4 @@
-package mx.ikii.products.repository;
+package mx.ikii.products.repository.productbusiness;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Repository;
 
-import mx.ikii.commons.persistence.collection.Product;
+import mx.ikii.commons.persistence.collection.ProductBusiness;
 
 @Repository
-public class ProductRepositoryCustomImpl implements IProductRepositoryCustom {
+public class ProductBusinessRepositoryCustomImpl implements IProductBusinessRepositoryCustom {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	@Override
-	public List<Product> searchByKeywords(String keyword) {
+	public List<ProductBusiness> searchByKeywords(String keyword) {
 		
 		TextCriteria criteria = TextCriteria.forLanguage("es").matchingAny(keyword);
 		
@@ -26,13 +26,13 @@ public class ProductRepositoryCustomImpl implements IProductRepositoryCustom {
 		
 		Aggregation aggregation = Aggregation.newAggregation(match);
 		
-		List<Product> result = mongoTemplate.aggregate(aggregation, Product.class, Product.class).getMappedResults();
+		List<ProductBusiness> result = mongoTemplate.aggregate(aggregation, ProductBusiness.class, ProductBusiness.class).getMappedResults();
 		
 		return result;
 	}
 	
 /**
-db.getCollection('Product').aggregate([
+db.getCollection('ProductModel').aggregate([
     { $match: { 
             $text: { 
                 $search: "cafe",

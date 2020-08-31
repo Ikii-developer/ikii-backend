@@ -3,12 +3,10 @@ package mx.ikii.commons.payload.response.product;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import org.bson.types.ObjectId;
-
 import lombok.Data;
 
 @Data
-public class ProductResponse {
+public class ProductBusinessResponse {
 
 	private String id;
 
@@ -16,7 +14,7 @@ public class ProductResponse {
 
 	private String measureUnit;
 
-	//private ObjectId bussinessId;
+	private String businessId;
 
 	private String code;
 

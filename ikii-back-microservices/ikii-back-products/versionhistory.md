@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.2.0
+* add services for Product and ProductBusiness
+
 
 ## 1.1.0
 
