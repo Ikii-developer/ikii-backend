@@ -1,18 +1,12 @@
 package mx.ikii.customers.repository.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.GeoResult;
-import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
@@ -58,15 +52,18 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		
 		ProjectionOperation projectionOperationRenameFields2 = 
 				Aggregation.project("businessId", "customerId","location", "distance")
-				.andExpression("business.name").as("businessName")
-				.andExpression("business.image").as("businessImage")
-				.andExpression("business.categoryId").as("businessCategoryId")
-				.andExpression("business.description").as("businessDescription")
+				.andExpression("business.name").as("name")
+				.andExpression("business.image").as("image")
+				.andExpression("business.categoryId").as("categoryId")
+				.andExpression("business.description").as("description")
 				//.andExpression("description").as("businessDescription")
-				.andExpression("business.deliveryTime").as("businessDeliveryTime")
-				.andExpression("business.closeTime").as("businessCloseTime")
-				.andExpression("business.isOpen").as("businessIsOpen")
-				.andExpression("rate.average").as("average");
+				.andExpression("business.deliveryTime").as("deliveryTime")
+				.andExpression("business.closeTime").as("closeTime")
+				.andExpression("business.isOpen").as("isOpen")
+				.andExpression("business.status").as("status")
+				.andExpression("rate.average").as("average")
+				.andExpression("rate.rates").as("rates");
+
 		
 		TypedAggregation<CustomerAdress> aggregation = 
 				TypedAggregation.newAggregation(CustomerAdress.class, geoNear, 
@@ -80,51 +77,4 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 		
 	}
 	
-	/**
-	 * QUERY MONGO
-		db.getCollection('CustomerAddress').aggregate([
-		    {
-		        $geoNear: {
-		            spherical:true,
-		            near: {type: 'Point', coordinates: [-99.129110, 19.411911]},
-		            distanceField: 'distance',
-		            maxDistance: 100,
-		            distanceMultiplier: 6371
-		        }    
-		    },
-		    {
-		        $lookup: {
-		            from: 'Business', 
-		            foreignField: '_id', 
-		            localField: 'businessId', 
-		            as: 'business'
-		        }
-		    },
-		    {
-		        $lookup: {
-		            from: 'BusinessRate', 
-		            foreignField: 'businessId', 
-		            localField: 'businessId', 
-		            as: 'rate'
-		        }
-		    },
-		    {
-		        $project: {
-		            "businessId":1,"customerId":1,"nickname":1,
-		            "business": { $arrayElemAt: [ "$business", 0 ] },
-		            "rate": { $arrayElemAt: [ "$rate", 0 ] }
-		        }
-		    },
-		    {
-		        $project: {
-		            "businessId":1, "customerId":1, "nickname":1,
-		            "business.name":1,"business.image":1,"business.categoryId":1,
-		            "business.description":1,"business.deliveryTime":1,
-		            "business.closeTime":1,"business.isOpen":1,
-		            "rate.average":1
-		        }
-		    }
-		])
-	 */
-
 }
