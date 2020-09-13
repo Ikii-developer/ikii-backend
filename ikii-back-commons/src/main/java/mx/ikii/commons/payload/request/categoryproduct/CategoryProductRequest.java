@@ -1,20 +1,14 @@
 package mx.ikii.commons.payload.request.categoryproduct;
 
-import java.io.Serializable;
-
 import lombok.Data;
 
 @Data
-public class CategoryProductRequest implements Serializable{
-
-	private static final long serialVersionUID = -647780939680173556L;
-	
+public class CategoryProductRequest {
 	private String name;
-	
-	private String picture;
-	
+	private String image;
+	private String businessId;
 	private String type;
-	
 	private String description;
-	
+	private Integer order;
+
 }

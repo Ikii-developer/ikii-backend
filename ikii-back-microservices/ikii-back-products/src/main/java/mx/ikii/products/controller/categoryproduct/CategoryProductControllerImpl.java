@@ -1,5 +1,7 @@
 package mx.ikii.products.controller.categoryproduct;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,23 +16,28 @@ import mx.ikii.commons.payload.response.categoryproduct.CategoryProductResponse;
 import mx.ikii.products.service.categoryproduct.ICategoryProductServiceWrapper;
 
 @Component
-public class CategoryProductControllerImpl implements ICategoryProductController{
-	
+public class CategoryProductControllerImpl implements ICategoryProductController {
+
 	@Autowired
 	private ICategoryProductServiceWrapper categoryProductServiceWrapper;
-	
+
 	@Override
-	public ResponseEntity<CategoryProductResponse> getById(String id){
+	public ResponseEntity<CategoryProductResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(categoryProductServiceWrapper.findById(id));
 	}
-	
+
 	@Override
-	public ResponseEntity<CategoryProductResponse> getByName(String name){
+	public ResponseEntity<List<CategoryProductResponse>> getByBusinessId(@PathVariable String businessId) {
+		return ResponseEntity.ok(categoryProductServiceWrapper.findByBusinessId(businessId));
+	}
+
+	@Override
+	public ResponseEntity<CategoryProductResponse> getByName(@PathVariable String name) {
 		return ResponseEntity.ok(categoryProductServiceWrapper.findByName(name));
 	}
-	
+
 	@Override
-	public ResponseEntity<Page<CategoryProductResponse>> getAll(Pageable pageable){
+	public ResponseEntity<Page<CategoryProductResponse>> getAll(Pageable pageable) {
 		return ResponseEntity.ok(categoryProductServiceWrapper.findAll(pageable));
 	}
 
@@ -40,7 +47,8 @@ public class CategoryProductControllerImpl implements ICategoryProductController
 	}
 
 	@Override
-	public ResponseEntity<CategoryProductResponse> update(@RequestBody CategoryProductRequest categoryProductRequest, @PathVariable("id")String id) {
+	public ResponseEntity<CategoryProductResponse> update(@RequestBody CategoryProductRequest categoryProductRequest,
+			@PathVariable("id") String id) {
 		return ResponseEntity.ok(categoryProductServiceWrapper.update(categoryProductRequest, id));
 	}
 
@@ -49,5 +57,12 @@ public class CategoryProductControllerImpl implements ICategoryProductController
 		categoryProductServiceWrapper.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
-	
+
+	@Override
+	public ResponseEntity<List<CategoryProductResponse>> createBulk(
+			@RequestBody List<CategoryProductRequest> categoryProductRequest) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(categoryProductServiceWrapper.createBulk(categoryProductRequest));
+	}
+
 }

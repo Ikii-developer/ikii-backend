@@ -1,6 +1,7 @@
 package mx.ikii.products.service.categoryproduct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,17 +15,22 @@ import mx.ikii.commons.persistence.collection.CategoryProduct;
 import mx.ikii.commons.utils.PageHelper;
 
 @Service
-public class CategoryProductServiceWrapperImpl implements ICategoryProductServiceWrapper{
+public class CategoryProductServiceWrapperImpl implements ICategoryProductServiceWrapper {
 
 	@Autowired
 	private ICategoryProductService categoryProductService;
-	
+
 	@Autowired
 	private ICategoryProductMapper categoryProductMapper;
-	
+
 	@Override
 	public CategoryProductResponse findById(String id) {
 		return categoryProductMapper.entityToResponse(categoryProductService.findById(id));
+	}
+
+	@Override
+	public List<CategoryProductResponse> findByBusinessId(String businessId) {
+		return categoryProductMapper.entityToResponse(categoryProductService.findByBusinessId(businessId));
 	}
 
 	@Override
@@ -35,7 +41,8 @@ public class CategoryProductServiceWrapperImpl implements ICategoryProductServic
 	@Override
 	public Page<CategoryProductResponse> findAll(Pageable pageable) {
 		Page<CategoryProduct> categoryProduct = categoryProductService.findAll(pageable);
-		List<CategoryProductResponse> categoryProductResponses = categoryProductMapper.entityToResponse(categoryProduct.getContent());
+		List<CategoryProductResponse> categoryProductResponses = categoryProductMapper
+				.entityToResponse(categoryProduct.getContent());
 		return PageHelper.createPage(categoryProductResponses, pageable, categoryProduct.getTotalElements());
 	}
 
@@ -48,12 +55,19 @@ public class CategoryProductServiceWrapperImpl implements ICategoryProductServic
 	@Override
 	public CategoryProductResponse update(CategoryProductRequest categoryProductRequest, String id) {
 		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(categoryProductRequest);
-		return categoryProductMapper.entityToResponse(categoryProductService.update(categoryProduct,id));
+		return categoryProductMapper.entityToResponse(categoryProductService.update(categoryProduct, id));
 	}
 
 	@Override
 	public void delete(String id) {
 		categoryProductService.delete(id);
 	}
-	
+
+	@Override
+	public List<CategoryProductResponse> createBulk(List<CategoryProductRequest> categoryProductRequest) {
+		return categoryProductRequest.stream().map(productCategory -> {
+			return categoryProductMapper.entityToResponse(categoryProductMapper.requestToEntity(productCategory));
+		}).collect(Collectors.toList());
+	}
+
 }

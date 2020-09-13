@@ -1,5 +1,9 @@
 package mx.ikii.products.service.categoryproduct;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,19 +14,26 @@ import mx.ikii.commons.persistence.collection.CategoryProduct;
 import mx.ikii.products.repository.categoryproduct.ICategoryProductRepository;
 
 @Service
-public class CategoryProductServiceImpl implements ICategoryProductService{
+public class CategoryProductServiceImpl implements ICategoryProductService {
 
 	@Autowired
 	private ICategoryProductRepository categoryProductRepository;
-	
+
 	@Override
 	public CategoryProduct findById(String id) {
-		return categoryProductRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id,CategoryProduct.class));
+		return categoryProductRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, CategoryProduct.class));
+	}
+
+	@Override
+	public List<CategoryProduct> findByBusinessId(String businessId) {
+		return categoryProductRepository.findByBusinessId(new ObjectId(businessId)).orElse(Collections.emptyList());
 	}
 
 	@Override
 	public CategoryProduct findByName(String name) {
-		return categoryProductRepository.findByName(name).orElseThrow(() -> new ResourceNotFoundException(name,CategoryProduct.class));
+		return categoryProductRepository.findByName(name)
+				.orElseThrow(() -> new ResourceNotFoundException(name, CategoryProduct.class));
 	}
 
 	@Override
@@ -37,13 +48,15 @@ public class CategoryProductServiceImpl implements ICategoryProductService{
 
 	@Override
 	public CategoryProduct update(CategoryProduct categoryProduct, String id) {
-		categoryProductRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id,CategoryProduct.class));
+		categoryProductRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, CategoryProduct.class));
 		return categoryProductRepository.save(categoryProduct);
 	}
 
 	@Override
 	public void delete(String id) {
-		categoryProductRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id,CategoryProduct.class));
+		categoryProductRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id, CategoryProduct.class));
 		categoryProductRepository.deleteById(id);
 	}
 

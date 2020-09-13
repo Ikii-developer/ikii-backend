@@ -15,23 +15,14 @@ public class Product {
 
 	@Id
 	private String id;
-
-	private String productCategory;
-
+	private ObjectId productCategoryId;
 	private String measureUnit;
-
 	private ObjectId bussinessId;
-
 	private String code;
-
 	private String name;
-
 	private String description;
-
 	private Map<String, String> fullDescription; // for Food
-
 	private BigDecimal price;
-
 	private String pathImage;
 
 }
