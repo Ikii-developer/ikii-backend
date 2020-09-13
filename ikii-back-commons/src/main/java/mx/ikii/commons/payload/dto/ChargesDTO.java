@@ -13,11 +13,8 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChargesDTO {
-	
 	private String id;
-	
 	private List<PaymentMethodDTO> paymentMethod;
-	
 	private BigDecimal amount;
 	
 }
