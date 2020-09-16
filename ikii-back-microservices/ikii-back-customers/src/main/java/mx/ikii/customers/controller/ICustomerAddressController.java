@@ -39,7 +39,7 @@ public interface ICustomerAddressController {
 	@DeleteMapping("/{id}")
 	ResponseEntity<Void> delete(String id);
 
-	@GetMapping("/near-by-me")
+	@PostMapping("/near-by-me")
 	ResponseEntity<List<BusinessNearByMe>> nearByMe(Double latitude, Double longitude, Double distance,
 			String customerId, BusinessFilterRequest businessFilterRequest);
 
