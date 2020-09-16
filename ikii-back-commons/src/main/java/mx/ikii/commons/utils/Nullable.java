@@ -35,6 +35,10 @@ public final class Nullable {
 			if (((Object[]) obj).length == 0) {
 				return true;
 			}
+		} else if(obj instanceof String) {
+			if(((String) obj).isEmpty()) {
+				return true;
+			}
 		}
 		return false;
 	}

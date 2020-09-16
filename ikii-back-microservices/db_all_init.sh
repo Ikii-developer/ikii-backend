@@ -25,6 +25,9 @@ sh ./db_customer_details_init.sh
 echo "**************** Execute customer-address restore ****************"
 sh ./db_customer_address.sh
 
+echo "**************** Execute products model restore ****************"
+sh ./db_products_init.sh
+
 
 echo "All init db executed."
 

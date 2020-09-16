@@ -1,5 +1,9 @@
 ## ikii-back-commons
 
+## 2.3.1
+* add Product and BusinessProduct
+* fix: bussiness to business
+
 ## 2.3.0
 * Adds BusinessStatus as enum
 * Adds deliveryTime, closeTime and status to business Model

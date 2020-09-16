@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.3.0
+* add services for Product and ProductBusiness
+
 ## 1.2.0
 * adds endpoint to retrieve productCategories by businessId
 * adds endpoint to create productCategories in a bulk way
