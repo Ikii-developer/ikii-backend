@@ -16,5 +16,4 @@ public class ChargesDTO {
 	private String id;
 	private List<PaymentMethodDTO> paymentMethod;
 	private BigDecimal amount;
-	
 }
