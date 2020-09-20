@@ -1,6 +1,7 @@
 package mx.ikii.products.service.productbusiness;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,6 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 	public Page<ProductBusinessResponse> findAll(Pageable pageable) {
 		Page<ProductBusiness> product = productBusinessService.findAll(pageable);
 		List<ProductBusinessResponse> productResponse = productBusinessMapper.entityToResponse(product.getContent());
-
 		return PageHelper.createPage(productResponse, pageable, product.getTotalElements());
 	}
 
@@ -47,6 +47,13 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 	public ProductBusinessResponse create(ProductBusinessRequest productRequest) {
 		ProductBusiness product = productBusinessMapper.requestToEntity(productRequest);
 		return productBusinessMapper.entityToResponse(productBusinessService.create(product));
+	}
+
+	@Override
+	public List<ProductBusinessResponse> createBulk(List<ProductBusinessRequest> productRequest) {
+		return productRequest.stream().map(productRequestMap -> {
+			return this.create(productRequestMap);
+		}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -63,11 +70,11 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 	@Override
 	public List<ProductBusinessResponse> filterProduct(Pageable pageable, ProductFilter productFilter) {
 		List<ProductBusiness> products = null;
-		
-		products = Nullable.isNullOrEmpty(productFilter.getBusinessId())?
-				productBusinessService.filterProduct(pageable, productFilter) :
-				productBusinessService.findAllByBussinessId(pageable, new ObjectId(productFilter.getBusinessId()));
-			
+
+		products = Nullable.isNullOrEmpty(productFilter.getBusinessId())
+				? productBusinessService.filterProduct(pageable, productFilter)
+				: productBusinessService.findAllByBussinessId(pageable, new ObjectId(productFilter.getBusinessId()));
+
 		List<ProductBusinessResponse> productResponse = productBusinessMapper.entityToResponse(products);
 
 		return productResponse;

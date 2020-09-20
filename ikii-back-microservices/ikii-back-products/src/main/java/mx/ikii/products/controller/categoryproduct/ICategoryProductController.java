@@ -34,7 +34,7 @@ public interface ICategoryProductController {
 	@PostMapping
 	ResponseEntity<CategoryProductResponse> create(CategoryProductRequest categoryProductRequest);
 
-	@PostMapping("/business/{businessId}")
+	@PostMapping("/bulk")
 	ResponseEntity<List<CategoryProductResponse>> createBulk(List<CategoryProductRequest> categoryProductRequest);
 
 	@PutMapping("/{id}")

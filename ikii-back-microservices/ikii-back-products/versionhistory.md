@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.4.0
+* adds bulk method to products and changes productCategory to productCategoryId
+
 ## 1.3.0
 * add services for Product and ProductBusiness
 

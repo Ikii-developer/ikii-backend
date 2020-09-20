@@ -66,7 +66,7 @@ public class CategoryProductServiceWrapperImpl implements ICategoryProductServic
 	@Override
 	public List<CategoryProductResponse> createBulk(List<CategoryProductRequest> categoryProductRequest) {
 		return categoryProductRequest.stream().map(productCategory -> {
-			return categoryProductMapper.entityToResponse(categoryProductMapper.requestToEntity(productCategory));
+			return this.create(productCategory);
 		}).collect(Collectors.toList());
 	}
 

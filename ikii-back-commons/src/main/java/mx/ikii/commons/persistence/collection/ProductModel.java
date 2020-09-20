@@ -15,19 +15,16 @@ public class ProductModel {
 
 	@Id
 	private String id;
-
 	private String code;
-	
+
 	@TextIndexed(weight = 2)
 	private String name;
-	
+
 	@TextIndexed(weight = 1)
 	private String description;
 
 	private Map<String, String> fullDescription; // for Food
-
 	private BigDecimal price;
-
 	private String pathImage;
 
 }
