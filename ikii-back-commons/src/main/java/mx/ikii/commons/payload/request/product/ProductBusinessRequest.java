@@ -7,28 +7,16 @@ import lombok.Data;
 
 @Data
 public class ProductBusinessRequest {
-	
 	private String id;
-	
 	private String productModelId;
-	
-	private String businessId;	
-	
-	private String productCategory;
-	
+	private String businessId;
+	private String productCategoryId;
 	private String measureUnit;
-	
 	private String code;
-	
 	private String name;
-	
 	private String description;
-	
-	private Map<String, String> fullDescription; // for Food
-	
+	private Map<String, String> fullDescription;
 	private BigDecimal price;
-	
 	private String pathImage;
-	
 
 }

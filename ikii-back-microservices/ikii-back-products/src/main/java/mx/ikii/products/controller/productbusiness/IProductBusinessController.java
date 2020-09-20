@@ -32,13 +32,16 @@ public interface IProductBusinessController {
 	@PostMapping
 	ResponseEntity<ProductBusinessResponse> create(ProductBusinessRequest productRequest);
 
+	@PostMapping("bulk")
+	ResponseEntity<List<ProductBusinessResponse>> createBulk(List<ProductBusinessRequest> productRequest);
+
 	@PutMapping("{id}")
 	ResponseEntity<ProductBusinessResponse> update(ProductBusinessRequest productRequest, String id);
 
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> delete(String id);
-	
+
 	@PostMapping("/filter")
 	ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, ProductFilter productFilter);
-	
+
 }

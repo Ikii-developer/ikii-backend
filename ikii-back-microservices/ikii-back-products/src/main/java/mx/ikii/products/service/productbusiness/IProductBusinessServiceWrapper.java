@@ -19,6 +19,8 @@ public interface IProductBusinessServiceWrapper {
 
 	ProductBusinessResponse create(ProductBusinessRequest productRequest);
 
+	List<ProductBusinessResponse> createBulk(List<ProductBusinessRequest> productRequest);
+
 	ProductBusinessResponse update(ProductBusinessRequest productRequest, String id);
 
 	void delete(String id);

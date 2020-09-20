@@ -22,12 +22,11 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
 	@Autowired
 	private IProductBusinessServiceWrapper productBusinessServiceWrapper;
 
-
 	@Override
 	public ResponseEntity<Page<ProductBusinessResponse>> getAll(Pageable pageable) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.findAll(pageable));
 	}
-	
+
 	@Override
 	public ResponseEntity<ProductBusinessResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.findById(id));
@@ -38,14 +37,20 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
 		return ResponseEntity.ok(productBusinessServiceWrapper.getByProductName(productName));
 	}
 
-
 	@Override
 	public ResponseEntity<ProductBusinessResponse> create(@RequestBody ProductBusinessRequest productRequest) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.create(productRequest));
 	}
 
 	@Override
-	public ResponseEntity<ProductBusinessResponse> update(@RequestBody ProductBusinessRequest productRequest, @PathVariable String id) {
+	public ResponseEntity<List<ProductBusinessResponse>> createBulk(
+			@RequestBody List<ProductBusinessRequest> productRequest) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(productBusinessServiceWrapper.createBulk(productRequest));
+	}
+
+	@Override
+	public ResponseEntity<ProductBusinessResponse> update(@RequestBody ProductBusinessRequest productRequest,
+			@PathVariable String id) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.update(productRequest, id));
 	}
 
@@ -56,7 +61,8 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
 	}
 
 	@Override
-	public ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, @RequestBody ProductFilter productFilter) {
+	public ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable,
+			@RequestBody ProductFilter productFilter) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.filterProduct(pageable, productFilter));
 	}
 

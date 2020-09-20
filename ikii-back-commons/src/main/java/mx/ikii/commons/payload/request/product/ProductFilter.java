@@ -4,9 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProductFilter {
-	
 	private String keywords;
-	
 	private String businessId;
 
 }

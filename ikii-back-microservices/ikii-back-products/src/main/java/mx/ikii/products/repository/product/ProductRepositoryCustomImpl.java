@@ -13,36 +13,20 @@ import mx.ikii.commons.persistence.collection.ProductModel;
 
 @Repository
 public class ProductRepositoryCustomImpl implements IProductRepositoryCustom {
-	
+
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	@Override
 	public List<ProductModel> searchByKeywords(String keyword) {
-		
 		TextCriteria criteria = TextCriteria.forLanguage("es").matchingAny(keyword);
-		
 		MatchOperation match = Aggregation.match(criteria);
-		
 		Aggregation aggregation = Aggregation.newAggregation(match);
-		
-		List<ProductModel> result = mongoTemplate.aggregate(aggregation, ProductModel.class, ProductModel.class).getMappedResults();
-		
+
+		List<ProductModel> result = mongoTemplate.aggregate(aggregation, ProductModel.class, ProductModel.class)
+				.getMappedResults();
+
 		return result;
 	}
-	
-/**
-db.getCollection('ProductModel').aggregate([
-    { $match: { 
-            $text: { 
-                $search: "cafe",
-                $language: "es",
-                $caseSensitive: true,
-                $diacriticSensitive:true
-            }
-        } 
-    }
-])	
- */
 
 }

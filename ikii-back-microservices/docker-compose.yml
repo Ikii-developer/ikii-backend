@@ -130,7 +130,7 @@ services:
             
   ikii-back-products:
     container_name: ikii-back-products
-    image : ikii/products:1.3.0
+    image : ikii/products:1.4.0
     environment:
       - CLOUD_CONFIG_URI=http://ikii-back-config:8888
       - PROFILE=prod

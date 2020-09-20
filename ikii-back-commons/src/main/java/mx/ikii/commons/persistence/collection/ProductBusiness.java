@@ -17,7 +17,7 @@ public class ProductBusiness {
 	@Id
 	private String id;
 	private ObjectId businessId;
-	private String productCategory;
+	private String productCategoryId;
 	private String measureUnit;
 	private String code;
 

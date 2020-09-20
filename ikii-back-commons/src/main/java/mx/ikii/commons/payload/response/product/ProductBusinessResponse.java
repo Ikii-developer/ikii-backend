@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ProductBusinessResponse {
 	private String id;
-	private String productCategory;
+	private String productCategoryId;
 	private String measureUnit;
 	private String businessId;
 	private String code;

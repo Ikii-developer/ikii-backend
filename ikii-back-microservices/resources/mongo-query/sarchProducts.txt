@@ -1,0 +1,13 @@
+/**
+	 * db.getCollection('ProductModel').aggregate([ { $match: { $text: { $search:
+    { $match: { 
+            $text: { 
+                $search: "cafe",
+                $language: "es",
+                $caseSensitive: true,
+                $diacriticSensitive:true
+            }
+        } 
+    }
+])	
+ */
