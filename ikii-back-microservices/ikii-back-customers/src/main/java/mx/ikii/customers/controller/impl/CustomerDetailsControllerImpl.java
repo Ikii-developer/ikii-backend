@@ -55,7 +55,13 @@ public class CustomerDetailsControllerImpl implements ICustomerDetailsController
 	@Override
 	public ResponseEntity<Void> toggleBusinessFavorite(@PathVariable String customerId,
 			@PathVariable String businessId) {
-		customerDetailsServiceWrapper.toggleFavorite(customerId, businessId);
+		customerDetailsServiceWrapper.toggleFavoriteBusiness(customerId, businessId);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@Override
+	public ResponseEntity<Void> toggleProductFavorite(@PathVariable String customerId, @PathVariable String productId) {
+		customerDetailsServiceWrapper.toggleFavoriteProduct(customerId, productId);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

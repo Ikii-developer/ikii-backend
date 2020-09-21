@@ -9,15 +9,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.mapper.product.IProductBusinessMapper;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 
 @Service
+@Slf4j
 public class ProductBusinessServiceWrapperImpl implements IProductBusinessServiceWrapper {
 
 	@Autowired
@@ -25,6 +30,9 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 
 	@Autowired
 	private IProductBusinessService productBusinessService;
+
+	@Autowired
+	private ICustomerFeignService customerFeignService;
 
 	@Override
 	public ProductBusinessResponse findById(String id) {
@@ -68,7 +76,8 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 	}
 
 	@Override
-	public List<ProductBusinessResponse> filterProduct(Pageable pageable, ProductFilter productFilter) {
+	public List<ProductBusinessResponse> filterProduct(Pageable pageable, String customerId,
+			ProductFilter productFilter) {
 		List<ProductBusiness> products = null;
 
 		products = Nullable.isNullOrEmpty(productFilter.getBusinessId())
@@ -76,8 +85,28 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 				: productBusinessService.findAllByBussinessId(pageable, new ObjectId(productFilter.getBusinessId()));
 
 		List<ProductBusinessResponse> productResponse = productBusinessMapper.entityToResponse(products);
+		setFavorites(productResponse, customerId);
 
 		return productResponse;
+	}
+
+	private void setFavorites(List<ProductBusinessResponse> businessProducts, String customerId) {
+		if (Nullable.isNotNull(customerId)) {
+			try {
+				CustomerDetails customerDetails = customerFeignService.getCustomerDetailsByCustomerId(customerId);
+				List<ObjectId> productsFavorites = customerDetails.getProductFavorites();
+				if (!Nullable.isNullOrEmpty(productsFavorites)) {
+					businessProducts = businessProducts.stream().map(productMap -> {
+						if (productsFavorites.contains(new ObjectId(productMap.getId()))) {
+							productMap.setFavorite(true);
+						}
+						return productMap;
+					}).collect(Collectors.toList());
+				}
+			} catch (Exception e) {
+				log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId, e.getMessage());
+			}
+		}
 	}
 
 }

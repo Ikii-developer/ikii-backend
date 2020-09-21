@@ -29,5 +29,6 @@ public class CustomerDetails {
 	private String image;
 	private Integer type;
 	private List<ObjectId> businessFavorites;
+	private List<ObjectId> productFavorites;
 
 }

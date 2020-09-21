@@ -83,9 +83,9 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 		customer = customerService.signUp(customer);
 		CustomerDetails customerDetails= CustomerDetails.builder()
 				.businessFavorites(Collections.emptyList())
+				.productFavorites(Collections.emptyList())
 				.customerId(new ObjectId(customer.getId()))
-				.isValidAccount(true)
-				.build();
+				.isValidAccount(true).build();
 		customerDetailsService.save(customerDetails);
 		return customerMapper.entityToResponse(customer);
 	}
