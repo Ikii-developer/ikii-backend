@@ -16,5 +16,6 @@ public class CustomerDetailsResponse {
 	private String image;
 	private Integer type;
 	private List<String> businessFavorites;
+	private List<String> productFavorites;
 
 }

@@ -25,5 +25,5 @@ public interface IProductBusinessServiceWrapper {
 
 	void delete(String id);
 
-	List<ProductBusinessResponse> filterProduct(Pageable pageable, ProductFilter productFilter);
+	List<ProductBusinessResponse> filterProduct(Pageable pageable, String customerId, ProductFilter productFilter);
 }

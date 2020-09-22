@@ -9,17 +9,19 @@ import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
 public interface ICustomerDetailsServiceWrapper {
 
 	CustomerDetailsResponse getById(String id);
-	
+
 	CustomerDetailsResponse getByCustomerId(String customerId);
-	
+
 	Page<CustomerDetailsResponse> getAll(Pageable pageable);
-	
+
 	CustomerDetailsResponse create(CustomerDetailsRequest customerDetailsRequest);
-	
+
 	CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id);
-	
-	void toggleFavorite(String customerId, String favorite);
-	
+
+	void toggleFavoriteBusiness(String customerId, String favoriteBusinessId);
+
+	void toggleFavoriteProduct(String customerId, String favoriteProductId);
+
 	void delete(String id);
-	
+
 }
