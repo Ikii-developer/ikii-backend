@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.2.0
+* add method toggleFavoriteProduct in order to add or remove products to favorites list of the user
+
 ## 2.1.4
 * changes the keywords queryparam to a @RequestBody
 * adds JsonInclude non null in the near by me response

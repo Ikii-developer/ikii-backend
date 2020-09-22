@@ -1,5 +1,11 @@
 ## ikii-back-products
 
+## 1.5.0
+* adds Required condition for businessId in the filter
+* adds favorite attribute to ProductsResponse
+* adds customerId as RequestParam to retrieve if a product is favorite or not
+* adds setFavorites method to populate the product response for a particular user
+
 ## 1.4.0
 * adds bulk method to products and changes productCategory to productCategoryId
 

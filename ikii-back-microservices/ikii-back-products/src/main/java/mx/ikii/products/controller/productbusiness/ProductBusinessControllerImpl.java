@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
@@ -62,8 +63,8 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
 
 	@Override
 	public ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable,
-			@RequestBody ProductFilter productFilter) {
-		return ResponseEntity.ok(productBusinessServiceWrapper.filterProduct(pageable, productFilter));
+			@RequestParam(required = false) String customerId, @RequestBody ProductFilter productFilter) {
+		return ResponseEntity.ok(productBusinessServiceWrapper.filterProduct(pageable, customerId, productFilter));
 	}
 
 }

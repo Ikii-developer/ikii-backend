@@ -1,5 +1,6 @@
 package mx.ikii.customers.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -47,6 +48,9 @@ public class CustomerDetailsHelper {
 	 * @param favorite
 	 */
 	public static void toggleFavorites(List<ObjectId> favorites, ObjectId favorite) {
+		if (Nullable.isNull(favorites)) {
+			favorites = new ArrayList<>();
+		}
 		if (favorites.contains(favorite)) {
 			favorites.remove(favorite);
 		} else {

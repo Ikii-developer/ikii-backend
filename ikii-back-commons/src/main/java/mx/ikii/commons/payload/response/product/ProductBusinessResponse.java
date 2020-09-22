@@ -17,5 +17,6 @@ public class ProductBusinessResponse {
 	private Map<String, String> fullDescription; // for Food
 	private BigDecimal price;
 	private String pathImage;
+	private boolean favorite;
 
 }

@@ -42,6 +42,7 @@ public interface IProductBusinessController {
 	ResponseEntity<Void> delete(String id);
 
 	@PostMapping("/filter")
-	ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, ProductFilter productFilter);
+	ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, String customerId,
+			ProductFilter productFilter);
 
 }

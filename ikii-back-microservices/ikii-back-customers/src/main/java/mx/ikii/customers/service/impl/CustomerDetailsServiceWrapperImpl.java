@@ -1,5 +1,6 @@
 package mx.ikii.customers.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -16,6 +17,7 @@ import mx.ikii.commons.payload.request.customer.CustomerDetailsRequest;
 import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
 import mx.ikii.commons.persistence.collection.Business;
 import mx.ikii.commons.persistence.collection.CustomerDetails;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.commons.utils.PageHelper;
 import mx.ikii.customers.helper.CustomerDetailsHelper;
 import mx.ikii.customers.service.ICustomerDetailsService;
@@ -64,7 +66,7 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 	}
 
 	@Override
-	public void toggleFavorite(String customerId, String businessId) {
+	public void toggleFavoriteBusiness(String customerId, String businessId) {
 		log.info("Toggle favorite business with businessId {} and customerId {}", businessId, customerId);
 		CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
 		try {
@@ -76,6 +78,20 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getBusinessFavorites(), new ObjectId(businessId));
 		log.info("Favorites businessIds {} for customerId {}", customerDetailsEntity.getBusinessFavorites(),
 				customerId);
+		customerDetailsService.save(customerDetailsEntity);
+	}
+
+	@Override
+	public void toggleFavoriteProduct(String customerId, String favoriteProductId) {
+		log.info("Toggle favorite product with productId{} and customerId {}", favoriteProductId, customerId);
+		CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
+		if (Nullable.isNull(customerDetailsEntity.getProductFavorites())) {
+			customerDetailsEntity.setProductFavorites(new ArrayList<>());
+		}
+
+		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getProductFavorites(),
+				new ObjectId(favoriteProductId));
+		log.info("Favorites productsIds {} for customerId {}", customerDetailsEntity.getProductFavorites(), customerId);
 		customerDetailsService.save(customerDetailsEntity);
 	}
 
