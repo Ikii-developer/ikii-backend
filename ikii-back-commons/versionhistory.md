@@ -1,5 +1,9 @@
 ## ikii-back-commons
 
+## 2.4.0
+* Add PaymentOrder 
+* Add OrderDetail
+
 ## 2.3.1
 * add Product and BusinessProduct
 * fix: bussiness to business
