@@ -12,6 +12,8 @@ import mx.ikii.commons.persistence.collection.ProductBusiness;
 public interface IProductBusinessService {
 
 	ProductBusiness findById(String id);
+	
+	List<ProductBusiness> findByBusinessIdIn(List<ObjectId> ids);
 
 	ProductBusiness findByName(String productName);
 
@@ -24,6 +26,8 @@ public interface IProductBusinessService {
 	void delete(String id);
 	
 	List<ProductBusiness> findAllByBussinessId(Pageable pageable, ObjectId bussinessId);
+	
+	List<ProductBusiness> findMostSelledProductsByBussinessId(Pageable pageable, ObjectId bussinessId);
 	
 	List<ProductBusiness> filterProduct(Pageable pageable, ProductFilter productFilter);
 

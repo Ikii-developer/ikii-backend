@@ -12,6 +12,8 @@ public interface IBusinessServiceWrapper {
 	BusinessResponse findById(String id);
 
 	BusinessResponse getByBusinesName(String businessName);
+	
+	List<BusinessResponse> filterByBusinessName(String businessName);
 
 	Page<BusinessResponse> findAll(Pageable pageable, String customerid);
 

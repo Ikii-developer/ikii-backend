@@ -1,8 +1,12 @@
 package mx.ikii.commons.feignclient.service.impl;
 
+import java.util.List;
+
+import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.CustomerDetails;
+import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 /**
  * This interface is used as a low layered component in feingclient process,
@@ -59,5 +63,9 @@ public interface ICustomerFeignService {
 	 * @return the user fetched
 	 */
 	CustomerDetails getCustomerDetailsByCustomerId(String customerId);
+	
+	
+	List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, 
+			Double distance, String customerId, BusinessFilterRequest businessFilterRequest);
 
 }

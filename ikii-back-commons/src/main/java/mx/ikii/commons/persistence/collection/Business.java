@@ -14,11 +14,13 @@ public class Business {
 	@Id
 	private String id;
 	private ObjectId customerId;
+	
+	@TextIndexed(weight = 2)
 	private String name;
 	private String image;
 	private ObjectId categoryId;
 	
-	@TextIndexed
+	@TextIndexed(weight = 1)
 	private String description;
 	private String deliveryTime;
 	private String closeTime;	

@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.2.1
+* fix nearByMe: @RequestParam(required = false) Double distance
+
 ## 2.2.0
 * add method toggleFavoriteProduct in order to add or remove products to favorites list of the user
 

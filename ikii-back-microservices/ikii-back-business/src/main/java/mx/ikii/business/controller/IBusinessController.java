@@ -27,6 +27,9 @@ public interface IBusinessController {
 
 	@GetMapping("/name/{businessName}")
 	ResponseEntity<BusinessResponse> getByBusinesName(String businessName);
+	
+	@GetMapping("/filter-by-name/{businessName}")
+	ResponseEntity<List<BusinessResponse>> filterByBusinessName(String businessName);
 
 	@PostMapping
 	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);

@@ -13,8 +13,10 @@ import mx.ikii.commons.persistence.collection.ProductBusiness;
 @Repository
 public interface IProductBusinessRepository extends MongoRepository<ProductBusiness, String> {
 
+	List<ProductBusiness> findByBusinessIdIn(List<ObjectId> ids);
+	
 	Optional<ProductBusiness> findByName(String name);
 	
 	List<ProductBusiness> findAllByBusinessId(Pageable pageable, ObjectId bussinessId);
-
+	
 }

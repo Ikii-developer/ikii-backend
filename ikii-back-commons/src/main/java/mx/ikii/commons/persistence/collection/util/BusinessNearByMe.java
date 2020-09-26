@@ -18,11 +18,10 @@ import mx.ikii.commons.utils.Nullable;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "customerId", "name", "image", "categoryId", "description", "deliveryTime", "closeTieme",
-		"isOpen", "distance", "status", "average", "favorite" })
+		"isOpen", "distance", "status", "average", "favorite", "businessId" })
 public class BusinessNearByMe {
 	private ObjectId customerId;
 
-	@JsonIgnore
 	private ObjectId businessId;
 	private String name;
 	private String image;
@@ -54,6 +53,11 @@ public class BusinessNearByMe {
 
 	public String getBusinessId() {
 		return businessId.toHexString();
+	}
+	
+	@JsonIgnore
+	public ObjectId getBusinessIdObjectId() {
+		return businessId;
 	}
 
 	public Double getAverage() {

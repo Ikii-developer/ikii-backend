@@ -38,6 +38,11 @@ public class BusinessControllerImpl implements IBusinessController {
 	public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String businessName) {
 		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(businessName));
 	}
+	
+	@Override
+	public ResponseEntity<List<BusinessResponse>> filterByBusinessName(@PathVariable String businessName) {
+		return ResponseEntity.ok(businessServiceWrapper.filterByBusinessName(businessName));
+	}
 
 	@Override
 	public ResponseEntity<BusinessResponse> create(@RequestBody BusinessRequest businessRequest) {
