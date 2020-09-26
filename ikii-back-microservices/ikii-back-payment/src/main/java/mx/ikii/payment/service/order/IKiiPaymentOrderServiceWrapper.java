@@ -1,8 +1,8 @@
 package mx.ikii.payment.service.order;
 
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
-import mx.ikii.payment.payload.response.OrderConektaResponse;
 
 public interface IKiiPaymentOrderServiceWrapper {
 

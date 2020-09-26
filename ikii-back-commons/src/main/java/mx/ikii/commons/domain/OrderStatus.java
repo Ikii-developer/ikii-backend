@@ -11,7 +11,8 @@ public enum OrderStatus {
 	ACCEPTED("ACCEPTED"),
 	DECLINE("DECLINE"),
 	FINISHED("FINISHED"),
-	ERROR("ERROR");
+	ERROR("ERROR"),
+	REFUNDED("REFUNDED");
 
     private final String status;
 }

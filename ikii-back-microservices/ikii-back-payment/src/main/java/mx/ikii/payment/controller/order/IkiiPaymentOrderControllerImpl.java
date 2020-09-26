@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
-import mx.ikii.payment.payload.response.OrderConektaResponse;
 import mx.ikii.payment.service.order.IKiiPaymentOrderServiceWrapper;
 
 @Component

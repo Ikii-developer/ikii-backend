@@ -24,8 +24,8 @@ public interface IPaymentOrderController {
 	@GetMapping("/{orderId}")
 	ResponseEntity<PaymentOrderResponse> getById(String orderId);
 	
-	@DeleteMapping("/{orderId}")
-	ResponseEntity<Void> delete(String orderId);
+	@PutMapping("/refund")
+	ResponseEntity<PaymentOrderResponse> refund(OrderRequest orderRequest);
 	
 	
 }

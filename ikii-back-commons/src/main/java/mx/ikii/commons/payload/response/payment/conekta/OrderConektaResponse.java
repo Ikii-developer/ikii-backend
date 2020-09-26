@@ -10,6 +10,7 @@ import lombok.Data;
 import mx.ikii.commons.payload.dto.ChargesDTO;
 import mx.ikii.commons.payload.dto.CustomerInfoDTO;
 import mx.ikii.commons.payload.dto.LineItemsDTO;
+import mx.ikii.commons.payload.dto.TaxLineDTO;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,6 +33,8 @@ public class OrderConektaResponse {
 	
 	private String chargesId;
 	private List<ChargesDTO> charges;
+	
+	private List<TaxLineDTO> tax_lines;
 
 	private Map<String,String> metadata;
 	

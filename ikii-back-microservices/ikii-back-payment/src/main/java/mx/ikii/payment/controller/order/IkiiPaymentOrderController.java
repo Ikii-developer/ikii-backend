@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
-import mx.ikii.payment.payload.response.OrderConektaResponse;
-
 @RestController
 @RequestMapping("/order-payment")
 public interface IkiiPaymentOrderController {

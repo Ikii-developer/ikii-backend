@@ -27,10 +27,7 @@ public class OrdersConektaServiceImpl implements IOrdersConektaService {
 
 	@Override
 	public Order createOrderWithCardCharge(OrderConektaRequest orderConektaRequest) {
-		orderConektaRequest.getLine_items().forEach(item->{
-			//unit_price: El precio por unidad expresado en centavos.
-			item.setUnit_price(item.getUnit_price().multiply(new BigDecimal(100)));
-		});
+
 //        "'charges': [{" +
 //        "    'payment_method': {" +
 //        "        'type': 'card'," +
@@ -39,16 +36,18 @@ public class OrdersConektaServiceImpl implements IOrdersConektaService {
 //        "    'amount': 35000" +
 //        "}]" +
 		Order order = ordersConektaRepository.createOrder(new JSONObject(orderConektaRequest));
+	
+	
 		//Okta specific business logic
 		return order;
 	}
 	
 	@Override
 	public Order createAnOrderWithAnOXXOPayCharge(OrderConektaRequest orderConektaRequest) {
-		orderConektaRequest.getLine_items().forEach(item->{
-			//unit_price: El precio por unidad expresado en centavos.
-			item.setUnit_price(item.getUnit_price().multiply(new BigDecimal(100)));
-		});
+//		orderConektaRequest.getLine_items().forEach(item->{
+//			//unit_price: El precio por unidad expresado en centavos.
+//			item.setUnit_price(item.getUnit_price().multiply(new BigDecimal(100)));
+//		});
 		
 //        "'charges': [{" +
 //        "    'payment_method': {" +
@@ -63,10 +62,10 @@ public class OrdersConektaServiceImpl implements IOrdersConektaService {
 	
 	@Override
 	public Order createAnOrderWithSPEIcharge(OrderConektaRequest orderConektaRequest) {
-		orderConektaRequest.getLine_items().forEach(item->{
-			//unit_price: El precio por unidad expresado en centavos.
-			item.setUnit_price(item.getUnit_price().multiply(new BigDecimal(100)));
-		});
+//		orderConektaRequest.getLine_items().forEach(item->{
+//			//unit_price: El precio por unidad expresado en centavos.
+//			item.setUnit_price(item.getUnit_price().multiply(new BigDecimal(100)));
+//		});
 		
 //        "'charges': [{" +
 //        "    'payment_method': {" +

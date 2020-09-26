@@ -1,5 +1,11 @@
 ## ikii-back-payment
 
+## 2.1.0
+* Orders has been integrated with Conekta
+* Changed delete operation to refund
+* Removed unnecessary delete methods for OrderDetail and PaymentOrder
+* Added OrderConektaResponse to PaymentOrderResponse
+
 ## 2.0.0
 * Added CRUD for order
 * Added, Repository, Service and Controller layers

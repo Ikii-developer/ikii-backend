@@ -29,10 +29,4 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 		return orderDetailRepositroy.save(orderDetail);
 	}
 
-	@Override
-	public void delete(String id) {
-		 OrderDetail persistedOrderDetail = this.getById(id);
-		 orderDetailRepositroy.delete(persistedOrderDetail);
-	}
-
 }
