@@ -10,6 +10,4 @@ public interface IOrderDetailService {
 	
 	OrderDetail update(OrderDetail orderDetail);
 	
-	void delete(String id);
-	
 }

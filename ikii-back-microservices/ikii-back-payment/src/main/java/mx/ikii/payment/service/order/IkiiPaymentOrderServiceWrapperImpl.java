@@ -1,17 +1,15 @@
 package mx.ikii.payment.service.order;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.conekta.Order;
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.commons.persistence.collection.PaymentOrderInfo;
 import mx.ikii.payment.mapper.OrderConektaMapper;
 import mx.ikii.payment.methods.conekta.service.orders.IOrdersConektaService;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
-import mx.ikii.payment.payload.response.OrderConektaResponse;
 import mx.ikii.payment.service.ikii.IkiiPaymentOrderInfoService;
 
 @Service

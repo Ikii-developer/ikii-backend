@@ -9,7 +9,7 @@ public interface IPaymentOrderServiceWrapper {
 
 	PaymentOrderResponse getById(String id);
 
-	void delete(String id);
+	PaymentOrderResponse refund(OrderRequest orderRequest);
 	
 	PaymentOrderResponse update(OrderRequest paymentOrder);
 	

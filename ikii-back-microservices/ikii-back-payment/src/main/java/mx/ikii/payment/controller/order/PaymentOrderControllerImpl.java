@@ -33,9 +33,8 @@ public class PaymentOrderControllerImpl implements IPaymentOrderController {
 	}
 
 	@Override
-	public ResponseEntity<Void> delete(@PathVariable String orderId) {
-		paymentOrderService.delete(orderId);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<PaymentOrderResponse> refund(@RequestBody OrderRequest orderRequest) {
+		return ResponseEntity.status(HttpStatus.OK).body(paymentOrderService.refund(orderRequest));
 	}
-
+	
 }

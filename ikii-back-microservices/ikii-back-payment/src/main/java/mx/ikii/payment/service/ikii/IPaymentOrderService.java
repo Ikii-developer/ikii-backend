@@ -9,7 +9,7 @@ public interface IPaymentOrderService {
 	PaymentOrder save(PaymentOrder paymentOrder);
 	
 	PaymentOrder update(PaymentOrder paymentOrder);
-	
-	void delete(String id);
+
+	void calculateTotals(PaymentOrder paymentOrder);
 	
 }

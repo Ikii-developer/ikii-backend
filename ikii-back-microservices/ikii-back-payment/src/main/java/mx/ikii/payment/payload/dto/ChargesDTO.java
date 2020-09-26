@@ -1,11 +1,9 @@
 package mx.ikii.payment.payload.dto;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
+import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 
 /**
  * Lista de los cargos que se generaron para cubrir el monto de la orden.
@@ -16,8 +14,8 @@ public class ChargesDTO {
 	
 	private String id;
 	
-	private List<PaymentMethodDTO> paymentMethod;
+	private PaymentMethodDTO payment_method;
 	
-	private BigDecimal amount;
+	private Integer amount;
 	
 }

@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
+import mx.ikii.commons.payload.dto.PaymentMethodDTO;
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,9 +23,13 @@ public class PaymentOrderResponse {
 	private BigDecimal internalComission;
 	private BigDecimal tax;
 	private BigDecimal amountRefunded;
-	private Integer paymentMethod;
+	private PaymentMethodDTO paymentMethod;
 	private String status;
 	private LocalDateTime createdAt;
+	private String message;
 	private OrderDetailResponse detail;	
+	private OrderConektaResponse orderConektaResponse;
+	private String reasonRefund;
+	
 
 }

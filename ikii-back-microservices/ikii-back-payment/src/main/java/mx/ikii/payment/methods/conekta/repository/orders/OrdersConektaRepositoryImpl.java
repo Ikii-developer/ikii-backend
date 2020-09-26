@@ -53,9 +53,11 @@ public class OrdersConektaRepositoryImpl implements IOrdersConektaRepository {
 		Order completeOrder;
 		try {
 			completeOrder = Order.create(orderRequestJSON);
-		} catch (ErrorList | Error e) {
-			log.info(e.getMessage());
-			e.printStackTrace();
+		} catch (ErrorList e) {
+			log.error(e.details.get(0).getMessage());
+			throw new ConektaRepositoryException(e.details.get(0).getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new ConektaRepositoryException(e.getMessage());
 		}
 		
@@ -71,9 +73,11 @@ public class OrdersConektaRepositoryImpl implements IOrdersConektaRepository {
 		try {
 			updatedOrder.update(orderRequestJSON);
 			
-		} catch (Error | ErrorList e) {
-			log.info(e.getMessage());
-			e.printStackTrace();
+		} catch (ErrorList e) {
+			log.error(e.details.get(0).getMessage());
+			throw new ConektaRepositoryException(e.details.get(0).getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new ConektaRepositoryException(e.getMessage());
 		}
 		return updatedOrder;

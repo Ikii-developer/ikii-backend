@@ -7,6 +7,7 @@ import lombok.Data;
 import mx.ikii.payment.payload.dto.ChargesDTO;
 import mx.ikii.payment.payload.dto.CustomerInfoDTO;
 import mx.ikii.payment.payload.dto.LineItemsDTO;
+import mx.ikii.payment.payload.dto.TaxLineDTO;
 
 /**
  * Una orden representa una compra. 
@@ -26,7 +27,7 @@ import mx.ikii.payment.payload.dto.LineItemsDTO;
 @Data
 public class OrderConektaRequest {
 	
-	private String id;
+	private String order_id;
 	
 	/**
 	 * Divisa con la cual se realizará el cobro. 
@@ -70,7 +71,7 @@ public class OrderConektaRequest {
 	 * Lista de los impuestos que se pagan.
 	 * https://developers.conekta.com/api?language=java#tax-line
 	 */
-	//private TaxLine taxLine;
+	private List<TaxLineDTO> tax_lines;
 	
 	/**
 	 * Lista de los descuentos que se aplican a la orden.

@@ -26,24 +26,16 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
 
 	@Override
 	public PaymentOrder save(PaymentOrder paymentOrder) {
-		calculateTotals(paymentOrder);
 		return paymentOrderRepository.insert(paymentOrder);
 	}
 
 	@Override
 	public PaymentOrder update(PaymentOrder paymentOrder) {
-		calculateTotals(paymentOrder);
 		return paymentOrderRepository.save(paymentOrder);
 	}
-
-	@Override
-	public void delete(String id) {
-		PaymentOrder persistedPaymentOrder = this.getById(id);
-		paymentOrderRepository.delete(persistedPaymentOrder);
-
-	}
 	
-	private void calculateTotals(PaymentOrder paymentOrder) {
+	@Override
+	public void calculateTotals(PaymentOrder paymentOrder) {
 		BigDecimal suTotal = paymentOrder.getDetail().getProducts().stream()
 		        .map(ProductDetail::getTotalAmount)
 		        .reduce(BigDecimal.ZERO, BigDecimal::add);

@@ -149,7 +149,7 @@ services:
 
   ikii-back-payment-method:
     container_name: ikii-back-payment-methods
-    image : ikii/payment-methods:2.0.0
+    image : ikii/payment-methods:2.1.0
     environment:
       - CLOUD_CONFIG_URI=http://ikii-back-config:8888
       - PROFILE=prod
