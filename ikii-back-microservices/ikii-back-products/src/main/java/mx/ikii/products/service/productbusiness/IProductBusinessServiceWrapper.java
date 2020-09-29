@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 
 public interface IProductBusinessServiceWrapper {
 
@@ -25,5 +26,5 @@ public interface IProductBusinessServiceWrapper {
 
 	void delete(String id);
 
-	List<ProductBusinessResponse> filterProduct(Pageable pageable, String customerId, ProductFilter productFilter);
+	List<ProductGroupingByBusiness> filterProduct(Pageable pageable, String customerId, ProductFilter productFilter);
 }

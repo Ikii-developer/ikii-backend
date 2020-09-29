@@ -30,6 +30,11 @@ public class ProductBusinessServiceImpl implements IProductBusinessService {
 				.orElseThrow(() -> new ResourceNotFoundException(id, ProductModel.class));
 		return product;
 	}
+	
+	@Override
+	public List<ProductBusiness> findByBusinessIdIn(List<ObjectId> ids) {
+		return productRepository.findByBusinessIdIn(ids);
+	}
 
 	@Override
 	public ProductBusiness findByName(String name) {
@@ -69,9 +74,15 @@ public class ProductBusinessServiceImpl implements IProductBusinessService {
 	}
 	
 	@Override
+	public List<ProductBusiness> findMostSelledProductsByBussinessId(Pageable pageable, ObjectId bussinessId) {
+		return productRepository.findAllByBusinessId(pageable, bussinessId);
+	}
+	
+	@Override
 	public List<ProductBusiness> filterProduct(Pageable pageable, ProductFilter productFilter) {
 		
 		return productRepositoryCustom.searchByKeywords(productFilter.getKeywords());
 	}
+
 
 }

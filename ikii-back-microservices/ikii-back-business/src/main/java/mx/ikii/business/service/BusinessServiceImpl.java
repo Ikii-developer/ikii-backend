@@ -1,11 +1,14 @@
 package mx.ikii.business.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mx.ikii.business.repository.IBusinessRepository;
+import mx.ikii.business.repository.custom.IBusinessRepositoryCustom;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Business;
 import mx.ikii.helper.Helper;
@@ -15,6 +18,9 @@ public class BusinessServiceImpl implements IBusinessService {
 
 	@Autowired
 	private IBusinessRepository businessRepository;
+	
+	@Autowired
+	private IBusinessRepositoryCustom businessRepositoryCustom;
 
 	@Override
 	public Business findById(String id) {
@@ -24,8 +30,14 @@ public class BusinessServiceImpl implements IBusinessService {
 	}
 
 	@Override
-	public Business findByUserName(String name) {
+	public Business findByName(String name) {
 		Business business = businessRepository.findByName(name);
+		return business;
+	}
+	
+	@Override
+	public List<Business> filterByBusinessName(String name) {
+		List<Business> business = businessRepositoryCustom.filterByBusinessName(name);
 		return business;
 	}
 

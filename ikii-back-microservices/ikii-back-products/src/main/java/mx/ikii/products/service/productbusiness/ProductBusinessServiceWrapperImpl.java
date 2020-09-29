@@ -1,6 +1,7 @@
 package mx.ikii.products.service.productbusiness;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.mapper.product.IProductBusinessMapper;
+import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
@@ -76,30 +79,36 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 	}
 
 	@Override
-	public List<ProductBusinessResponse> filterProduct(Pageable pageable, String customerId,
+	public List<ProductGroupingByBusiness> filterProduct(Pageable pageable, String customerId,
 			ProductFilter productFilter) {
 		List<ProductBusiness> products = null;
 
 		products = Nullable.isNullOrEmpty(productFilter.getBusinessId())
-				? productBusinessService.filterProduct(pageable, productFilter)
+				? findProductByKeywordOrBusinessName(products, pageable, productFilter)
 				: productBusinessService.findAllByBussinessId(pageable, new ObjectId(productFilter.getBusinessId()));
 
-		List<ProductBusinessResponse> productResponse = productBusinessMapper.entityToResponse(products);
+				
+		Map<ObjectId, List<ProductBusiness>> productsByBusiness = products.stream().collect(Collectors.groupingBy(p -> p.getBusinessId()));
+		List<ProductGroupingByBusiness> productResponse = productBusinessMapper.entityToProductGroupingByBusiness(productsByBusiness);
 		setFavorites(productResponse, customerId);
 
 		return productResponse;
 	}
 
-	private void setFavorites(List<ProductBusinessResponse> businessProducts, String customerId) {
+	private void setFavorites(List<ProductGroupingByBusiness> businessProducts, String customerId) {
 		if (Nullable.isNotNull(customerId)) {
 			try {
 				CustomerDetails customerDetails = customerFeignService.getCustomerDetailsByCustomerId(customerId);
 				List<ObjectId> productsFavorites = customerDetails.getProductFavorites();
+				
 				if (!Nullable.isNullOrEmpty(productsFavorites)) {
 					businessProducts = businessProducts.stream().map(productMap -> {
-						if (productsFavorites.contains(new ObjectId(productMap.getId()))) {
-							productMap.setFavorite(true);
-						}
+						
+						productMap.getProducts().stream().forEach(prod-> {
+							if (productsFavorites.contains(new ObjectId(prod.getId()))) {
+								prod.setFavorite(true);
+							}
+						});
 						return productMap;
 					}).collect(Collectors.toList());
 				}
@@ -107,6 +116,24 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 				log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId, e.getMessage());
 			}
 		}
+	}
+
+	private List<ProductBusiness> findProductByKeywordOrBusinessName(List<ProductBusiness> products, Pageable pageable,
+			ProductFilter productFilter) {
+		
+		products = productBusinessService.filterProduct(pageable, productFilter);
+		
+		if(Nullable.isNullOrEmpty(products)) {
+			
+			BusinessFilterRequest businesFilterReq = new BusinessFilterRequest();
+			businesFilterReq.setKeywords(productFilter.getKeywords());
+			
+			List<BusinessNearByMe> business = customerFeignService.nearByMe(productFilter.getCoordinates().getLatitude(), 
+					productFilter.getCoordinates().getLongitude(), new Double(5), null, businesFilterReq);
+			
+			products = productBusinessService.findByBusinessIdIn(business.stream().map(b->b.getBusinessIdObjectId()).collect(Collectors.toList()));
+		}
+		return products;
 	}
 
 }

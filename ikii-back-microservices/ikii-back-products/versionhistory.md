@@ -1,5 +1,9 @@
 ## ikii-back-products
 
+## 1.6.0
+* Group product by businessId in "filter product"
+* Search product by keyword or find all products that match with keyword business name
+
 ## 1.5.0
 * adds Required condition for businessId in the filter
 * adds favorite attribute to ProductsResponse

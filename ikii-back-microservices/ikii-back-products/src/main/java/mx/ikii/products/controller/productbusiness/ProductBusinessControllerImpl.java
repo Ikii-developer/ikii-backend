@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 import mx.ikii.products.service.productbusiness.IProductBusinessServiceWrapper;
 
 @Component
@@ -62,7 +63,7 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
 	}
 
 	@Override
-	public ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable,
+	public ResponseEntity<List<ProductGroupingByBusiness>> filterProduct(Pageable pageable,
 			@RequestParam(required = false) String customerId, @RequestBody ProductFilter productFilter) {
 		return ResponseEntity.ok(productBusinessServiceWrapper.filterProduct(pageable, customerId, productFilter));
 	}

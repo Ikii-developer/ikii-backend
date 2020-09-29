@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 
 @RestController
 @RequestMapping("/")
@@ -42,7 +43,7 @@ public interface IProductBusinessController {
 	ResponseEntity<Void> delete(String id);
 
 	@PostMapping("/filter")
-	ResponseEntity<List<ProductBusinessResponse>> filterProduct(Pageable pageable, String customerId,
+	ResponseEntity<List<ProductGroupingByBusiness>> filterProduct(Pageable pageable, String customerId,
 			ProductFilter productFilter);
 
 }

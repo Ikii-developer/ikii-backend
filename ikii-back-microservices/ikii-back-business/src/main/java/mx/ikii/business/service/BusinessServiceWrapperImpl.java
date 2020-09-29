@@ -45,7 +45,12 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 
 	@Override
 	public BusinessResponse getByBusinesName(String businessName) {
-		return businessMapper.entityToResponse(businessService.findByUserName(businessName));
+		return businessMapper.entityToResponse(businessService.findByName(businessName));
+	}
+	
+	@Override
+	public List<BusinessResponse> filterByBusinessName(String businessName) {
+		return businessMapper.entityToResponse(businessService.filterByBusinessName(businessName));
 	}
 
 	@Override
