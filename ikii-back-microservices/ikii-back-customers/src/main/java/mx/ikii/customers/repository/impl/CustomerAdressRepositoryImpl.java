@@ -46,7 +46,7 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.foreignField("businessId").as("rate");
 		
 		ProjectionOperation projectionOperationRenameFields1 = 
-				Aggregation.project("businessId", "customerId","location", "description", "distance")
+				Aggregation.project("businessId", "customerId","location", "description", "street", "distance")
 				.and(ArrayOperators.ArrayElemAt.arrayOf("business").elementAt(0)).as("business")
 				.and(ArrayOperators.ArrayElemAt.arrayOf("rate").elementAt(0)).as("rate");
 		
@@ -56,7 +56,7 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.andExpression("business.image").as("image")
 				.andExpression("business.categoryId").as("categoryId")
 				.andExpression("business.description").as("description")
-				//.andExpression("description").as("businessDescription")
+				.andExpression("street").as("street")
 				.andExpression("business.deliveryTime").as("deliveryTime")
 				.andExpression("business.closeTime").as("closeTime")
 				.andExpression("business.isOpen").as("isOpen")

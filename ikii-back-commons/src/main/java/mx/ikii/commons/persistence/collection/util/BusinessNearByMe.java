@@ -31,6 +31,7 @@ public class BusinessNearByMe {
 	private String closeTieme;
 	private Boolean isOpen;
 	private Double distance;
+	private String street;
 	private String status;
 	private Double average;
 	private boolean favorite;
