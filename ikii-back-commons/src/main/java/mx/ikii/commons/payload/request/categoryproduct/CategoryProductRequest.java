@@ -7,6 +7,8 @@ public class CategoryProductRequest {
 	private String name;
 	private String image;
 	private String businessId;
+	private String parentProductCategoryId;
+	private Boolean isParent;
 	private String type;
 	private String description;
 	private Integer order;

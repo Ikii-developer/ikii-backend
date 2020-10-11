@@ -12,6 +12,8 @@ public interface ICategoryProductServiceWrapper {
 
 	CategoryProductResponse findById(String id);
 
+	List<CategoryProductResponse> findByParentCategoryId(String productCategoryId);
+
 	CategoryProductResponse findByName(String name);
 
 	List<CategoryProductResponse> findByBusinessId(String businessId);

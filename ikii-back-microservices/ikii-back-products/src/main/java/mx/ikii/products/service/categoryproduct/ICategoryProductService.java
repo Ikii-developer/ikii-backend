@@ -13,6 +13,8 @@ public interface ICategoryProductService {
 
 	List<CategoryProduct> findByBusinessId(String businessId);
 
+	List<CategoryProduct> findByParentCategoryId(String productCategoryId);
+
 	CategoryProduct findByName(String name);
 
 	Page<CategoryProduct> findAll(Pageable pageable);

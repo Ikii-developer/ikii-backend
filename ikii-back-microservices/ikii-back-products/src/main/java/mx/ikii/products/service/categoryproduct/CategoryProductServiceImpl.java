@@ -26,6 +26,12 @@ public class CategoryProductServiceImpl implements ICategoryProductService {
 	}
 
 	@Override
+	public List<CategoryProduct> findByParentCategoryId(String productCategoryId) {
+		return categoryProductRepository.findByParentProductCategoryId(new ObjectId(productCategoryId))
+				.orElse(Collections.emptyList());
+	}
+
+	@Override
 	public List<CategoryProduct> findByBusinessId(String businessId) {
 		return categoryProductRepository.findByBusinessId(new ObjectId(businessId)).orElse(Collections.emptyList());
 	}

@@ -16,4 +16,6 @@ public interface ICategoryProductRepository extends MongoRepository<CategoryProd
 
 	Optional<List<CategoryProduct>> findByBusinessId(ObjectId businessId);
 
+	Optional<List<CategoryProduct>> findByParentProductCategoryId(ObjectId parentProductCategoryId);
+
 }

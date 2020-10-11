@@ -1,6 +1,7 @@
 package mx.ikii.commons.mapper.utils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -17,11 +18,11 @@ import org.mapstruct.Mapper;
 public class StringObjectIdMapper {
 
 	public ObjectId asObjectId(String id) {
-		return new ObjectId(id);
+		return Objects.isNull(id) ? null : new ObjectId(id);
 	}
 
 	public String asString(ObjectId id) {
-		return id.toHexString();
+		return Objects.isNull(id) ? null : id.toHexString();
 	}
 
 	public List<String> asString(List<ObjectId> ids) {
