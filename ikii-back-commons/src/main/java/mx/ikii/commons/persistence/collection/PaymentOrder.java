@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mx.ikii.commons.domain.OrderType;
+import mx.ikii.commons.payload.dto.OrderSubstatusDetail;
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 
 @Data
@@ -38,8 +40,12 @@ public class PaymentOrder {
 	private String message;
 	private PaymentMethodDTO paymentMethod;
 	private String reasonRefund;
-	
+	private OrderType orderType;
+	private OrderSubstatusDetail orderSubstatusDetail;
+
 	@DBRef
 	private OrderDetail detail;	
+	
+	
 
 }

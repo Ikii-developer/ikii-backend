@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import mx.ikii.commons.domain.OrderType;
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 
 @Data
@@ -23,5 +24,6 @@ public class OrderRequest {
 	private PaymentMethodDTO paymentMethod;
 	private String status;
 	private String reasonRefund;
+	private OrderType orderType;
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.request.order.OrderRequest;
+import mx.ikii.commons.payload.request.order.OrderStatusRequest;
 import mx.ikii.commons.payload.response.payment.order.PaymentOrderResponse;
 import mx.ikii.payment.service.ikii.IPaymentOrderServiceWrapper;
 
@@ -35,6 +36,12 @@ public class PaymentOrderControllerImpl implements IPaymentOrderController {
 	@Override
 	public ResponseEntity<PaymentOrderResponse> refund(@RequestBody OrderRequest orderRequest) {
 		return ResponseEntity.status(HttpStatus.OK).body(paymentOrderService.refund(orderRequest));
+	}
+
+	@Override
+	public ResponseEntity<Void> updateStatusOrder(@PathVariable String orderId, @RequestBody OrderStatusRequest orderStatusRequest) {
+		paymentOrderService.updateOrderIkiiStatus(orderId, orderStatusRequest);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
 }
