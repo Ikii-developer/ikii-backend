@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.6.1
+* add parentProductCategoryId to identify the category parent, it will be replaced by productSubcategory in a refactor  with its service ProductSubCategory
+* add endpoint to retrieve productCategories by parentCategory
 ## 1.6.0
 * Group product by businessId in "filter product"
 * Search product by keyword or find all products that match with keyword business name

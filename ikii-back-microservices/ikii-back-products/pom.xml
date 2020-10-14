@@ -9,7 +9,7 @@
 		<version>2.0.0</version>
 	</parent>
 	<artifactId>ikii-back-products</artifactId>
-	<version>1.5.0</version>
+	<version>1.6.1</version>
 	<name>ikii-back-products</name>
 	<description>Spring Product Microservice</description>
 

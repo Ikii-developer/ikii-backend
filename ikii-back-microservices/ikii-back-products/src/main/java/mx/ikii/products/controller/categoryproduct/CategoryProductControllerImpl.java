@@ -11,10 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.payload.request.categoryproduct.CategoryProductRequest;
 import mx.ikii.commons.payload.response.categoryproduct.CategoryProductResponse;
 import mx.ikii.products.service.categoryproduct.ICategoryProductServiceWrapper;
 
+@Slf4j
 @Component
 public class CategoryProductControllerImpl implements ICategoryProductController {
 
@@ -24,6 +26,11 @@ public class CategoryProductControllerImpl implements ICategoryProductController
 	@Override
 	public ResponseEntity<CategoryProductResponse> getById(@PathVariable String id) {
 		return ResponseEntity.ok(categoryProductServiceWrapper.findById(id));
+	}
+
+	@Override
+	public ResponseEntity<List<CategoryProductResponse>> getByParentCategoryId(@PathVariable String parentCategoryId) {
+		return ResponseEntity.ok(categoryProductServiceWrapper.findByParentCategoryId(parentCategoryId));
 	}
 
 	@Override
@@ -61,6 +68,7 @@ public class CategoryProductControllerImpl implements ICategoryProductController
 	@Override
 	public ResponseEntity<List<CategoryProductResponse>> createBulk(
 			@RequestBody List<CategoryProductRequest> categoryProductRequest) {
+		log.info("Creating product categories in bulk");
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(categoryProductServiceWrapper.createBulk(categoryProductRequest));
 	}

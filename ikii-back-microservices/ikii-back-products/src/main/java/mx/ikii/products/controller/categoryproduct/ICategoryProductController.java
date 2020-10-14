@@ -22,6 +22,9 @@ public interface ICategoryProductController {
 	@GetMapping("/{id}")
 	ResponseEntity<CategoryProductResponse> getById(String id);
 
+	@GetMapping("/parent-category/{parentCategoryId}")
+	ResponseEntity<List<CategoryProductResponse>> getByParentCategoryId(String parentCategoryId);
+
 	@GetMapping("/business/{businessId}")
 	ResponseEntity<List<CategoryProductResponse>> getByBusinessId(String businessId);
 

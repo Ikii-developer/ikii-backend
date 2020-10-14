@@ -11,6 +11,8 @@ public class CategoryProduct {
 	private String id;
 	private String name;
 	private ObjectId businessId;
+	private ObjectId parentProductCategoryId;
+	private Boolean isParent;
 	private String image;
 	private String type;
 	private String description;

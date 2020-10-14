@@ -1,5 +1,8 @@
 ## ikii-back-commons
 
+## 2.4.1
+* Add validation to StringObjectIdMapper when any of them is null
+
 ## 2.4.0
 * Add PaymentOrder 
 * Add OrderDetail

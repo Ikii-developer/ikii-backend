@@ -8,12 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.mapper.categoryproduct.ICategoryProductMapper;
 import mx.ikii.commons.payload.request.categoryproduct.CategoryProductRequest;
 import mx.ikii.commons.payload.response.categoryproduct.CategoryProductResponse;
 import mx.ikii.commons.persistence.collection.CategoryProduct;
 import mx.ikii.commons.utils.PageHelper;
 
+@Slf4j
 @Service
 public class CategoryProductServiceWrapperImpl implements ICategoryProductServiceWrapper {
 
@@ -26,6 +28,11 @@ public class CategoryProductServiceWrapperImpl implements ICategoryProductServic
 	@Override
 	public CategoryProductResponse findById(String id) {
 		return categoryProductMapper.entityToResponse(categoryProductService.findById(id));
+	}
+
+	@Override
+	public List<CategoryProductResponse> findByParentCategoryId(String productCategoryId) {
+		return categoryProductMapper.entityToResponse(categoryProductService.findByParentCategoryId(productCategoryId));
 	}
 
 	@Override
@@ -48,6 +55,7 @@ public class CategoryProductServiceWrapperImpl implements ICategoryProductServic
 
 	@Override
 	public CategoryProductResponse create(CategoryProductRequest categoryProductRequest) {
+		log.info("Creating categoryProduct {}", categoryProductRequest);
 		CategoryProduct categoryProduct = categoryProductMapper.requestToEntity(categoryProductRequest);
 		return categoryProductMapper.entityToResponse(categoryProductService.create(categoryProduct));
 	}
