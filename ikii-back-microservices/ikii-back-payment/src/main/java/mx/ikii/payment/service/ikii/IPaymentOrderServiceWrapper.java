@@ -1,6 +1,7 @@
 package mx.ikii.payment.service.ikii;
 
 import mx.ikii.commons.payload.request.order.OrderRequest;
+import mx.ikii.commons.payload.request.order.OrderStatusRequest;
 import mx.ikii.commons.payload.response.payment.order.PaymentOrderResponse;
 
 public interface IPaymentOrderServiceWrapper {
@@ -12,5 +13,7 @@ public interface IPaymentOrderServiceWrapper {
 	PaymentOrderResponse refund(OrderRequest orderRequest);
 	
 	PaymentOrderResponse update(OrderRequest paymentOrder);
+	
+	void updateOrderIkiiStatus(String orderId, OrderStatusRequest orderStatusRequest);
 	
 }

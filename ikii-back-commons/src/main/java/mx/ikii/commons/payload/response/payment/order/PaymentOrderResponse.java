@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
+import mx.ikii.commons.domain.OrderType;
+import mx.ikii.commons.payload.dto.OrderSubstatusDetail;
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 
@@ -30,6 +32,8 @@ public class PaymentOrderResponse {
 	private OrderDetailResponse detail;	
 	private OrderConektaResponse orderConektaResponse;
 	private String reasonRefund;
+	private OrderSubstatusDetail orderSubstatusDetail;
+	private OrderType orderType;
 	
 
 }

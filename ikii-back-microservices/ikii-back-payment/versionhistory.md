@@ -1,5 +1,9 @@
 ## ikii-back-payment
 
+## 2.2.0
+* Add Substatus and Status in Order
+* Add Method to change order status
+
 ## 2.1.0
 * Orders has been integrated with Conekta
 * Changed delete operation to refund

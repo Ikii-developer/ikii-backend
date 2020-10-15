@@ -1,30 +1,37 @@
 package mx.ikii.payment.service.ikii;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.conekta.Order;
 import mx.ikii.commons.domain.OrderStatus;
+import mx.ikii.commons.domain.OrderSubStatus;
 import mx.ikii.commons.exception.handler.ConektaRepositoryException;
 import mx.ikii.commons.mapper.order.IPaymentOrderMapper;
+import mx.ikii.commons.payload.dto.OrderSubstatusDetail;
 import mx.ikii.commons.payload.request.order.OrderDetailRequest;
 import mx.ikii.commons.payload.request.order.OrderRequest;
+import mx.ikii.commons.payload.request.order.OrderStatusRequest;
 import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.commons.payload.response.payment.order.PaymentOrderResponse;
 import mx.ikii.commons.persistence.collection.OrderDetail;
 import mx.ikii.commons.persistence.collection.PaymentOrder;
 import mx.ikii.commons.persistence.collection.util.ProductDetail;
+import mx.ikii.commons.utils.Nullable;
 import mx.ikii.payment.mapper.OrderConektaMapper;
 import mx.ikii.payment.methods.conekta.service.orders.IOrdersConektaService;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
 
 @Service
+@Transactional
 public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapper {
 
 	@Autowired
@@ -54,6 +61,7 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
 				.createdAt(LocalDateTime.now())
 				.customerIdConekta(orderRequest.getCostumerIdConekta())
 				.paymentMethod(orderRequest.getPaymentMethod())
+				.orderType(orderRequest.getOrderType())
 				.build();
 		paymentOrderService.calculateTotals(paymentOrder);
 		OrderConektaResponse orderConektaResponse = null;
@@ -63,6 +71,7 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
 			orderConektaResponse = OrderConektaMapper.orderConektaToOrderConektaResponse(orderConekta);
 			paymentOrder.setStatus(OrderStatus.ACCEPTED.getStatus());
 			paymentOrder.setTransactionId(orderConektaResponse.getId());
+			paymentOrder.setOrderSubstatusDetail(new OrderSubstatusDetail(OrderSubStatus.REQUESTED, LocalDateTime.now()));
 			// TODO will need to process to the delivery step
 		}catch(ConektaRepositoryException ex) {
 			paymentOrder.setStatus(OrderStatus.ERROR.getStatus());
@@ -127,6 +136,24 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
 		OrderConektaResponse orderConektaResponse = OrderConektaMapper.orderConektaToOrderConektaResponse(orderConekta);
 		paymentOrderResponse.setOrderConektaResponse(orderConektaResponse);
 		return paymentOrderResponse;
+	}
+
+
+	@Override
+	public void updateOrderIkiiStatus(String orderId, OrderStatusRequest orderStatusRequest) {
+		PaymentOrder paymentOrder = paymentOrderService.getById(orderId);
+
+		OrderSubstatusDetail orderSubstatusDetail = paymentOrder.getOrderSubstatusDetail();
+		List<OrderSubstatusDetail> orderSubstatusHistory = orderSubstatusDetail.getSubStatusHistory();
+		if(Nullable.isNullOrEmpty(orderSubstatusHistory)) orderSubstatusHistory = new ArrayList<>();
+		orderSubstatusHistory.add(new OrderSubstatusDetail(orderSubstatusDetail.getSubStatus(),
+									orderSubstatusDetail.getDate(), orderSubstatusDetail.getDescription()));
+		orderSubstatusDetail.setSubStatusHistory(orderSubstatusHistory);
+		paymentOrder.setOrderSubstatusDetail(orderSubstatusDetail);
+		orderSubstatusDetail.setSubStatus(orderStatusRequest.getSubStatus());
+		orderSubstatusDetail.setDescription(orderStatusRequest.getDescription());
+		orderSubstatusDetail.setDate(LocalDateTime.now());
+		paymentOrderService.update(paymentOrder);
 	}
 	
 }
