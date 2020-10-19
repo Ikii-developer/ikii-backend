@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.2.2
+* add Support Ticket
+
 ## 2.2.1
 * fix nearByMe: @RequestParam(required = false) Double distance
 
