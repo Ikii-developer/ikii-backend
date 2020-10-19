@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mx.ikii.commons.domain.OrderType;
+import mx.ikii.commons.domain.PaymentType;
 import mx.ikii.commons.payload.dto.OrderSubstatusDetail;
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 
@@ -42,6 +43,8 @@ public class PaymentOrder {
 	private String reasonRefund;
 	private OrderType orderType;
 	private OrderSubstatusDetail orderSubstatusDetail;
+	private PaymentType paymentType;
+    private Boolean accounted;
 
 	@DBRef
 	private OrderDetail detail;	

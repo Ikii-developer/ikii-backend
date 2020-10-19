@@ -62,6 +62,7 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
 				.customerIdConekta(orderRequest.getCostumerIdConekta())
 				.paymentMethod(orderRequest.getPaymentMethod())
 				.orderType(orderRequest.getOrderType())
+				.paymentType(orderRequest.getPaymentType())
 				.build();
 		paymentOrderService.calculateTotals(paymentOrder);
 		OrderConektaResponse orderConektaResponse = null;
