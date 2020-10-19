@@ -80,7 +80,6 @@ public class ProductBusinessServiceImpl implements IProductBusinessService {
 	
 	@Override
 	public List<ProductBusiness> filterProduct(Pageable pageable, ProductFilter productFilter) {
-		
 		return productRepositoryCustom.searchByKeywords(productFilter.getKeywords());
 	}
 

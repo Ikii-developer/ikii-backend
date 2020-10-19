@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BusinessFilterRequest {
-	private String keywords;
+
+  private String keywords;
 
 }

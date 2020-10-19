@@ -14,20 +14,20 @@ import lombok.Data;
 @Document(collection = "ProductBusiness", language = "es")
 public class ProductBusiness {
 
-	@Id
-	private String id;
-	private ObjectId businessId;
-	private String productCategoryId;
-	private String measureUnit;
-	private String code;
+  @Id
+  private String id;
+  private ObjectId businessId;
+  private ObjectId productCategoryId;
+  private String measureUnit;
+  private String code;
 
-	@TextIndexed(weight = 2)
-	private String name;
+  @TextIndexed(weight = 2)
+  private String name;
 
-	@TextIndexed(weight = 1)
-	private String description;
-	private Map<String, String> fullDescription; // for Food
-	private BigDecimal price;
-	private String pathImage;
+  @TextIndexed(weight = 1)
+  private String description;
+  private Map<String, String> fullDescription; // for Food
+  private BigDecimal price;
+  private String pathImage;
 
 }

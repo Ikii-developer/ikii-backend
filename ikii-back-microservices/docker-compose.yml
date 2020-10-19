@@ -79,8 +79,6 @@ services:
       - PROFILE=prod
     tty: false    
     restart: always
-    ports:
-      - "8002:8002"   
     networks:
       - ikiinet-local 
     links:
@@ -98,8 +96,6 @@ services:
       - PROFILE=prod
     tty: false    
     restart: always
-    ports:
-      - "8004:8004"  
     networks:
       - ikiinet-local 
     links:
@@ -117,8 +113,6 @@ services:
       - PROFILE=prod
     tty: false    
     restart: always
-    ports:
-      - "8003:8003"  
     networks:
       - ikiinet-local 
     links:
@@ -136,8 +130,6 @@ services:
       - PROFILE=prod
     tty: false    
     restart: always
-    ports:
-      - "8006:8006"  
     networks:
       - ikiinet-local 
     links:
@@ -155,8 +147,6 @@ services:
       - PROFILE=prod
     tty: false
     restart: always
-    ports:
-      - "8007:8006"  
     networks:
       - ikiinet-local 
     links:

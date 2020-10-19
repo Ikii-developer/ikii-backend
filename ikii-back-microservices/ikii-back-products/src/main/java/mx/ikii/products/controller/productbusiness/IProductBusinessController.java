@@ -21,29 +21,30 @@ import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 @RequestMapping("/")
 public interface IProductBusinessController {
 
-	@GetMapping
-	ResponseEntity<Page<ProductBusinessResponse>> getAll(Pageable pageable);
+  @GetMapping
+  ResponseEntity<Page<ProductBusinessResponse>> getAll(Pageable pageable);
 
-	@GetMapping("{id}")
-	ResponseEntity<ProductBusinessResponse> getById(String id);
+  @GetMapping("{id}")
+  ResponseEntity<ProductBusinessResponse> getById(String id);
 
-	@GetMapping("/name/{name}")
-	ResponseEntity<ProductBusinessResponse> getByProductName(String name);
+  @GetMapping("/name/{name}")
+  ResponseEntity<ProductBusinessResponse> getByProductName(String name);
 
-	@PostMapping
-	ResponseEntity<ProductBusinessResponse> create(ProductBusinessRequest productRequest);
+  @PostMapping
+  ResponseEntity<ProductBusinessResponse> create(ProductBusinessRequest productRequest);
 
-	@PostMapping("bulk")
-	ResponseEntity<List<ProductBusinessResponse>> createBulk(List<ProductBusinessRequest> productRequest);
+  @PostMapping("bulk")
+  ResponseEntity<List<ProductBusinessResponse>> createBulk(
+      List<ProductBusinessRequest> productRequest);
 
-	@PutMapping("{id}")
-	ResponseEntity<ProductBusinessResponse> update(ProductBusinessRequest productRequest, String id);
+  @PutMapping("{id}")
+  ResponseEntity<ProductBusinessResponse> update(ProductBusinessRequest productRequest, String id);
 
-	@DeleteMapping("{id}")
-	ResponseEntity<Void> delete(String id);
+  @DeleteMapping("{id}")
+  ResponseEntity<Void> delete(String id);
 
-	@PostMapping("/filter")
-	ResponseEntity<List<ProductGroupingByBusiness>> filterProduct(Pageable pageable, String customerId,
-			ProductFilter productFilter);
+  @PostMapping("/filter")
+  ResponseEntity<List<ProductGroupingByBusiness>> filterProduct(Pageable pageable,
+      String customerId, ProductFilter productFilter);
 
 }

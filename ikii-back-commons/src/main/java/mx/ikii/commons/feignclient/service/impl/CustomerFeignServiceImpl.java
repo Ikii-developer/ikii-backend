@@ -21,57 +21,55 @@ import mx.ikii.commons.utils.ResponseEntityHelper;
 @Service
 public class CustomerFeignServiceImpl implements ICustomerFeignService {
 
-	@Autowired
-	private ICustomerFeignClientRepository customerFeignClientRepository;
+  @Autowired
+  private ICustomerFeignClientRepository customerFeignClientRepository;
 
-	@Autowired
-	private ICustomerMapper customerMapper;
+  @Autowired
+  private ICustomerMapper customerMapper;
 
-	@Autowired
-	private ICustomerDetailsMapper customerDetailsMapper;
+  @Autowired
+  private ICustomerDetailsMapper customerDetailsMapper;
 
-	@Override
-	public Customer getById(String id) {
-		return customerMapper
-				.responseToEntity(ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getById(id)));
-	}
+  @Override
+  public Customer getById(String id) {
+    return customerMapper.responseToEntity(
+        ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getById(id)));
+  }
 
-	@Override
-	public Customer update(CustomerRequest userRequest, String id) {
-		return customerMapper.responseToEntity(
-				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.update(userRequest, id)));
-	}
+  @Override
+  public Customer update(CustomerRequest userRequest, String id) {
+    return customerMapper.responseToEntity(ResponseEntityHelper
+        .processingHttpStatus(customerFeignClientRepository.update(userRequest, id)));
+  }
 
-	@Override
-	public Customer getByPhoneNumber(String userName) {
-		return customerMapper.responseToEntity(
-				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByPhoneNumber(userName)));
-	}
+  @Override
+  public Customer getByPhoneNumber(String userName) {
+    return customerMapper.responseToEntity(ResponseEntityHelper
+        .processingHttpStatus(customerFeignClientRepository.getByPhoneNumber(userName)));
+  }
 
-	@Override
-	public Customer getByEmail(String email) {
-		return customerMapper.responseToEntity(
-				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmail(email)));
-	}
+  @Override
+  public Customer getByEmail(String email) {
+    return customerMapper.responseToEntity(
+        ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmail(email)));
+  }
 
-	@Override
-	public Customer getByEmailForAuth(String email) {
-		return customerMapper.authResponseToentity(
-				ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmailForAuth(email)));
-	}
+  @Override
+  public Customer getByEmailForAuth(String email) {
+    return customerMapper.authResponseToentity(ResponseEntityHelper
+        .processingHttpStatus(customerFeignClientRepository.getByEmailForAuth(email)));
+  }
 
-	@Override
-	public CustomerDetails getCustomerDetailsByCustomerId(String customerId) {
-		return customerDetailsMapper.responseToEntity(ResponseEntityHelper
-				.processingHttpStatus(customerFeignClientRepository.getCustomerDetailsByCustomerId(customerId)));
-	}
+  @Override
+  public CustomerDetails getCustomerDetailsByCustomerId(String customerId) {
+    return customerDetailsMapper.responseToEntity(ResponseEntityHelper.processingHttpStatus(
+        customerFeignClientRepository.getCustomerDetailsByCustomerId(customerId)));
+  }
 
-	@Override
-	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude,
-			Double distance, String customerId, BusinessFilterRequest businessFilterRequest) {
-		
-		return ResponseEntityHelper.processingHttpStatus(
-				customerFeignClientRepository.nearByMe(latitude, longitude, 
-						distance, customerId, businessFilterRequest));
-	}
+  @Override
+  public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double distance,
+      String customerId, BusinessFilterRequest businessFilterRequest) {
+    return ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository
+        .nearByMe(latitude, longitude, distance, customerId, businessFilterRequest));
+  }
 }
