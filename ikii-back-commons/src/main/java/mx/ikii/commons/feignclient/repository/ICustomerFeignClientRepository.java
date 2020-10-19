@@ -21,8 +21,7 @@ import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 
 /**
- * This class is used as the feign client class to interact internally with the
- * user microservice
+ * This class is used as the feign client class to interact internally with the user microservice
  * 
  * @author Arturo Isaac Velazquez Vargas
  *
@@ -30,33 +29,37 @@ import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 @FeignClient(name = "customers")
 public interface ICustomerFeignClientRepository {
 
-	@GetMapping("customers/{id}")
-	ResponseEntity<CustomerResponse> getById(@PathVariable("id") String id);
+  @GetMapping("customers/{id}")
+  ResponseEntity<CustomerResponse> getById(@PathVariable("id") String id);
 
-	@GetMapping("/customers/phone-numbers/{phoneNumber}")
-	ResponseEntity<CustomerResponse> getByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber);
+  @GetMapping("/customers/phone-numbers/{phoneNumber}")
+  ResponseEntity<CustomerResponse> getByPhoneNumber(
+      @PathVariable("phoneNumber") String phoneNumber);
 
-	@GetMapping("/customers/emails/{email}")
-	ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
+  @GetMapping("/customers/emails/{email}")
+  ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
 
-	@GetMapping("customers/emails/auth/{email}")
-	ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable("email") String email);
+  @GetMapping("customers/emails/auth/{email}")
+  ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable("email") String email);
 
-	@GetMapping("customers/")
-	ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);
+  @GetMapping("customers/")
+  ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);
 
-	@PutMapping("customers/{id}")
-	ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest userRequest, @PathVariable("id") String id);
+  @PutMapping("customers/{id}")
+  ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest userRequest,
+      @PathVariable("id") String id);
 
-	@PostMapping("customers/")
-	ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest);
+  @PostMapping("customers/")
+  ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest);
 
-	@GetMapping("customers/customer-details/customers/{customerId}")
-	ResponseEntity<CustomerDetailsResponse> getCustomerDetailsByCustomerId(@PathVariable("customerId") String customerId);
-	
-	@PostMapping("customers/address/near-by-me")
-	ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam("latitude") Double latitude, @RequestParam("longitude") Double longitude, 
-			@RequestParam("distance") Double distance, @RequestParam("customerId") String customerId,
-			@RequestBody BusinessFilterRequest businessFilterRequest);
-	
+  @GetMapping("customers/customer-details/customers/{customerId}")
+  ResponseEntity<CustomerDetailsResponse> getCustomerDetailsByCustomerId(
+      @PathVariable("customerId") String customerId);
+
+  @PostMapping("customers/address/near-by-me")
+  ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam("latitude") Double latitude,
+      @RequestParam("longitude") Double longitude, @RequestParam("distance") Double distance,
+      @RequestParam("customerId") String customerId,
+      @RequestBody BusinessFilterRequest businessFilterRequest);
+
 }
