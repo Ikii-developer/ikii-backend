@@ -2,12 +2,11 @@ package mx.ikii.commons.payload.request.order;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.Data;
 import mx.ikii.commons.domain.OrderType;
+import mx.ikii.commons.domain.PaymentType;
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
 
 @Data
@@ -25,5 +24,7 @@ public class OrderRequest {
 	private String status;
 	private String reasonRefund;
 	private OrderType orderType;
+	private PaymentType paymentType;
+	private Boolean accounted;
 
 }

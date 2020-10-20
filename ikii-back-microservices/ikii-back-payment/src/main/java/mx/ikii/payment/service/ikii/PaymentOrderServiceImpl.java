@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
+import mx.ikii.commons.domain.PaymentType;
 import mx.ikii.commons.persistence.collection.PaymentOrder;
 import mx.ikii.commons.persistence.collection.util.ProductDetail;
 import mx.ikii.payment.repository.IPaymentOrderRepository;
@@ -26,6 +26,7 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
 
 	@Override
 	public PaymentOrder save(PaymentOrder paymentOrder) {
+	    if(paymentOrder.getPaymentType().equals(PaymentType.CASH)) paymentOrder.setAccounted(true);
 		return paymentOrderRepository.insert(paymentOrder);
 	}
 

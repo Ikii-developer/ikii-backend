@@ -1,5 +1,9 @@
 ## ikii-back-payment
 
+## 2.3.0
+* add PaymentType
+* fix OrderSubstatusDetail (Add default constructor) 
+
 ## 2.2.0
 * Add Substatus and Status in Order
 * Add Method to change order status
