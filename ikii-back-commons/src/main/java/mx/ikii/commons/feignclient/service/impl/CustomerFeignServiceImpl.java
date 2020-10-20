@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.feignclient.repository.ICustomerFeignClientRepository;
 import mx.ikii.commons.mapper.customer.ICustomerDetailsMapper;
 import mx.ikii.commons.mapper.customer.ICustomerMapper;
@@ -69,7 +69,11 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
   @Override
   public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double distance,
       String customerId, BusinessFilterRequest businessFilterRequest) {
-    return ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository
-        .nearByMe(latitude, longitude, distance, customerId, businessFilterRequest));
+    try {
+      return ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.nearByMe(latitude, longitude, distance, customerId, businessFilterRequest));
+    } catch (Exception e) {
+      e.getMessage();
+      throw new ResourceNotFoundException("Not Found");
+    }
   }
 }
