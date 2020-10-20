@@ -1,6 +1,6 @@
 ## ikii-back-customers
 
-## 2.2.2
+## 2.3.0
 * add Support Ticket
 
 ## 2.2.1
