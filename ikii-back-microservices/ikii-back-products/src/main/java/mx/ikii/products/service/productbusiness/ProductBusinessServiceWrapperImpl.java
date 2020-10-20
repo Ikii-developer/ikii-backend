@@ -3,6 +3,7 @@ package mx.ikii.products.service.productbusiness;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.mapper.product.IProductBusinessMapper;
 import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
@@ -86,9 +88,7 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
 
     products = Objects.isNull(productFilter.getBusinessId())
         ? findProductByKeywordOrBusinessName(products, pageable, productFilter)
-        : productBusinessService.findAllByBussinessId(pageable,
-            new ObjectId(productFilter.getBusinessId()));
-
+        : productBusinessService.findAllByBussinessId(pageable, new ObjectId(productFilter.getBusinessId()));
 
     Map<ObjectId, List<ProductBusiness>> productsByBusiness =
         products.stream().collect(Collectors.groupingBy(p -> p.getBusinessId()));
@@ -142,5 +142,5 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
     }
     return products;
   }
-
+  
 }
