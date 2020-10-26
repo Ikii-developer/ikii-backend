@@ -2,15 +2,13 @@ package mx.ikii.commons.persistence.collection.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.List;
-
 import org.bson.types.ObjectId;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import lombok.Data;
 import mx.ikii.commons.persistence.collection.Rate;
 import mx.ikii.commons.utils.Nullable;
@@ -28,7 +26,7 @@ public class BusinessNearByMe {
 	private ObjectId categoryId;
 	private String description;
 	private String deliveryTime;
-	private String closeTieme;
+	private LocalDateTime closeTime;
 	private Boolean isOpen;
 	private Double distance;
 	private String street;

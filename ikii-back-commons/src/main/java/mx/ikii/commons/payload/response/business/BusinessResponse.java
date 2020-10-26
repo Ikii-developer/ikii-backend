@@ -1,7 +1,7 @@
 package mx.ikii.commons.payload.response.business;
 
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Data;
 
 @Data
@@ -14,7 +14,7 @@ public class BusinessResponse {
 	private String customerId;
 	private String description;
 	private String deliveryTime;
-	private String closeTime;
+	private LocalDateTime closeTime;
 	private Boolean isOpen;
 	private String status;
 	private boolean isFavorite;

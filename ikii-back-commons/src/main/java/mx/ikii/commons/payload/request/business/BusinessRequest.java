@@ -1,7 +1,7 @@
 package mx.ikii.commons.payload.request.business;
 
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Data
@@ -22,7 +22,7 @@ public class BusinessRequest {
 	@NotNull(message = "description can not be null")
 	private String description;
 	private String deliveryTime;
-	private String closeTime;
+	private LocalDateTime closeTime;
 	private Boolean isOpen;
 	private String postalCode;
 
