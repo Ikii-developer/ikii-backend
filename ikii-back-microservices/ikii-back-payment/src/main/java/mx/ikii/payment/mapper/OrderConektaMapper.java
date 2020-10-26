@@ -13,6 +13,7 @@ import mx.ikii.commons.payload.dto.CustomerInfoDTO;
 import mx.ikii.commons.payload.dto.LineItemsDTO;
 import mx.ikii.commons.payload.dto.TaxLineDTO;
 import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
+import mx.ikii.commons.persistence.collection.OrderDetail;
 import mx.ikii.commons.persistence.collection.PaymentOrder;
 import mx.ikii.commons.persistence.collection.util.ProductDetail;
 import mx.ikii.commons.utils.BigDecimalHelper;
@@ -83,10 +84,10 @@ public class OrderConektaMapper {
 	}
 	
 	
-	public static OrderConektaRequest paymentOrderToOrderConektaRequest(PaymentOrder paymentOrder) {
+	public static OrderConektaRequest paymentOrderToOrderConektaRequest(PaymentOrder paymentOrder, OrderDetail orderDetail) {
 		OrderConektaRequest orderConektaRequest = new OrderConektaRequest();
 		orderConektaRequest.setCurrency(Constants.CURRENCY_CONEKTA_MXN);
-		List<mx.ikii.payment.payload.dto.LineItemsDTO> items = getItems(paymentOrder.getDetail().getProducts());
+		List<mx.ikii.payment.payload.dto.LineItemsDTO> items = getItems(orderDetail.getProducts());
 		orderConektaRequest.setLine_items(items);
 		
 		mx.ikii.payment.payload.dto.CustomerInfoDTO customerInfo = new mx.ikii.payment.payload.dto.CustomerInfoDTO();

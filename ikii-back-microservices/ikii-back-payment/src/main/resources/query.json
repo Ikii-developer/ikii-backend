@@ -1,0 +1,15 @@
+/**
+ Query: Filter Orders
+*/
+db.getCollection('PaymentOrder').aggregate([
+	{ "$lookup" : { "from" : "OrderDetail", "localField" : "orderDetailId", "foreignField" : "_id", "as" : "orderDetailId" } }, 
+	{ "$project" : { 
+			"id" : 1, "customerId" : 1, "customerIdConekta" : 1, "customerProviderId" : 1, "transactionId" : 1, "total" : 1, 
+			"suTotal" : 1, "providerComission" : 1, "internalComission" : 1, "tax" : 1, "amountRefunded" : 1, "status" : 1, 
+			"createdAt" : 1, "message" : 1, "paymentMethod" : 1, "reasonRefund" : 1, "orderType" : 1, "orderSubstatusDetail" : 1,
+		    "detail" : { "$arrayElemAt" : ["$orderDetailId", 0] } 
+	    } 
+	},
+	{ "$match" : { "detail.businessId" : ObjectId("5f233325f264de000183b463")}}, 
+	{ "$match" : { "customerId" : ObjectId("5f37a69828ff9f5adb3b5599") } }
+])

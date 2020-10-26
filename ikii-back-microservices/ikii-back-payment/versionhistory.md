@@ -1,5 +1,10 @@
 ## ikii-back-payment
 
+## 2.4.0
+
+* add order filter 
+* Change DBRef for ObjectId
+
 ## 2.3.0
 * add PaymentType
 * fix OrderSubstatusDetail (Add default constructor) 

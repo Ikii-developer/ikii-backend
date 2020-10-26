@@ -1,15 +1,15 @@
 package mx.ikii.customers.service.impl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.mapper.customer.ICustomerAdressMapper;
@@ -91,7 +91,12 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 			throw new ResourceNotFoundException("Business Not Found");
 
 		DecimalFormat df = new DecimalFormat("#");
-		businessAddress.forEach(e -> e.setDistance(Double.parseDouble(df.format(e.getDistance() * 1000))));
+        businessAddress.forEach(e -> {
+          
+          BigDecimal bd = new BigDecimal(Double.parseDouble(df.format(e.getDistance() * 1000)));
+          bd = bd.setScale(2, RoundingMode.HALF_UP);
+          e.setDistance(bd.doubleValue());
+        });
 
 		setFavorites(businessAddress, customerId);
 
