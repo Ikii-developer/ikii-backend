@@ -29,97 +29,99 @@ import mx.ikii.customers.service.ICustomerDetailsService;
 @Slf4j
 public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapper {
 
-	@Autowired
-	private ICustomerAdressService customerAdressService;
+  @Autowired
+  private ICustomerAdressService customerAdressService;
 
-	@Autowired
-	private ICustomerDetailsService customerDetailsService;
+  @Autowired
+  private ICustomerDetailsService customerDetailsService;
 
-	@Autowired
-	private ICustomerAdressMapper customerAdressMapper;
+  @Autowired
+  private ICustomerAdressMapper customerAdressMapper;
 
-	@Override
-	public Page<CustomerAdressResponse> getAll(Pageable pageable) {
-		Page<CustomerAdress> customerAddress = customerAdressService.getAll(pageable);
-		List<CustomerAdressResponse> usersResponse = customerAdressMapper
-				.entityToResponse(customerAddress.getContent());
-		return PageHelper.createPage(usersResponse, pageable, customerAddress.getTotalElements());
-	}
+  @Override
+  public Page<CustomerAdressResponse> getAll(Pageable pageable) {
+    Page<CustomerAdress> customerAddress = customerAdressService.getAll(pageable);
+    List<CustomerAdressResponse> usersResponse =
+        customerAdressMapper.entityToResponse(customerAddress.getContent());
+    return PageHelper.createPage(usersResponse, pageable, customerAddress.getTotalElements());
+  }
 
-	@Override
-	public CustomerAdressResponse getById(String customerAddressId) {
-		return customerAdressMapper.entityToResponse(customerAdressService.getById(customerAddressId));
-	}
+  @Override
+  public CustomerAdressResponse getById(String customerAddressId) {
+    return customerAdressMapper.entityToResponse(customerAdressService.getById(customerAddressId));
+  }
 
-	@Override
-	public Page<CustomerAdressResponse> getByCustomerId(String customerId, Pageable pageable) {
-		List<CustomerAdress> customerAdress = customerAdressService.getByCustomerId(customerId);
-		List<CustomerAdressResponse> response = customerAdressMapper.entityToResponse(customerAdress);
-		return PageHelper.createPage(response, pageable, new Long(customerAdress.size()));
-	}
+  @Override
+  public Page<CustomerAdressResponse> getByCustomerId(String customerId, Pageable pageable) {
+    List<CustomerAdress> customerAdress = customerAdressService.getByCustomerId(customerId);
+    List<CustomerAdressResponse> response = customerAdressMapper.entityToResponse(customerAdress);
+    return PageHelper.createPage(response, pageable, new Long(customerAdress.size()));
+  }
 
-	@Override
-	public CustomerAdressResponse create(CustomerAdressRequest customerAdressRequest) {
-		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
-		return customerAdressMapper.entityToResponse(customerAdressService.createCustomerAddress(customerAdress));
-	}
+  @Override
+  public CustomerAdressResponse create(CustomerAdressRequest customerAdressRequest) {
+    CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
+    return customerAdressMapper
+        .entityToResponse(customerAdressService.createCustomerAddress(customerAdress));
+  }
 
-	@Override
-	public CustomerAdressResponse update(CustomerAdressRequest customerAdressRequest, String id) {
-		CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
-		return customerAdressMapper.entityToResponse(customerAdressService.updateCustomerAddress(customerAdress, id));
-	}
+  @Override
+  public CustomerAdressResponse update(CustomerAdressRequest customerAdressRequest, String id) {
+    CustomerAdress customerAdress = customerAdressMapper.requestToEntity(customerAdressRequest);
+    return customerAdressMapper
+        .entityToResponse(customerAdressService.updateCustomerAddress(customerAdress, id));
+  }
 
-	@Override
-	public void delete(String customerAddressId) {
-		customerAdressService.deleteCustomerAddress(customerAddressId);
-	}
+  @Override
+  public void delete(String customerAddressId) {
+    customerAdressService.deleteCustomerAddress(customerAddressId);
+  }
 
-	@Override
-	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String customerId,
-			BusinessFilterRequest businessFilterRequest) {
-		maxDistance = (Nullable.isNull(maxDistance) ? 1.0 : maxDistance); // 1.0 == 1 KM
+  @Override
+  public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance,
+      String customerId, BusinessFilterRequest businessFilterRequest) {
+    maxDistance = (Nullable.isNull(maxDistance) ? 1.0 : maxDistance); // 1.0 == 1 KM
 
-		List<BusinessNearByMe> businessAddress = customerAdressService.nearByMe(latitude, longitude, maxDistance,
-				businessFilterRequest.getKeywords());
-		if (Nullable.isNullOrEmpty(businessAddress)) {
-			maxDistance = 7.0;
-			businessAddress = customerAdressService.nearByMe(latitude, longitude, maxDistance,
-					businessFilterRequest.getKeywords());
-		}
-		if (Nullable.isNullOrEmpty(businessAddress))
-			throw new ResourceNotFoundException("Business Not Found");
+    List<BusinessNearByMe> businessAddress = customerAdressService.nearByMe(latitude, longitude,
+        maxDistance, businessFilterRequest.getKeywords());
+    if (Nullable.isNullOrEmpty(businessAddress)) {
+      maxDistance = 7.0;
+      businessAddress = customerAdressService.nearByMe(latitude, longitude, maxDistance,
+          businessFilterRequest.getKeywords());
+    }
+    if (Nullable.isNullOrEmpty(businessAddress))
+      throw new ResourceNotFoundException("Business Not Found");
 
-		DecimalFormat df = new DecimalFormat("#");
-        businessAddress.forEach(e -> {
-          
-          BigDecimal bd = new BigDecimal(Double.parseDouble(df.format(e.getDistance() * 1000)));
-          bd = bd.setScale(2, RoundingMode.HALF_UP);
-          e.setDistance(bd.doubleValue());
-        });
+    DecimalFormat df = new DecimalFormat("#");
+    businessAddress.forEach(e -> {
 
-		setFavorites(businessAddress, customerId);
+      BigDecimal bd = new BigDecimal(Double.parseDouble(df.format(e.getDistance() * 1000)));
+      bd = bd.setScale(2, RoundingMode.HALF_UP);
+      e.setDistance(bd.doubleValue());
+    });
 
-		return businessAddress;
-	}
+    setFavorites(businessAddress, customerId);
+    return businessAddress;
+  }
 
-	private void setFavorites(List<BusinessNearByMe> businessAddress, String customerId) {
-		if (Nullable.isNotNull(customerId)) {
-			try {
-				CustomerDetails customerDetails = customerDetailsService.getByCustomerId(customerId);
-				List<ObjectId> businessFavorites = customerDetails.getBusinessFavorites();
-				if (!Nullable.isNullOrEmpty(businessFavorites)) {
-					businessAddress = businessAddress.stream().map(businessMap -> {
-						if (businessFavorites.contains(new ObjectId(businessMap.getId()))) {
-							businessMap.setFavorite(true);
-						}
-						return businessMap;
-					}).collect(Collectors.toList());
-				}
-			} catch (Exception e) {
-				log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId, e.getMessage());
-			}
-		}
-	}
+  private void setFavorites(List<BusinessNearByMe> businessAddress, String customerId) {
+    if (Nullable.isNotNull(customerId)) {
+      try {
+        CustomerDetails customerDetails = customerDetailsService.getByCustomerId(customerId);
+        List<ObjectId> businessFavorites = customerDetails.getBusinessFavorites();
+        if (!Nullable.isNullOrEmpty(businessFavorites)) {
+          businessAddress = businessAddress.stream().map(businessMap -> {
+            if (businessFavorites.contains(new ObjectId(businessMap.getId()))) {
+              businessMap.setFavorite(true);
+            }
+            return businessMap;
+          }).collect(Collectors.toList());
+        }
+      } catch (Exception e) {
+        log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId,
+            e.getMessage());
+      }
+    }
+  }
 
 }
