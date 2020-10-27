@@ -26,77 +26,75 @@ import mx.ikii.customers.service.ICustomerAdressService;
 @Service
 public class CustomerAdressServiceImpl implements ICustomerAdressService {
 
-	@Autowired
-	private ICustomerAdressRepository customerAdressRepository;
+  @Autowired
+  private ICustomerAdressRepository customerAdressRepository;
 
-	@Autowired
-	private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
+  @Autowired
+  private ICustomerAdressRepositoryCustom customerAdressRepositoryCustom;
 
-	@Autowired
-	private ICustomerAdressMapper customerAdressMapper;
+  @Autowired
+  private ICustomerAdressMapper customerAdressMapper;
 
-	@Override
-	public Page<CustomerAdress> getAll(Pageable pageable) {
-		return customerAdressRepository.findAll(pageable);
-	}
+  @Override
+  public Page<CustomerAdress> getAll(Pageable pageable) {
+    return customerAdressRepository.findAll(pageable);
+  }
 
-	@Override
-	public CustomerAdress getById(String id) {
-		return customerAdressRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
-	}
+  @Override
+  public CustomerAdress getById(String id) {
+    return customerAdressRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
+  }
 
-	@Override
-	public List<CustomerAdress> getByCustomerId(String customerId) {
-		return customerAdressRepository.findByCustomerId(customerId);
-	}
+  @Override
+  public List<CustomerAdress> getByCustomerId(String customerId) {
+    return customerAdressRepository.findByCustomerId(customerId);
+  }
 
-	@Override
-	public CustomerAdress createCustomerAddress(CustomerAdress request) {
-		return customerAdressRepository.insert(request);
-	}
+  @Override
+  public CustomerAdress createCustomerAddress(CustomerAdress request) {
+    return customerAdressRepository.insert(request);
+  }
 
-	@Override
-	public CustomerAdress updateCustomerAddress(CustomerAdress request, String id) {
+  @Override
+  public CustomerAdress updateCustomerAddress(CustomerAdress request, String id) {
+    CustomerAdress customerAdress = customerAdressRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
+    customerAdressMapper.updateEntity(customerAdress, request);
+    return customerAdressRepository.save(customerAdress);
+  }
 
-		CustomerAdress customerAdress = customerAdressRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
-		customerAdressMapper.updateEntity(customerAdress, request);
-		return customerAdressRepository.save(customerAdress);
-	}
+  @Override
+  public void deleteCustomerAddress(String id) {
+    customerAdressRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
+    customerAdressRepository.deleteById(id);
+  }
 
-	@Override
-	public void deleteCustomerAddress(String id) {
-		customerAdressRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id, CustomerAdress.class));
-		customerAdressRepository.deleteById(id);
-	}
+  @Override
+  public List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude,
+      Double maxDistance) {
+    Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
+    Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
 
-	@Override
-	public List<GeoResult<CustomerAdress>> findByLocationNear(String latitude, String longitude, Double maxDistance) {
+    GeoResults<CustomerAdress> geoResult =
+        customerAdressRepository.findByLocationNear(location, distance);
+    List<GeoResult<CustomerAdress>> listGeoResult = geoResult.getContent();
+    return listGeoResult;
+  }
 
-		Point location = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
-		Distance distance = new Distance(maxDistance, Metrics.KILOMETERS);
-
-		GeoResults<CustomerAdress> geoResult = customerAdressRepository.findByLocationNear(location, distance);
-		List<GeoResult<CustomerAdress>> listGeoResult = geoResult.getContent();
-
-		return listGeoResult;
-	}
-
-	@Override
-	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance, String keywords) {
-
-		List<BusinessNearByMe> customeAddress = customerAdressRepositoryCustom.nearByMe(latitude, longitude,
-				maxDistance);
-		if (Nullable.isNotNull(keywords)) {
-			Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
-			customeAddress = customeAddress.stream()
-					.filter(ca -> pattern.matcher(ca.getDescription()).find() || pattern.matcher(ca.getName()).find())
-					.collect(Collectors.toList());
-		}
-
-		return customeAddress;
-	}
+  @Override
+  public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance,
+      String keywords) {
+    List<BusinessNearByMe> customeAddress =
+        customerAdressRepositoryCustom.nearByMe(latitude, longitude, maxDistance);
+    if (Nullable.isNotNull(keywords)) {
+      Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
+      customeAddress = customeAddress.stream().filter(
+          ca -> pattern.matcher(ca.getDescription()).find() || pattern.matcher(ca.getName()).find())
+          .collect(Collectors.toList());
+    }
+    return customeAddress;
+  }
 
 }

@@ -27,7 +27,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 	private MongoTemplate mongoTemplate;
 
 	public List<BusinessNearByMe> nearByMe(Double latitude, Double longitude, Double maxDistance) {
-
 		GeoJsonPoint p = new GeoJsonPoint(longitude, latitude);
 		NearQuery nearQuery = NearQuery.near(p, Metrics.KILOMETERS)
 				.spherical(true)
@@ -74,7 +73,6 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				mongoTemplate.aggregate(aggregation, BusinessNearByMe.class);
 		
 		return result.getMappedResults();
-		
 	}
 	
 }
