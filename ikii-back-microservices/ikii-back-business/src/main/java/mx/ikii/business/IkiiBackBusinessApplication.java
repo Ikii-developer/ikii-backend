@@ -7,9 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient" })
+@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient", "mx.ikii.web.commons" })
+@EnableMongoRepositories(basePackages = { "mx.ikii.business.repository", "mx.ikii.web.commons.repository" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })

@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.7.0
+* add generic module to upload image
+
 ## 1.6.2
 * fix getBusinessProductsFilter(/ikii/products/filter) "keyword" null
 

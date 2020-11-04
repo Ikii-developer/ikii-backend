@@ -1,8 +1,10 @@
 ## ikii-back-business
 
+## 1.8.0
+* add generic module to upload image
+
 ## 1.7.0
 * add feature: search all matches by name
-
 
 ## 1.6.0
 * Removes security from business microservice in order to allow request between microservices
