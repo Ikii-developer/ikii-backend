@@ -10,7 +10,7 @@ spring:
           default-label: develop
           uri: https://github.com/Ikii-developer/ikii-config-server.git
           skipSslValidation: true          
-          username: arturo199
+          username: arturo-velazquez-vargas
           password: Ajedrez94#
 
 eureka:
