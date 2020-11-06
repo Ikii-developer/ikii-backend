@@ -21,6 +21,7 @@
 		<lombok.version>1.16.14</lombok.version>
 		<mapstruct.version>1.2.0.Final</mapstruct.version>
 		<ikii.commons.version>2.4.1</ikii.commons.version>
+		<ikii-back-commons-web.version>1.0.0</ikii-back-commons-web.version>
 		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
 	</properties>
 	<dependencyManagement>
@@ -37,6 +38,11 @@
 				<groupId>mx.ikii.commons</groupId>
 				<artifactId>ikii-back-commons</artifactId>
 				<version>${ikii.commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mx.ikii.web.commons</groupId>
+				<artifactId>ikii-back-commons-web</artifactId>
+				<version>${ikii-back-commons-web.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -72,6 +78,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
+		<module>ikii-back-commons-web</module>
 		<module>ikii-back-security</module>
 		<module>ikii-back-business</module>
 		<module>ikii-back-products</module>
