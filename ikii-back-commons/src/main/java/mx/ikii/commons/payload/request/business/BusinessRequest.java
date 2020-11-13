@@ -25,5 +25,6 @@ public class BusinessRequest {
 	private LocalDateTime closeTime;
 	private Boolean isOpen;
 	private String postalCode;
+	private Double deliveryRange;
 
 }

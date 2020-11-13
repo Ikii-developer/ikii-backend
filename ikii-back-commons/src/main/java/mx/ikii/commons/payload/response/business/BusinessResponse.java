@@ -19,5 +19,6 @@ public class BusinessResponse {
 	private String status;
 	private boolean isFavorite;
 	private String postalCode;
+	private Double deliveryRange;
 
 }

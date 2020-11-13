@@ -2,8 +2,6 @@ package mx.ikii.commons.persistence.collection.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import org.bson.types.ObjectId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
