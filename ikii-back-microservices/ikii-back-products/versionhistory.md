@@ -1,5 +1,8 @@
 ## ikii-back-products
 
+## 1.8.0
+* add filter by businessId and return its products with category and subcategories
+
 ## 1.7.0
 * add generic module to upload image
 

@@ -1,7 +1,6 @@
 package mx.ikii.products.controller.productbusiness;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,10 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
+import mx.ikii.commons.payload.response.product.ProductCategorySubcategory;
 import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 import mx.ikii.products.service.productbusiness.IProductBusinessServiceWrapper;
 
@@ -70,6 +69,11 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
       @RequestParam(required = false) String customerId, @RequestBody ProductFilter productFilter) {
     return ResponseEntity
         .ok(productBusinessServiceWrapper.filterProduct(pageable, customerId, productFilter));
+  }
+
+  @Override
+  public ResponseEntity<ProductCategorySubcategory> findProductByCategory(@PathVariable String businessId) {
+    return ResponseEntity.ok(productBusinessServiceWrapper.findProductByCategory(businessId));
   }
 
 }

@@ -1,11 +1,9 @@
 package mx.ikii.products.service.productbusiness;
 
 import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import mx.ikii.commons.payload.request.product.ProductFilter;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
 
@@ -30,5 +28,7 @@ public interface IProductBusinessService {
 	List<ProductBusiness> findMostSelledProductsByBussinessId(Pageable pageable, ObjectId bussinessId);
 	
 	List<ProductBusiness> filterProduct(Pageable pageable, ProductFilter productFilter);
-
+	
+	ProductBusiness findByBusinessId(ObjectId businessId);
+	
 }

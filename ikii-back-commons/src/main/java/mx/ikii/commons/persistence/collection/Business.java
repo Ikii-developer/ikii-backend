@@ -27,5 +27,6 @@ public class Business {
 	private Boolean isOpen;
 	private String status;
 	private String postalCode;
+	private Double deliveryRange;
 
 }
