@@ -94,11 +94,17 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 
     DecimalFormat df = new DecimalFormat("#");
     businessAddress.forEach(e -> {
-
       BigDecimal bd = new BigDecimal(Double.parseDouble(df.format(e.getDistance() * 1000)));
       bd = bd.setScale(2, RoundingMode.HALF_UP);
       e.setDistance(bd.doubleValue());
     });
+    
+    businessAddress = businessAddress.stream().filter(ba->{
+      if(Nullable.isNull(ba.getDeliveryRange()) || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0) {
+        return true;
+      }
+      return false;
+    }).collect(Collectors.toList());
 
     setFavorites(businessAddress, customerId);
     return businessAddress;

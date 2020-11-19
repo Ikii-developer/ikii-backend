@@ -11,8 +11,6 @@ public class ProductFilter {
 	@NotEmpty(message = "businessId can not be empty or null")
 	private String businessId;
 	
-	private String productCategoryId;
-	
 	private Coordinates coordinates;
 	
 	@Data

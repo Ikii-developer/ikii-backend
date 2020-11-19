@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.4.0
+* Add deliveryRange to Business
+
 ## 2.3.2
 * Modify closeTime for String, it is not possible to model DateTime in Mongodb
 

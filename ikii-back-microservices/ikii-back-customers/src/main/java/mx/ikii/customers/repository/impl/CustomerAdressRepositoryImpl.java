@@ -60,6 +60,7 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.andExpression("business.closeTime").as("closeTime")
 				.andExpression("business.isOpen").as("isOpen")
 				.andExpression("business.status").as("status")
+				.andExpression("business.deliveryRange").as("deliveryRange")
 				.andExpression("rate.average").as("average")
 				.andExpression("rate.rates").as("rates");
 
