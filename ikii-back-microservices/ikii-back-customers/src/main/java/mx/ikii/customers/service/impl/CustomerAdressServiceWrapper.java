@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,10 +101,7 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
     });
     
     businessAddress = businessAddress.stream().filter(ba->{
-      if(Nullable.isNull(ba.getDeliveryRange()) || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0) {
-        return true;
-      }
-      return false;
+      return (Objects.isNull(ba.getDeliveryRange()) || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0);
     }).collect(Collectors.toList());
 
     setFavorites(businessAddress, customerId);
