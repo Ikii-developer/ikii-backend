@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,11 +95,14 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
 
     DecimalFormat df = new DecimalFormat("#");
     businessAddress.forEach(e -> {
-
       BigDecimal bd = new BigDecimal(Double.parseDouble(df.format(e.getDistance() * 1000)));
       bd = bd.setScale(2, RoundingMode.HALF_UP);
       e.setDistance(bd.doubleValue());
     });
+    
+    businessAddress = businessAddress.stream().filter(ba->{
+      return (Objects.isNull(ba.getDeliveryRange()) || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0);
+    }).collect(Collectors.toList());
 
     setFavorites(businessAddress, customerId);
     return businessAddress;
