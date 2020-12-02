@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
@@ -15,7 +16,6 @@ import mx.ikii.commons.payload.response.product.ProductCategorySubcategory;
 import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
 import mx.ikii.commons.persistence.collection.CategoryProduct;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
-import mx.ikii.commons.utils.Nullable;
 
 @Mapper(componentModel = "spring", uses = {StringObjectIdMapper.class})
 public interface IProductBusinessMapper
@@ -35,52 +35,57 @@ public interface IProductBusinessMapper
     return productByBusiness;
   }
 
-  default ProductCategorySubcategory productCategorySubCategory(
+  default List<ProductCategorySubcategory> productCategorySubCategory(
       List<ProductBusinessResponse> productBusiness, List<CategoryProduct> categoryProducts) {
+    List<CategoryProduct> parentCategories =
+        categoryProducts.stream().filter(c -> Objects.nonNull(c.getIsParent()) && c.getIsParent())
+            .collect(Collectors.toList());
 
-    ProductCategorySubcategory productCategorySubCategory = new ProductCategorySubcategory();
-    List<ProductBusinessResponse> productBusinessResponse =
-        new ArrayList<ProductBusinessResponse>();
+    // When there are no parent categories, all categories are considered
+    boolean hasParents = !parentCategories.isEmpty();
+    parentCategories = hasParents ? parentCategories : categoryProducts;
 
-    List<CategoryProduct> parentCategories = categoryProducts.stream()
-        .filter(c -> Objects.nonNull(c.getIsParent()) && c.getIsParent())
-        .collect(Collectors.toList());
+    List<ProductCategorySubcategory> productCategoryResponse = parentCategories.stream().map(c -> {
 
-    parentCategories.forEach(c -> {
-
-      // Category
+      // Parent category
       ProductCategorySubcategory.ParentCategory parentCategory =
-          new ProductCategorySubcategory.ParentCategory();
-      parentCategory.setId(c.getId());
-      parentCategory.setName(c.getName());
-      parentCategory.setDescription(c.getDescription());
-      productCategorySubCategory.setParentCategory(parentCategory);
+          ProductCategorySubcategory.ParentCategory.builder()
+              .id(c.getId())
+              .name(c.getName())
+              .description(c.getDescription())
+              .build();
+
+      // When there are parent categories the filter accounts all categories of the parent category
+      // otherwise only the category is counted
+      Predicate<CategoryProduct> categoryPredicate = null;
+      if (hasParents) {
+        categoryPredicate = sc -> Objects.nonNull(c.getIsParent()) && !sc.getIsParent()
+            && sc.getParentProductCategoryId().toHexString().equals(c.getId());
+      } else {
+        categoryPredicate = sc -> sc.getId().equals(c.getId());
+      }
 
       // SubCategories
       List<ProductCategorySubcategory.SubCategory> subCategories =
-          categoryProducts.stream()
-              .filter(sc -> Objects.nonNull(c.getIsParent()) && !sc.getIsParent()
-                  && sc.getParentProductCategoryId().toHexString().equals(c.getId()))
-              .map(subCat -> {
-
-                ProductCategorySubcategory.SubCategory subCategory =
-                    new ProductCategorySubcategory.SubCategory();
-                subCategory.setId(subCat.getId());
-                subCategory.setName(subCat.getName());
-                subCategory.setDescription(subCat.getDescription());
-
-                // Products
-                productBusinessResponse.addAll(productBusiness.stream()
+          categoryProducts.stream().filter(categoryPredicate).map(subCat -> {
+            // SubCategory products
+            return ProductCategorySubcategory.SubCategory.builder()
+                .id(subCat.getId())
+                .name(subCat.getName())
+                .description(subCat.getDescription())
+                .products(productBusiness.stream()
                     .filter(p -> p.getProductCategoryId().equals(subCat.getId()))
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toList()))
+                .build();
+          }).collect(Collectors.toList());
 
-                return subCategory;
-              }).collect(Collectors.toList());
-      productCategorySubCategory.setSubCategory(subCategories);
-    });
-    productCategorySubCategory.setProductBusinessResponse(productBusinessResponse);
+      return ProductCategorySubcategory.builder()
+          .parentCategory(parentCategory)
+          .subCategory(subCategories)
+          .build();
+    }).collect(Collectors.toList());
 
-    return productCategorySubCategory;
+    return productCategoryResponse;
   }
 
 }

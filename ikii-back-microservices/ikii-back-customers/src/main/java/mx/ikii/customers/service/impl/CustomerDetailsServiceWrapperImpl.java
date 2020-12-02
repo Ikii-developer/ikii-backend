@@ -72,7 +72,7 @@ public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServic
 		try {
 			businessFeignService.getById(businessId);
 		} catch (Exception e) {
-			log.error("Not possible to get Business for businessId {}, {}", businessId, e.getMessage());
+			log.error("Not possible to get Business for businessId {}, {}", businessId, e);
 			throw new ResourceNotFoundException(businessId, Business.class);
 		}
 		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getBusinessFavorites(), new ObjectId(businessId));

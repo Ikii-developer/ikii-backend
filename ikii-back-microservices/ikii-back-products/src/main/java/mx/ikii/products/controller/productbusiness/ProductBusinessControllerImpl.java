@@ -72,7 +72,8 @@ public class ProductBusinessControllerImpl implements IProductBusinessController
   }
 
   @Override
-  public ResponseEntity<ProductCategorySubcategory> findProductByCategory(@PathVariable String businessId) {
+  public ResponseEntity<List<ProductCategorySubcategory>> filterProductsByBusinessId(
+      @PathVariable String businessId) {
     return ResponseEntity.ok(productBusinessServiceWrapper.findProductByCategory(businessId));
   }
 

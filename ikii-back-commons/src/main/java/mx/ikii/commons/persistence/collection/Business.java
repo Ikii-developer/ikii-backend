@@ -1,6 +1,5 @@
 package mx.ikii.commons.persistence.collection;
 
-import java.time.LocalDateTime;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.TextIndexed;
@@ -23,7 +22,7 @@ public class Business {
 	@TextIndexed(weight = 1)
 	private String description;
 	private String deliveryTime;
-	private LocalDateTime closeTime;	
+	private String closeTime;	
 	private Boolean isOpen;
 	private String status;
 	private String postalCode;

@@ -47,6 +47,6 @@ public interface IProductBusinessController {
       String customerId, ProductFilter productFilter);
 
   @GetMapping("/business/{businessId}/filter")
-  ResponseEntity<ProductCategorySubcategory> findProductByCategory(String businessId);
-  
+  ResponseEntity<List<ProductCategorySubcategory>> filterProductsByBusinessId(String businessId);
+
 }

@@ -151,18 +151,18 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
   }
 
   @Override
-  public ProductCategorySubcategory findProductByCategory(String businessId) {
+  public List<ProductCategorySubcategory> findProductByCategory(String businessId) {
 
+    // Retrieve products for business
     List<ProductBusiness> productBusiness =
         productBusinessService.findAllByBussinessId(Pageable.unpaged(), new ObjectId(businessId));
 
+    // Retrieve product-category for business
     List<CategoryProduct> categoryProducts = categoryProductService.findByBusinessId(businessId);
 
-    ProductCategorySubcategory productCategorySubCategory =
-        productBusinessMapper.productCategorySubCategory(
-            productBusinessMapper.entityToResponse(productBusiness), categoryProducts);
+    return productBusinessMapper.productCategorySubCategory(
+        productBusinessMapper.entityToResponse(productBusiness), categoryProducts);
 
-    return productCategorySubCategory;
   }
 
 }
