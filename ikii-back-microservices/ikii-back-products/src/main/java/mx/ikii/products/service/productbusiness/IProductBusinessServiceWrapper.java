@@ -27,6 +27,6 @@ public interface IProductBusinessServiceWrapper {
 
 	List<ProductGroupingByBusiness> filterProduct(Pageable pageable, String customerId, ProductFilter productFilter);
 	
-	ProductCategorySubcategory findProductByCategory(String businessId);
+	List<ProductCategorySubcategory> findProductByCategory(String businessId);
 	
 }

@@ -1,17 +1,18 @@
 package mx.ikii.commons.payload.response.product;
 
-import java.util.ArrayList;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ProductCategorySubcategory {
   
   private ParentCategory parentCategory;
   private List<SubCategory> subCategory;
-  private List<ProductBusinessResponse> productBusinessResponse = new ArrayList<ProductBusinessResponse>();
 
   @Data
+  @Builder
   public static class ParentCategory {
 
     private String id;
@@ -20,10 +21,13 @@ public class ProductCategorySubcategory {
   }
 
   @Data
+  @Builder
   public static class SubCategory {
     private String id;
     private String name;
     private String description;
+    private List<ProductBusinessResponse> products;
+
   }
 
 }
