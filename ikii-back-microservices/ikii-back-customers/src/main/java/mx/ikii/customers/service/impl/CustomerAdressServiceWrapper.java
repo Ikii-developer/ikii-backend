@@ -99,9 +99,10 @@ public class CustomerAdressServiceWrapper implements ICustomerAdressServiceWrapp
       bd = bd.setScale(2, RoundingMode.HALF_UP);
       e.setDistance(bd.doubleValue());
     });
-    
-    businessAddress = businessAddress.stream().filter(ba->{
-      return (Objects.isNull(ba.getDeliveryRange()) || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0);
+
+    businessAddress = businessAddress.stream().filter(ba -> {
+      return (Objects.isNull(ba.getDeliveryRange())
+          || ba.getDistance().compareTo(ba.getDeliveryRange()) <= 0);
     }).collect(Collectors.toList());
 
     setFavorites(businessAddress, customerId);

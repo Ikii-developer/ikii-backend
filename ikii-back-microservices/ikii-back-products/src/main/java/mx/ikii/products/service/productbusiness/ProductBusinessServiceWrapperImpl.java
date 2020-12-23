@@ -10,14 +10,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import mx.ikii.commons.feignclient.service.impl.IBusinessFeignService;
 import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
+import mx.ikii.commons.mapper.business.IBusinessMapper;
 import mx.ikii.commons.mapper.product.IProductBusinessMapper;
 import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
 import mx.ikii.commons.payload.request.product.ProductFilter;
+import mx.ikii.commons.payload.response.business.BusinessResponse;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
 import mx.ikii.commons.payload.response.product.ProductCategorySubcategory;
 import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
+import mx.ikii.commons.persistence.collection.Business;
 import mx.ikii.commons.persistence.collection.CategoryProduct;
 import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.ProductBusiness;
@@ -34,10 +38,16 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
   private IProductBusinessMapper productBusinessMapper;
 
   @Autowired
+  private IBusinessMapper businessMapper;
+
+  @Autowired
   private IProductBusinessService productBusinessService;
 
   @Autowired
   private ICustomerFeignService customerFeignService;
+
+  @Autowired
+  private IBusinessFeignService businessFeignService;
 
   @Autowired
   private ICategoryProductService categoryProductService;
@@ -94,14 +104,34 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
         ? findProductByKeywordOrBusinessName(products, pageable, productFilter)
         : productBusinessService.findAllByBussinessId(pageable,
             new ObjectId(productFilter.getBusinessId()));
-
     Map<ObjectId, List<ProductBusiness>> productsByBusiness =
         products.stream().collect(Collectors.groupingBy(p -> p.getBusinessId()));
+
+    List<Business> allBusiness = null;
+    try {
+      allBusiness = businessFeignService.getAll();
+    } catch (Exception e) {
+      log.warn("Not possible to getAll business", e);
+    }
+    Map<BusinessResponse, List<ProductBusiness>> productsByBusinessResponse =
+        setBusiness(productsByBusiness, allBusiness);
     List<ProductGroupingByBusiness> productResponse =
-        productBusinessMapper.entityToProductGroupingByBusiness(productsByBusiness);
+        productBusinessMapper.entityToProductGroupingByBusiness(productsByBusinessResponse);
+
     setFavorites(productResponse, customerId);
     return productResponse;
   }
+
+  private Map<BusinessResponse, List<ProductBusiness>> setBusiness(
+      Map<ObjectId, List<ProductBusiness>> productsByBusiness, List<Business> allBusiness) {
+    return productsByBusiness.entrySet().stream()
+        .collect(Collectors.toMap(
+            k -> businessMapper.entityToResponse(allBusiness.stream()
+                .filter(business -> business.getId().equals(k.getKey().toHexString()))
+                .findFirst().orElseGet(() -> new Business())),
+            v -> v.getValue()));
+  }
+
 
   private void setFavorites(List<ProductGroupingByBusiness> businessProducts, String customerId) {
     if (!Objects.isNull(customerId)) {
@@ -123,7 +153,7 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
         }
       } catch (Exception e) {
         log.warn("Not possible to get CustomerDetails for customerId {}, {}", customerId,
-            e.getMessage());
+            e);
       }
     }
   }
@@ -132,7 +162,7 @@ public class ProductBusinessServiceWrapperImpl implements IProductBusinessServic
       Pageable pageable, ProductFilter productFilter) {
 
     products = Objects.isNull(productFilter.getKeywords())
-        ? productBusinessService.findAll(pageable).getContent()
+        ? productBusinessService.findAll(Pageable.unpaged()).getContent()
         : productBusinessService.filterProduct(pageable, productFilter);
 
     if (Nullable.isNullOrEmpty(products)) {

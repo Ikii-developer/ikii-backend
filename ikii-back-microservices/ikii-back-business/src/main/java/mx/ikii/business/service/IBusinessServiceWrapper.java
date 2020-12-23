@@ -9,20 +9,22 @@ import mx.ikii.commons.payload.request.business.BusinessRequest;
 import mx.ikii.commons.payload.response.business.BusinessResponse;
 
 public interface IBusinessServiceWrapper {
-	BusinessResponse findById(String id);
+  BusinessResponse findById(String id);
 
-	BusinessResponse getByBusinesName(String businessName);
-	
-	List<BusinessResponse> filterByBusinessName(String businessName);
+  BusinessResponse getByBusinesName(String businessName);
 
-	Page<BusinessResponse> findAll(Pageable pageable, String customerid);
+  List<BusinessResponse> filterByBusinessName(String businessName);
 
-	BusinessResponse create(BusinessRequest businessRequest);
+  Page<BusinessResponse> findAll(Pageable pageable, String customerid);
 
-	List<BusinessResponse> create(List<BusinessRequest> businessRequest);
+  List<BusinessResponse> findAllFeign();
 
-	BusinessResponse update(BusinessRequest businessRequest, String id);
+  BusinessResponse create(BusinessRequest businessRequest);
 
-	void delete(String id);
+  List<BusinessResponse> create(List<BusinessRequest> businessRequest);
+
+  BusinessResponse update(BusinessRequest businessRequest, String id);
+
+  void delete(String id);
 
 }
