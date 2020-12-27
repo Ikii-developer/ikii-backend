@@ -1,5 +1,7 @@
 package mx.ikii.customers.controller;
 
+import java.security.Principal;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -125,5 +127,14 @@ public interface ICustomerController {
 	 */
 	@PutMapping("/{userId}/roles/{roleId}")
 	ResponseEntity<Void> assignRole(String userId, String roleId);
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param principal
+	 * @return
+	 */
+	@GetMapping("/logged-in")
+	ResponseEntity<CustomerResponse> getUserByPrincipal(Principal principal);
 
 }

@@ -23,4 +23,6 @@ public interface IBusinessService {
 
 	void delete(String id);
 
+	Business findByCustomerId(String customerId);
+
 }

@@ -1,5 +1,8 @@
 ## ikii-back-customers
 
+## 2.5.0
+* Add get customer logged in
+
 ## 2.4.0
 * Add deliveryRange to Business
 

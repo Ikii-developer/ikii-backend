@@ -113,4 +113,9 @@ public class BusinessServiceWrapperImpl implements IBusinessServiceWrapper {
 		businessService.delete(id);
 	}
 
+	@Override
+	public BusinessResponse getByCustomerId(String customerId) {
+		return businessMapper.entityToResponse(businessService.findByCustomerId(customerId));
+	}
+
 }

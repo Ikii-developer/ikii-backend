@@ -1,5 +1,8 @@
 ## ikii-back-business
 
+## 1.9.0
+* Add get business by customerId
+
 ## 1.8.0
 * add generic module to upload image
 

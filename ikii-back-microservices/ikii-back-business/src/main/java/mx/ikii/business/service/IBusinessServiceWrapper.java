@@ -25,4 +25,6 @@ public interface IBusinessServiceWrapper {
 
 	void delete(String id);
 
+	BusinessResponse getByCustomerId(String customerId);
+
 }
