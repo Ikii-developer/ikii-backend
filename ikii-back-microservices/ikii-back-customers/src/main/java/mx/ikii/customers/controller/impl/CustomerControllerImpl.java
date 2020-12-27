@@ -1,7 +1,6 @@
 package mx.ikii.customers.controller.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.security.Principal;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -91,6 +90,11 @@ public class CustomerControllerImpl implements ICustomerController {
 	@Override
 	public ResponseEntity<CustomerResponse> getByPhoneNumber(@PathVariable String phoneNumber) {
 		return ResponseEntity.ok(customerServiceWrapper.findByPhoneNumber(phoneNumber));
+	}
+	
+	@Override
+	public ResponseEntity<CustomerResponse> getUserByPrincipal(Principal princpial){
+		return ResponseEntity.ok(customerServiceWrapper.findByemail(princpial.getName()));
 	}
 
 }

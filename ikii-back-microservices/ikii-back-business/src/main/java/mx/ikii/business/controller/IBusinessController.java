@@ -25,6 +25,9 @@ public interface IBusinessController {
   @GetMapping("/feign")
   ResponseEntity<List<BusinessResponse>> getAllFegin();
 
+	@GetMapping("/customer/{customerId}")
+	ResponseEntity<BusinessResponse> getByCustomerId(String customerId);
+
   @GetMapping("{id}")
   ResponseEntity<BusinessResponse> getById(String id);
 

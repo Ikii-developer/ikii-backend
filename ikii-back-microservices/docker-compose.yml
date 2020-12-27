@@ -74,7 +74,7 @@ services:
 ##----FUNCTIONAL MICROSERVICES----##
   ikii-back-customers:
     container_name: ikii-back-customers
-    image: ikii/customers:2.4.0
+    image: ikii/customers:2.5.0
     environment:
       - CLOUD_CONFIG_URI=http://ikii-back-config:8888
       - PROFILE=prod
@@ -91,7 +91,7 @@ services:
 
   ikii-back-business:
     container_name: ikii-back-business
-    image : ikii/business:1.8.0
+    image : ikii/business:1.9.0
     environment:
       - CLOUD_CONFIG_URI=http://ikii-back-config:8888
       - PROFILE=prod

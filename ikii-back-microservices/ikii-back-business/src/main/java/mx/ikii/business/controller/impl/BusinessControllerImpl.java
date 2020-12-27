@@ -73,4 +73,9 @@ public class BusinessControllerImpl implements IBusinessController {
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
+	@Override
+	public ResponseEntity<BusinessResponse> getByCustomerId(@PathVariable String customerId) {
+		return ResponseEntity.ok(businessServiceWrapper.getByCustomerId(customerId));
+	}
+
 }
