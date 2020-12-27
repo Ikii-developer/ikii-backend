@@ -1,16 +1,15 @@
 package mx.ikii.commons.mapper.product;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import mx.ikii.commons.mapper.utils.GenericMapper;
 import mx.ikii.commons.mapper.utils.StringObjectIdMapper;
 import mx.ikii.commons.payload.request.product.ProductBusinessRequest;
+import mx.ikii.commons.payload.response.business.BusinessResponse;
 import mx.ikii.commons.payload.response.product.ProductBusinessResponse;
 import mx.ikii.commons.payload.response.product.ProductCategorySubcategory;
 import mx.ikii.commons.payload.response.product.ProductGroupingByBusiness;
@@ -23,16 +22,14 @@ public interface IProductBusinessMapper
 
 
   default List<ProductGroupingByBusiness> entityToProductGroupingByBusiness(
-      Map<ObjectId, List<ProductBusiness>> productsByBusiness) {
-    List<ProductGroupingByBusiness> productByBusiness = new ArrayList<>();
+      Map<BusinessResponse, List<ProductBusiness>> productsByBusiness) {
 
-    productsByBusiness.forEach((k, v) -> {
-      ProductGroupingByBusiness productGroupingByBusiness = new ProductGroupingByBusiness();
-      productGroupingByBusiness.setBusinessId(k.toHexString());
-      productGroupingByBusiness.setProducts(entityToResponse(v));
-      productByBusiness.add(productGroupingByBusiness);
-    });
-    return productByBusiness;
+    return productsByBusiness.entrySet().stream().map(entry -> {
+      return ProductGroupingByBusiness.builder()
+          .products(entityToResponse(entry.getValue()))
+          .business(entry.getKey())
+          .build();
+    }).collect(Collectors.toList());
   }
 
   default List<ProductCategorySubcategory> productCategorySubCategory(

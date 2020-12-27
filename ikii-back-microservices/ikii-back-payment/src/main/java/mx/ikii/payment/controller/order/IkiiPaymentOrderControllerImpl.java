@@ -13,41 +13,39 @@ import mx.ikii.payment.service.order.IKiiPaymentOrderServiceWrapper;
 
 @Component
 public class IkiiPaymentOrderControllerImpl implements IkiiPaymentOrderController {
-	
-	@Autowired
-	private IKiiPaymentOrderServiceWrapper ikiiPaymentServiceWrapper;
 
-	@Override
-	public ResponseEntity<OrderConektaResponse> createOrderConekta(@RequestBody OrderConektaRequest orderConektaRequest) {
-		
-		return ResponseEntity.ok(ikiiPaymentServiceWrapper.createOrderWithCardCharge(orderConektaRequest));
-	}
+  @Autowired
+  private IKiiPaymentOrderServiceWrapper ikiiPaymentServiceWrapper;
 
-	@Override
-	public ResponseEntity<OrderConektaResponse> updateOrderConekta(@RequestBody OrderConektaRequest orderConektaRequest) {
-		
-		return ResponseEntity.ok(ikiiPaymentServiceWrapper.updateOrderConekta(orderConektaRequest));
-	}
+  @Override
+  public ResponseEntity<OrderConektaResponse> createOrderConekta(
+      @RequestBody OrderConektaRequest orderConektaRequest) {
+    return ResponseEntity
+        .ok(ikiiPaymentServiceWrapper.createOrderWithCardCharge(orderConektaRequest));
+  }
 
-	@Override
-	public ResponseEntity<OrderConektaResponse> getOrderConekta(@PathVariable String orderId) {
-		
-		return ResponseEntity.ok(ikiiPaymentServiceWrapper.findOrderConekta(orderId));
-	}
-	
-	@Override
-	public ResponseEntity<OrderConektaResponse> orderAuthorizeCapture(@PathVariable String orderId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @Override
+  public ResponseEntity<OrderConektaResponse> updateOrderConekta(
+      @RequestBody OrderConektaRequest orderConektaRequest) {
+    return ResponseEntity.ok(ikiiPaymentServiceWrapper.updateOrderConekta(orderConektaRequest));
+  }
 
-	
-	@Override
-	public ResponseEntity<OrderConektaResponse> refoundOrderConekta(@RequestBody RefoundOrderRequest refoundOrderRequest) {
-		
-		ikiiPaymentServiceWrapper.refoundOrderConekta(refoundOrderRequest);
-		
-		return ResponseEntity.ok().build();
-	}
+  @Override
+  public ResponseEntity<OrderConektaResponse> getOrderConekta(@PathVariable String orderId) {
+    return ResponseEntity.ok(ikiiPaymentServiceWrapper.findOrderConekta(orderId));
+  }
+
+  @Override
+  public ResponseEntity<OrderConektaResponse> orderAuthorizeCapture(@PathVariable String orderId) {
+    return null;
+  }
+
+
+  @Override
+  public ResponseEntity<OrderConektaResponse> refoundOrderConekta(
+      @RequestBody RefoundOrderRequest refoundOrderRequest) {
+    ikiiPaymentServiceWrapper.refoundOrderConekta(refoundOrderRequest);
+    return ResponseEntity.ok().build();
+  }
 
 }

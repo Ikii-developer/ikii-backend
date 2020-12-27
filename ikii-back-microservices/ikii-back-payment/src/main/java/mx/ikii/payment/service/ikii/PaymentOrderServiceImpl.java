@@ -2,6 +2,7 @@ package mx.ikii.payment.service.ikii;
 
 import java.math.BigDecimal;
 import java.util.List;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,13 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
 
   @Override
   public List<PaymentOrderDTO> filter(OrderFilter orderFilter) {
-    return  paymentOrderRepositoryCustom.filter(orderFilter)
+    return paymentOrderRepositoryCustom.filter(orderFilter)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @Override
+  public List<PaymentOrder> getByCustomerId(String id) {
+    return paymentOrderRepository.findByCustomerId(new ObjectId(id));
   }
 
 }

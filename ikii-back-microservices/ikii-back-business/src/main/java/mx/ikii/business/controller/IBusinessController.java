@@ -19,31 +19,34 @@ import mx.ikii.commons.payload.response.business.BusinessResponse;
 @RequestMapping("/")
 public interface IBusinessController {
 
-	@GetMapping
-	ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable, String customerId);
+  @GetMapping
+  ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable, String customerId);
 
-	@GetMapping("{id}")
-	ResponseEntity<BusinessResponse> getById(String id);
+  @GetMapping("/feign")
+  ResponseEntity<List<BusinessResponse>> getAllFegin();
 
-	@GetMapping("/name/{businessName}")
-	ResponseEntity<BusinessResponse> getByBusinesName(String businessName);
-	
 	@GetMapping("/customer/{customerId}")
 	ResponseEntity<BusinessResponse> getByCustomerId(String customerId);
-	
-	@GetMapping("/filter-by-name/{businessName}")
-	ResponseEntity<List<BusinessResponse>> filterByBusinessName(String businessName);
 
-	@PostMapping
-	ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
+  @GetMapping("{id}")
+  ResponseEntity<BusinessResponse> getById(String id);
 
-	@PostMapping("/batch")
-	ResponseEntity<List<BusinessResponse>> create(List<BusinessRequest> userRequest);
+  @GetMapping("/name/{businessName}")
+  ResponseEntity<BusinessResponse> getByBusinesName(String businessName);
 
-	@PutMapping("{id}")
-	ResponseEntity<BusinessResponse> update(BusinessRequest userRequest, String id);
+  @GetMapping("/filter-by-name/{businessName}")
+  ResponseEntity<List<BusinessResponse>> filterByBusinessName(String businessName);
 
-	@DeleteMapping("{id}")
-	ResponseEntity<Void> delete(String id);
+  @PostMapping
+  ResponseEntity<BusinessResponse> create(BusinessRequest userRequest);
+
+  @PostMapping("/batch")
+  ResponseEntity<List<BusinessResponse>> create(List<BusinessRequest> userRequest);
+
+  @PutMapping("{id}")
+  ResponseEntity<BusinessResponse> update(BusinessRequest userRequest, String id);
+
+  @DeleteMapping("{id}")
+  ResponseEntity<Void> delete(String id);
 
 }

@@ -20,51 +20,58 @@ import mx.ikii.commons.payload.response.business.BusinessResponse;
 @Component
 public class BusinessControllerImpl implements IBusinessController {
 
-	@Autowired
-	private IBusinessServiceWrapper businessServiceWrapper;
+  @Autowired
+  private IBusinessServiceWrapper businessServiceWrapper;
 
-	@Override
-	public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable,
-			@RequestParam(required = false) String customerId) {
-		return ResponseEntity.ok(businessServiceWrapper.findAll(pageable, customerId));
-	}
+  @Override
+  public ResponseEntity<Page<BusinessResponse>> getAll(Pageable pageable,
+      @RequestParam(required = false) String customerId) {
+    return ResponseEntity.ok(businessServiceWrapper.findAll(pageable, customerId));
+  }
 
-	@Override
-	public ResponseEntity<BusinessResponse> getById(@PathVariable String id) {
-		return ResponseEntity.ok(businessServiceWrapper.findById(id));
-	}
+  @Override
+  public ResponseEntity<List<BusinessResponse>> getAllFegin() {
+    return ResponseEntity.ok(businessServiceWrapper.findAllFeign());
+  }
 
-	@Override
-	public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String businessName) {
-		return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(businessName));
-	}
-	
-	@Override
-	public ResponseEntity<List<BusinessResponse>> filterByBusinessName(@PathVariable String businessName) {
-		return ResponseEntity.ok(businessServiceWrapper.filterByBusinessName(businessName));
-	}
+  @Override
+  public ResponseEntity<BusinessResponse> getById(@PathVariable String id) {
+    return ResponseEntity.ok(businessServiceWrapper.findById(id));
+  }
 
-	@Override
-	public ResponseEntity<BusinessResponse> create(@RequestBody BusinessRequest businessRequest) {
-		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
-	}
+  @Override
+  public ResponseEntity<BusinessResponse> getByBusinesName(@PathVariable String businessName) {
+    return ResponseEntity.ok(businessServiceWrapper.getByBusinesName(businessName));
+  }
 
-	@Override
-	public ResponseEntity<List<BusinessResponse>> create(@RequestBody List<BusinessRequest> businessRequest) {
-		return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
-	}
+  @Override
+  public ResponseEntity<List<BusinessResponse>> filterByBusinessName(
+      @PathVariable String businessName) {
+    return ResponseEntity.ok(businessServiceWrapper.filterByBusinessName(businessName));
+  }
 
-	@Override
-	public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest,
-			@PathVariable String id) {
-		return ResponseEntity.ok(businessServiceWrapper.update(businessRequest, id));
-	}
+  @Override
+  public ResponseEntity<BusinessResponse> create(@RequestBody BusinessRequest businessRequest) {
+    return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
+  }
 
-	@Override
-	public ResponseEntity<Void> delete(@PathVariable String id) {
-		businessServiceWrapper.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
-	}
+  @Override
+  public ResponseEntity<List<BusinessResponse>> create(
+      @RequestBody List<BusinessRequest> businessRequest) {
+    return ResponseEntity.ok(businessServiceWrapper.create(businessRequest));
+  }
+
+  @Override
+  public ResponseEntity<BusinessResponse> update(@RequestBody BusinessRequest businessRequest,
+      @PathVariable String id) {
+    return ResponseEntity.ok(businessServiceWrapper.update(businessRequest, id));
+  }
+
+  @Override
+  public ResponseEntity<Void> delete(@PathVariable String id) {
+    businessServiceWrapper.delete(id);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
 
 	@Override
 	public ResponseEntity<BusinessResponse> getByCustomerId(@PathVariable String customerId) {

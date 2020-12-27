@@ -14,63 +14,65 @@ import mx.ikii.commons.utils.Nullable;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "customerId", "name", "image", "categoryId", "description", "deliveryTime", "closeTieme",
-		"isOpen", "distance", "status", "average", "favorite", "businessId" })
+@JsonPropertyOrder({"id", "customerId", "name", "image", "categoryId", "description",
+    "deliveryTime", "closeTieme",
+    "isOpen", "distance", "status", "average", "favorite", "businessId", "telephoneNumber"})
 public class BusinessNearByMe {
-	private ObjectId customerId;
+  private ObjectId customerId;
 
-	private ObjectId businessId;
-	private String name;
-	private String image;
-	private ObjectId categoryId;
-	private String description;
-	private String deliveryTime;
-	private String closeTime;
-	private Boolean isOpen;
-	private Double distance;
-	private Double deliveryRange;
-	private String street;
-	private String status;
-	private Double average;
-	private boolean favorite;
+  private ObjectId businessId;
+  private String name;
+  private String image;
+  private ObjectId categoryId;
+  private String description;
+  private String deliveryTime;
+  private String closeTime;
+  private Boolean isOpen;
+  private Double distance;
+  private Double deliveryRange;
+  private String street;
+  private String status;
+  private Double average;
+  private String telephoneNumber;
+  private boolean favorite;
 
-	@JsonIgnore
-	private List<Rate> rates;
+  @JsonIgnore
+  private List<Rate> rates;
 
-	@JsonProperty("id")
-	public String getId() {
-		return this.getBusinessId();
-	}
+  @JsonProperty("id")
+  public String getId() {
+    return this.getBusinessId();
+  }
 
-	public String getCustomerId() {
-		return customerId.toHexString();
-	}
+  public String getCustomerId() {
+    return customerId.toHexString();
+  }
 
-	public String getCategoryId() {
-		return categoryId.toHexString();
-	}
+  public String getCategoryId() {
+    return categoryId.toHexString();
+  }
 
-	public String getBusinessId() {
-		return businessId.toHexString();
-	}
-	
-	@JsonIgnore
-	public ObjectId getBusinessIdObjectId() {
-		return businessId;
-	}
+  public String getBusinessId() {
+    return businessId.toHexString();
+  }
 
-	public Double getAverage() {
-		if (Nullable.isNotNull(average)) {
-			BigDecimal bd = new BigDecimal(Double.toString(average));
-			bd = bd.setScale(1, RoundingMode.HALF_UP);
-			return bd.doubleValue();
-		}
-		return average;
-	}
+  @JsonIgnore
+  public ObjectId getBusinessIdObjectId() {
+    return businessId;
+  }
 
-	@JsonProperty("totalRates")
-	public Integer getTotalRates() {
-		return Nullable.isNullOrEmpty(rates) ? 0 : rates.size();
-	}
+  public Double getAverage() {
+    if (Nullable.isNotNull(average)) {
+      BigDecimal bd = new BigDecimal(Double.toString(average));
+      bd = bd.setScale(1, RoundingMode.HALF_UP);
+      return bd.doubleValue();
+    }
+    return average;
+  }
+
+  @JsonProperty("totalRates")
+  public Integer getTotalRates() {
+    return Nullable.isNullOrEmpty(rates) ? 0 : rates.size();
+  }
 
 }

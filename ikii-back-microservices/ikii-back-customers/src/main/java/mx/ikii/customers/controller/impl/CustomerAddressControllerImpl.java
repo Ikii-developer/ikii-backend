@@ -22,49 +22,53 @@ import mx.ikii.customers.service.ICustomerAdressServiceWrapper;
 @Component
 public class CustomerAddressControllerImpl implements ICustomerAddressController {
 
-	@Autowired
-	private ICustomerAdressServiceWrapper customerAddressServiceWrapper;
+  @Autowired
+  private ICustomerAdressServiceWrapper customerAddressServiceWrapper;
 
-	@Override
-	public ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.getAll(pageable));
-	}
+  @Override
+  public ResponseEntity<Page<CustomerAdressResponse>> getAll(Pageable pageable) {
+    return ResponseEntity.ok(customerAddressServiceWrapper.getAll(pageable));
+  }
 
-	@Override
-	public ResponseEntity<CustomerAdressResponse> getById(@PathVariable String id) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.getById(id));
-	}
+  @Override
+  public ResponseEntity<CustomerAdressResponse> getById(@PathVariable String id) {
+    return ResponseEntity.ok(customerAddressServiceWrapper.getById(id));
+  }
 
-	@Override
-	public ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(@PathVariable String customerId,
-			Pageable pageable) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.getByCustomerId(customerId, pageable));
-	}
+  @Override
+  public ResponseEntity<Page<CustomerAdressResponse>> getByCustomerId(
+      @PathVariable String customerId,
+      Pageable pageable) {
+    return ResponseEntity.ok(customerAddressServiceWrapper.getByCustomerId(customerId, pageable));
+  }
 
-	@Override
-	public ResponseEntity<CustomerAdressResponse> create(@RequestBody CustomerAdressRequest customerAdressRequest) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.create(customerAdressRequest));
-	}
+  @Override
+  public ResponseEntity<CustomerAdressResponse> create(
+      @RequestBody CustomerAdressRequest customerAdressRequest) {
+    return ResponseEntity.ok(customerAddressServiceWrapper.create(customerAdressRequest));
+  }
 
-	@Override
-	public ResponseEntity<CustomerAdressResponse> update(@RequestBody CustomerAdressRequest customerAdressRequest,
-			@PathVariable String id) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.update(customerAdressRequest, id));
-	}
+  @Override
+  public ResponseEntity<CustomerAdressResponse> update(
+      @RequestBody CustomerAdressRequest customerAdressRequest,
+      @PathVariable String id) {
+    return ResponseEntity.ok(customerAddressServiceWrapper.update(customerAdressRequest, id));
+  }
 
-	@Override
-	public ResponseEntity<Void> delete(@PathVariable String id) {
-		customerAddressServiceWrapper.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
-	}
+  @Override
+  public ResponseEntity<Void> delete(@PathVariable String id) {
+    customerAddressServiceWrapper.delete(id);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
 
-	@Override
-	public ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam Double latitude,
-			@RequestParam Double longitude, @RequestParam(required = false) Double distance,
-			@RequestParam(required = false) String customerId,
-			@RequestBody BusinessFilterRequest businessFilterRequest) {
-		return ResponseEntity.ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance, customerId,
-				businessFilterRequest));
-	}
+  @Override
+  public ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam Double latitude,
+      @RequestParam Double longitude, @RequestParam(required = false) Double distance,
+      @RequestParam(required = false) String customerId,
+      @RequestBody BusinessFilterRequest businessFilterRequest) {
+    return ResponseEntity
+        .ok(customerAddressServiceWrapper.nearByMe(latitude, longitude, distance, customerId,
+            businessFilterRequest));
+  }
 
 }

@@ -8,14 +8,16 @@ import mx.ikii.commons.persistence.collection.PaymentOrder;
 
 public interface IPaymentOrderService {
 
-    PaymentOrder getById(String id);
-    
-    PaymentOrder save(PaymentOrder paymentOrder);
-    
-    PaymentOrder update(PaymentOrder paymentOrder);
+  PaymentOrder getById(String id);
 
-    void calculateTotals(PaymentOrder paymentOrder, OrderDetail orderDetail);
-    
-    List<PaymentOrderDTO> filter(OrderFilter orderFilter);
-    
+  List<PaymentOrder> getByCustomerId(String id);
+
+  PaymentOrder save(PaymentOrder paymentOrder);
+
+  PaymentOrder update(PaymentOrder paymentOrder);
+
+  void calculateTotals(PaymentOrder paymentOrder, OrderDetail orderDetail);
+
+  List<PaymentOrderDTO> filter(OrderFilter orderFilter);
+
 }
