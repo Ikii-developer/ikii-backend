@@ -1,7 +1,9 @@
 ## ikii-back-payment
 
-## 2.4.0
+## 2.5.0
+* Refactor payment methods
 
+## 2.4.0
 * add order filter 
 * Change DBRef for ObjectId
 

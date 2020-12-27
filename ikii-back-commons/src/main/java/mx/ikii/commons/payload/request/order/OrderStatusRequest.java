@@ -7,7 +7,7 @@ import mx.ikii.commons.domain.OrderSubStatus;
 public class OrderStatusRequest {
 
 	private OrderSubStatus subStatus;
-
 	private String description;
+	private String value;
 
 }

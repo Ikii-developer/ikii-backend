@@ -2,9 +2,11 @@ package mx.ikii.commons.payload.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import mx.ikii.commons.domain.OrderSubStatus;
 
+@Builder
 @Data
 public class OrderSubstatusDetail {
 
@@ -28,6 +30,16 @@ public class OrderSubstatusDetail {
     this.subStatus = subStatus;
     this.date = date;
     this.description = description;
+  }
+
+
+  public OrderSubstatusDetail(OrderSubStatus subStatus, LocalDateTime date, String description,
+      List<OrderSubstatusDetail> subStatusHistory) {
+    super();
+    this.subStatus = subStatus;
+    this.date = date;
+    this.description = description;
+    this.subStatusHistory = subStatusHistory;
   }
 
 

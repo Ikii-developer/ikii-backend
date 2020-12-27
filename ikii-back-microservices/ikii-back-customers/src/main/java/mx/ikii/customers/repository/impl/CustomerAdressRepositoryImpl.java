@@ -61,6 +61,7 @@ public class CustomerAdressRepositoryImpl implements ICustomerAdressRepositoryCu
 				.andExpression("business.isOpen").as("isOpen")
 				.andExpression("business.status").as("status")
 				.andExpression("business.deliveryRange").as("deliveryRange")
+                .andExpression("business.telephoneNumber").as("telephoneNumber")
 				.andExpression("rate.average").as("average")
 				.andExpression("rate.rates").as("rates");
 

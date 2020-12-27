@@ -20,5 +20,6 @@ public class BusinessResponse {
   private boolean isFavorite;
   private String postalCode;
   private Double deliveryRange;
+  private String telephoneNumber;
 
 }

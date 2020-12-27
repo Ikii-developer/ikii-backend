@@ -1,5 +1,6 @@
 package mx.ikii.commons.feignclient.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +14,33 @@ import mx.ikii.commons.utils.ResponseEntityHelper;
 @Service
 public class BusinessFeignServiceImpl implements IBusinessFeignService {
 
-	@Autowired
-	private IBusinessFeignRepository businessFeignRespository;
+  @Autowired
+  private IBusinessFeignRepository businessFeignRespository;
 
-	@Autowired
-	private IBusinessCategoryMapper businessCategortyMapper;
-	
-	@Autowired
-	private IBusinessMapper businessMapper;
-	
+  @Autowired
+  private IBusinessCategoryMapper businessCategortyMapper;
 
-	@Override
-	public BusinessCategory getByCategoryId(String categoryId) {
-		return businessCategortyMapper.responseToEntity(
-				ResponseEntityHelper.processingHttpStatus(businessFeignRespository.getByCategoryId(categoryId)));
-	}
+  @Autowired
+  private IBusinessMapper businessMapper;
 
-	@Override
-	public Business getById(String id) {
-		return businessMapper.responseToEntity(
-				ResponseEntityHelper.processingHttpStatus(businessFeignRespository.getById(id)));
-	}
+
+  @Override
+  public BusinessCategory getByCategoryId(String categoryId) {
+    return businessCategortyMapper.responseToEntity(
+        ResponseEntityHelper
+            .processingHttpStatus(businessFeignRespository.getByCategoryId(categoryId)));
+  }
+
+  @Override
+  public Business getById(String id) {
+    return businessMapper.responseToEntity(
+        ResponseEntityHelper.processingHttpStatus(businessFeignRespository.getById(id)));
+  }
+
+  @Override
+  public List<Business> getAll() {
+    return businessMapper.responseToEntity(
+        ResponseEntityHelper.processingHttpStatus(businessFeignRespository.getAllFegin()));
+  }
 
 }

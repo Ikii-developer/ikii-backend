@@ -17,25 +17,16 @@ import mx.ikii.commons.payload.dto.TaxLineDTO;
 public class OrderConektaResponse {
 	
 	private String id;
-	
 	private BigDecimal amount;
-	
 	private BigDecimal amount_refunded;
-	
 	private String payment_status;
-	
 	private String currency;
-	
 	private CustomerInfoDTO customer_info;
-	
 	private String line_itemsId;
 	private List<LineItemsDTO> line_items;
-	
 	private String chargesId;
 	private List<ChargesDTO> charges;
-	
 	private List<TaxLineDTO> tax_lines;
-
 	private Map<String,String> metadata;
 	
 }
