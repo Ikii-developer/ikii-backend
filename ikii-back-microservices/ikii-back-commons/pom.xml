@@ -2,16 +2,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>mx.ikii.commons</groupId>
 	<packaging>jar</packaging>
 	<name>utilities</name>
 	<artifactId>ikii-back-commons</artifactId>
 	<version>2.4.1</version>
+
 	<properties>
-		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
-		<lombok.version>1.18.4</lombok.version>
 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
+		<lombok.version>1.18.4</lombok.version>
 	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -30,6 +33,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -109,20 +113,14 @@
 			<version>1.7.30</version>
 		</dependency>
 	</dependencies>
+
 	<build>
-		<finalName>Commons</finalName>
+		<finalName>ikii-back-commons</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -131,6 +129,11 @@
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${org.mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.16</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>

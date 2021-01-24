@@ -3,11 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
-		<groupId>mx.ikii</groupId>
-		<artifactId>ikii-back-full-main</artifactId>
-		<version>2.0.0</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.0.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
+	<groupId>mx.ikii.products</groupId>
 	<artifactId>ikii-back-products</artifactId>
 	<version>1.8.0</version>
 	<name>ikii-back-products</name>
@@ -15,9 +19,13 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
+		<ikii-back-commons-version>2.4.1</ikii-back-commons-version>
+		<ikii-back-commons-web-version>1.0.0</ikii-back-commons-web-version>
+		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<spring.cloud.k8s.version>1.0.0.RELEASE</spring.cloud.k8s.version>
 		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+		<lombok.version>1.18.4</lombok.version>
 	</properties>
 
 	<!-- Common dependencies -->
@@ -25,10 +33,12 @@
 		<dependency>
 			<groupId>mx.ikii.web.commons</groupId>
 			<artifactId>ikii-back-commons-web</artifactId>
+			<version>${ikii-back-commons-web-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mx.ikii.commons</groupId>
 			<artifactId>ikii-back-commons</artifactId>
+			<version>${ikii-back-commons-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security.oauth.boot</groupId>
@@ -77,11 +87,13 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<optional>true</optional>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
 			<scope>provided</scope>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 
 		<!-- Microservices dependencies -->
@@ -126,6 +138,18 @@
 		</dependency>
 
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<profiles>
 		<profile>

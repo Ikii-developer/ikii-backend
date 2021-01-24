@@ -6,13 +6,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
-import mx.ikii.commons.payload.dto.LocationDTO;
 import mx.ikii.commons.utils.constants.EnumCity;
 
 /**
@@ -57,7 +57,7 @@ public class CustomerAdressRequest implements Serializable{
 	private String nickname;
 	
 	@NotNull
-	private LocationDTO location;
+	private GeoJsonPoint location; //LocationDTO location;
 	
 	@NotNull
 	private Boolean isCurrent;
