@@ -7,14 +7,16 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient" })
+@ComponentScan({"mx.ikii", "mx.ikii.commons", "mx.ikii.customers", "mx.ikii.web.commons" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
+@EnableMongoRepositories(basePackages = { "mx.ikii.customers.repository", "mx.ikii.web.commons.repository" })
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableDiscoveryClient
 public class IkiiUsersApplication {
 
