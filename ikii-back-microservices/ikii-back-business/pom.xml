@@ -231,9 +231,9 @@
 									<port>8004</port>
 								</ports>
 							</container>
-							<from>
-								<image>openjdk:8u212-jre</image>
-							</from>
+<!-- 							<from> -->
+<!-- 								<image>openjdk:8u212-jre</image> -->
+<!-- 							</from> -->
 							<to>
 								<image>ikii/business:${project.version}</image>
 							</to>

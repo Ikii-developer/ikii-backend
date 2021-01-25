@@ -157,8 +157,8 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
-							<source>1.8</source>
-							<target>1.8</target>
+							<source>11</source>
+							<target>11</target>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.mapstruct</groupId>
@@ -201,8 +201,8 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
-							<source>1.8</source>
-							<target>1.8</target>
+							<source>11</source>
+							<target>11</target>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -226,9 +226,9 @@
 									<port>8003</port>
 								</ports>
 							</container>
-							<from>
-								<image>openjdk:8u212-jre</image>
-							</from>
+<!-- 							<from> -->
+<!-- 								<image>openjdk:8u212-jre</image> -->
+<!-- 							</from> -->
 							<to>
 								<image>ikii/security:${project.version}</image>
 							</to>

@@ -18,6 +18,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
 		<lombok.version>1.18.4</lombok.version>
@@ -116,9 +117,9 @@
 									<port>8761</port>
 								</ports>
 							</container>
-							<from>
-								<image>openjdk:8u212-jre</image>
-							</from>
+<!-- 							<from> -->
+<!-- 								<image>openjdk:8u212-jre</image> -->
+<!-- 							</from> -->
 							<to>
 								<image>ikii/registry:${project.version}</image>
 							</to>

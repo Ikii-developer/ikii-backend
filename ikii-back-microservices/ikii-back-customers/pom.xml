@@ -212,8 +212,8 @@
 						<artifactId>maven-compiler-plugin</artifactId>
 						<version>3.5</version>
 						<configuration>
-							<source>1.8</source>
-							<target>1.8</target>
+							<source>11</source>
+							<target>11</target>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -238,9 +238,9 @@
 									<port>8002</port>
 								</ports>
 							</container>
-							<from>
-								<image>openjdk:8u212-jre</image>
-							</from>
+<!-- 							<from> -->
+<!-- 								<image>openjdk:8u212-jre</image> -->
+<!-- 							</from> -->
 							<to>
 								<image>ikii/customers:${project.version}</image>
 							</to>
