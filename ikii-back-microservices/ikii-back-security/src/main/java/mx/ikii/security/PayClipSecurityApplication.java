@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient" })
+@ComponentScan({ "mx.ikii", "mx.ikii.commons", "mx.ikii.security" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableMongoRepositories(basePackages = { "mx.ikii.repository" })
 @EnableDiscoveryClient

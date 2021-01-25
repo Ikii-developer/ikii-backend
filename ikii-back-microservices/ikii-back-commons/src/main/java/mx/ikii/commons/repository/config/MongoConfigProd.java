@@ -18,8 +18,7 @@ import com.mongodb.ServerAddress;
  */
 @Profile("!development")
 @Configuration
-@EnableMongoRepositories(basePackages = { "mx.ikii", "mx.ikii.commons.repository",
-		"mx.ikii.commons.persistence.collection" })
+@EnableMongoRepositories(basePackages = {"mx.ikii.commons.persistence.collection" })
 public class MongoConfigProd extends AbstractMongoConfiguration {
 
 	@Override

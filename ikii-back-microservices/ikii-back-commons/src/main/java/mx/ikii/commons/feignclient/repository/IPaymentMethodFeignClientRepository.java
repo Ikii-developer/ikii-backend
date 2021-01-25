@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import mx.ikii.commons.payload.dto.PaymentMethodDTO;
+import mx.ikii.commons.payload.request.payment.conekta.CustomerConektaRequest;
+import mx.ikii.commons.payload.request.payment.conekta.OrderConektaRequest;
 import mx.ikii.commons.payload.request.payment.conekta.PaymentSourceRequest;
+import mx.ikii.commons.payload.request.payment.conekta.RefoundOrderRequest;
+import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.commons.payload.response.payment.conekta.PaymentMethodResponse;
 
 @FeignClient(name = "payment-method")
@@ -29,5 +33,33 @@ public interface IPaymentMethodFeignClientRepository {
 	
 	@DeleteMapping("/payment-method/{customerId}/{paymentMethodId}")
 	ResponseEntity<Void> deletePaymentMethod(@PathVariable String customerId, @PathVariable String paymentMethodId);
+	
+	//********************
+	
+	@PostMapping("/order-payment")
+	ResponseEntity<OrderConektaResponse> createOrderConekta(@RequestBody OrderConektaRequest orderConektaRequest);
+	
+	@PutMapping("/order-payment")
+	ResponseEntity<OrderConektaResponse> updateOrderConekta(@RequestBody OrderConektaRequest orderConektaRequest);
+	
+	@GetMapping("/order-payment/{orderId}")
+	ResponseEntity<OrderConektaResponse> getOrderConekta(@PathVariable String orderId);
+	
+	@GetMapping("/order-payment/capture/{orderId}")
+	ResponseEntity<OrderConektaResponse> orderAuthorizeCapture(@PathVariable String orderId);
+	
+	@PutMapping("/order-payment/refound")
+	ResponseEntity<OrderConektaResponse> refoundOrderConekta(@RequestBody RefoundOrderRequest refoundOrderRequest);
+	
+	//**************************+
+	
+	@PostMapping("/customer-payment")
+	ResponseEntity<Object> createCustomerConekta(@RequestBody CustomerConektaRequest customerConektaRequest);
+	
+	@PutMapping("/customer-payment")
+	ResponseEntity<Object> updateCustomerConekta(@RequestBody CustomerConektaRequest customerConektaRequest);
+	
+	@GetMapping("/customer-payment/{customerId}")
+	ResponseEntity<Object> getCustomerConekta(@PathVariable String customerId);
 
 }

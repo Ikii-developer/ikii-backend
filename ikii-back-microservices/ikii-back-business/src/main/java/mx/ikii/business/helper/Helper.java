@@ -1,4 +1,4 @@
-package mx.ikii.helper;
+package mx.ikii.business.helper;
 
 import mx.ikii.commons.persistence.collection.Business;
 import mx.ikii.commons.utils.Nullable;
