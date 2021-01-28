@@ -35,6 +35,7 @@ public class Customer implements Serializable {
 	private String phoneNumber;
 	private String password;
 	private String birthday;
+	private String image;
 	private Boolean isEnabled;
 
 	@DBRef
