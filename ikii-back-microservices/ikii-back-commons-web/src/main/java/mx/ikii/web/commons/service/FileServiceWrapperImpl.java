@@ -41,6 +41,12 @@ public class FileServiceWrapperImpl implements IFileServiceWrapper {
       
       attributesToUpdate.put("pathImage", urlBucketS3+fileName.toString());
       collectionName = UpdateType.PRODUCTS.getName();
+      
+    } else if(appName.equals(UpdateType.CUSTOMER.toString().toLowerCase())) {
+    	
+    	attributesToUpdate.put("image", urlBucketS3+fileName.toString());
+        collectionName = UpdateType.CUSTOMER.getName();
+    	
     }
     
     fileService.uploadImage(image, fileName.toString());

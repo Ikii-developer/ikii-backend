@@ -10,11 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import mx.ikii.business.helper.Helper;
 import mx.ikii.business.repository.IBusinessRepository;
 import mx.ikii.business.repository.custom.IBusinessRepositoryCustom;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.persistence.collection.Business;
-import mx.ikii.helper.Helper;
 
 @Service
 public class BusinessServiceImpl implements IBusinessService {

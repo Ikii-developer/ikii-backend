@@ -5,23 +5,25 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>mx.ikii</groupId>
-		<artifactId>ikii-back-full-main</artifactId>
-		<version>2.0.0</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.5.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.ikii</groupId>
 	<artifactId>ikii-back-config</artifactId>
+	<version>2.0.0</version>
 	<packaging>jar</packaging>
 	<name>ikii-back-config</name>
 	<description>Ikii Config Server</description>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 		<jib-maven-plugin.version>1.8.0</jib-maven-plugin.version>
+		<java.version>11</java.version>
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+		<lombok.version>1.18.4</lombok.version>
 	</properties>
 
 	<dependencies>
@@ -29,34 +31,31 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.retry</groupId>
-			<artifactId>spring-retry</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
-		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.retry</groupId>
-			<artifactId>spring-retry</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<finalName>config</finalName>
@@ -97,8 +96,8 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
-							<source>1.8</source>
-							<target>1.8</target>
+							<source>11</source>
+							<target>11</target>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -115,18 +114,27 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>production</id>
-			
+
 			<dependencies>
 
 				<!-- ONLY DEPENDENCIES FOR PRODUCTION -->
 
 			</dependencies>
 			<build>
-				<finalName>gateway</finalName>
+				<finalName>config</finalName>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.5</version>
+						<configuration>
+							<source>11</source>
+							<target>11</target>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
@@ -149,9 +157,9 @@
 									<port>4000</port>
 								</ports>
 							</container>
-							<from>
-								<image>openjdk:8u212-jre</image>
-							</from>
+<!-- 							<from> -->
+<!-- 								<image>openjdk:8u212-jre</image> -->
+<!-- 							</from> -->
 							<to>
 								<image>ikii/config:${project.version}</image>
 							</to>
@@ -168,6 +176,6 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 	</profiles>
 </project>

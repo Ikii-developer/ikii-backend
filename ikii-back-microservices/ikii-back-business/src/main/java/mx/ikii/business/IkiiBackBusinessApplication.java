@@ -10,9 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@ComponentScan({ "mx.ikii", "mx.ikii.commons.feignclient", "mx.ikii.web.commons" })
-@EnableMongoRepositories(basePackages = { "mx.ikii.business.repository", "mx.ikii.web.commons.repository" })
+@ComponentScan({"mx.ikii", "mx.ikii.commons", "mx.ikii.business", "mx.ikii.web.commons" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
+@EnableMongoRepositories(basePackages = { "mx.ikii.business.repository", "mx.ikii.web.commons.repository" })
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class IkiiBackBusinessApplication {
