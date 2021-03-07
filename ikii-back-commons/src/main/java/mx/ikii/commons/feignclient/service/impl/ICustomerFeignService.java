@@ -1,7 +1,6 @@
 package mx.ikii.commons.feignclient.service.impl;
 
 import java.util.List;
-
 import mx.ikii.commons.payload.request.business.BusinessFilterRequest;
 import mx.ikii.commons.payload.request.customer.CustomerRequest;
 import mx.ikii.commons.persistence.collection.Customer;

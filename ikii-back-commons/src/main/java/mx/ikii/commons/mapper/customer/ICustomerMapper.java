@@ -24,7 +24,6 @@ public interface ICustomerMapper extends GenericMapper<Customer, CustomerRequest
 
 	CustomerAuthResponse entityToAuthResponse(Customer customer);
 	
-	
 	Customer authResponseToentity(CustomerAuthResponse customer);
 
 }
