@@ -53,6 +53,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public Customer findByEmail(String email) {
+		System.out.println("EMAIL TO SEARCH: "+email);
 		Optional<Customer> customer = customerRepository.findByEmail(email);
 		return customer.orElseThrow(() -> new ResourceNotFoundException(email, Customer.class));
 	}

@@ -14,11 +14,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import mx.ikii.commons.security.AccountAuthenticationProvider;
 import mx.ikii.commons.security.CustomUserDetailsService;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfiguration { //extends WebSecurityConfigurerAdapter {
+	/*
 	@Value("${custom-security.signingKey}")
 	private String signingKey;
 
@@ -46,5 +46,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		jwtAccessTokenConverter.setSigningKey(signingKey);
 		return jwtAccessTokenConverter;
 	}
-
+	*/
 }

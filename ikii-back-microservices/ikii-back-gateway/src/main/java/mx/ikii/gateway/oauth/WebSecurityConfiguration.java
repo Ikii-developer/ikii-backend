@@ -1,15 +1,9 @@
-package com.ikii.gateway;
+package mx.ikii.gateway.oauth;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-
-@EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+//@EnableWebSecurity
+public class WebSecurityConfiguration { //extends WebSecurityConfigurerAdapter {
+	
+	/*
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		/// @formatter:off
@@ -27,4 +21,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and().authorizeRequests().antMatchers("customers/sign-up").permitAll();
      // @formatter:on
 	}
+	*/
 }

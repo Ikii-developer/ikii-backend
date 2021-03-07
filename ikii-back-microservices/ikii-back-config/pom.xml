@@ -11,7 +11,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.ikii</groupId>
+	<groupId>mx.ikii.config</groupId>
 	<artifactId>ikii-back-config</artifactId>
 	<version>2.0.0</version>
 	<packaging>jar</packaging>

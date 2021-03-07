@@ -13,9 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-@Configuration
+//@Configuration
 public class OAuth2ServerConfiguration {
-
+	/*
 	@Configuration
 	@EnableResourceServer
 	protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
@@ -50,4 +50,5 @@ public class OAuth2ServerConfiguration {
 					.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter);
 		}
 	}
+	*/
 }
