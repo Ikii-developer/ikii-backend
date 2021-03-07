@@ -15,19 +15,21 @@ import mx.ikii.payment.payload.request.PaymentSourceRequest;
 import mx.ikii.payment.payload.response.PaymentMethodResponse;
 
 @RestController
-@RequestMapping("/payment-method")
+@RequestMapping("/source-payment")
 public interface IkiiPaymentController {
 
-	@GetMapping("/{customerId}")
-	ResponseEntity<List<PaymentMethodResponse>> getPaymentMethod(String customerId);
-	
-	@PostMapping("/{customerId}")
-	ResponseEntity<PaymentMethodResponse> createPaymentMethod(String customerId, PaymentMethodDTO paymentMethodDTO);
-	
-	@PutMapping("/{customerId}")
-	ResponseEntity<PaymentMethodResponse> updatePaymentMethod(String customerId, PaymentSourceRequest paymentSourceRequest);
-	
-	@DeleteMapping("/{customerId}/{paymentMethodId}")
-	ResponseEntity<Void> deletePaymentMethod(String customerId, String paymentMethodId);
-	
+  @GetMapping("ikii-customers/{ikiiCustomerId}")
+  ResponseEntity<List<PaymentMethodResponse>> getPaymentMethod(String ikiiCustomerId);
+
+  @PostMapping("/ikii-customers/{ikiiCustomerId}")
+  ResponseEntity<PaymentMethodResponse> createPaymentMethod(String ikiiCustomerId,
+      PaymentMethodDTO paymentMethodDTO);
+
+  @PutMapping("/ikii-customers/{ikiiCustomerId}")
+  ResponseEntity<PaymentMethodResponse> updatePaymentMethod(String ikiiCustomerId,
+      PaymentSourceRequest paymentSourceRequest);
+
+  @DeleteMapping("/ikii-customers/{ikiiCustomerId}/sources/{paymentMethodId}")
+  ResponseEntity<Void> deletePaymentMethod(String ikiiCustomerId, String paymentMethodId);
+
 }

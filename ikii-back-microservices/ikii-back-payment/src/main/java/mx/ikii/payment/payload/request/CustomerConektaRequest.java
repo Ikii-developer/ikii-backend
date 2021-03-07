@@ -1,7 +1,8 @@
 package mx.ikii.payment.payload.request;
 
+import java.time.Instant;
 import java.util.List;
-
+import lombok.Builder;
 import lombok.Data;
 import mx.ikii.payment.payload.dto.PaymentMethodDTO;
 import mx.ikii.payment.payload.dto.ShippingContactsDTO;
@@ -30,34 +31,55 @@ import mx.ikii.payment.payload.dto.ShippingContactsDTO;
  * </pre>
  */
 @Data
+@Builder
 public class CustomerConektaRequest {
 
-	// Identificador único asignado al azar.
-	private String id;
+  // Identificador único asignado al azar.
+  private String id;
 
-	private String name;
+  private String name;
 
-	private String email;
+  private String email;
 
-	// Teléfono del cliente (formato internacional).
-	private String phone;
+  // Teléfono del cliente (formato internacional).
+  private String phone;
 
-	// Arreglo de las tarjetas que ya se tokenizaron o están por ser guardadas.
-	private List<PaymentMethodDTO> payment_sources;
+  // Arreglo de las tarjetas que ya se tokenizaron o están por ser guardadas.
+  private List<PaymentMethodDTO> payment_sources;
 
-	// id secundario de algún plan.
-	private String plan_id;
+  // id secundario de algún plan.
+  private String plan_id;
 
-	/**
-	 * Información de contacto el envío a cliente.
-	 * https://developers.conekta.com/api?language=java#shipping-contact
-	 */
-	 private List<ShippingContactsDTO> shipping_contacts;
+  /**
+   * Información de contacto el envío a cliente.
+   * https://developers.conekta.com/api?language=java#shipping-contact
+   */
+  private List<ShippingContactsDTO> shipping_contacts;
 
-	/**
-	 * Subscripciones a las que puede estar asociado el cliente. Ve a la sección de
-	 * Suscripciones para más detalles.
-	 */
-	// private Subscriptions subscriptions;
+  /**
+   * Relevant information on the activity of the company.
+   */
+  private AntiFraudInfo antifraud_info;
+
+  /**
+   * Subscripciones a las que puede estar asociado el cliente. Ve a la sección de Suscripciones para
+   * más detalles.
+   */
+  // private Subscriptions subscriptions;
+
+  @Builder
+  @Data
+  public static class AntiFraudInfo {
+
+    /**
+     * Date when the account was created. (optional if 'id' is sent)
+     */
+    private Long account_created_at;
+
+    /**
+     * Date of the customer's first successful purchase. (optional if 'id' is sent)
+     */
+    private Long first_paid_at;
+  }
 
 }
