@@ -16,7 +16,20 @@ services:
     ports:
       - "${MONGODB_PORT}:27017"
     networks:
-      - ikiinet-local                  
+      - ikiinet-local 
+  redis:
+    image: "redis:alpine"
+    ports:
+     - "6379:6379"
+
+    volumes:
+     - $PWD/redis-data:/var/lib/redis
+     - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+
+    environment:
+     - REDIS_REPLICATION_MODE=master
+    networks:
+        - ikiinet-local                 
 ##---- INFRASTRUCTURE MICROSERVICES---- ##
   ikii-back-config:
     container_name: ikii-back-config
@@ -84,10 +97,12 @@ services:
       - ikiinet-local 
     links:
       - ikii-back-config:ikii-back-config
+      - redis:redis
     depends_on:
       - ikii-back-config
       - ikii-back-registry
       - mongo 
+      - redis
 
   ikii-back-business:
     container_name: ikii-back-business

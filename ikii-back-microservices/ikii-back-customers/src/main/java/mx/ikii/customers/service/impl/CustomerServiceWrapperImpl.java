@@ -3,16 +3,10 @@ package mx.ikii.customers.service.impl;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.data.redis.core.HashOperations;
-//import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -59,34 +53,22 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
   @Autowired
   private ICustomerRoleRepository customerRoleRepository;
 
-//  @Autowired
-//  private ControlledCacheService controlledCacheService;
+  @Autowired
+  private ControlledCacheService controlledCacheService;
 
   @Override
   public CustomerResponse findById(String id) {
-//    Page<Customer> customerClip = customerService.findAll(PageRequest.of(0, 10));
-//    List<CustomerResponse> usersResponse =
-//        customerMapper.entityToResponse(customerClip.getContent());
-//
-//    usersResponse.forEach((user) -> {
-//      System.out.println(this.loadFromCache(user));
-//    });
     return customerMapper.entityToResponse(customerService.findById(id));
   }
 
-//  @Override
-//  public CustomerResponse testRedis(String id) {
-//    return null;
-//  }
-//
-//  private void loadInCache(CustomerResponse param) {
-//    controlledCacheService.populateCache(param);
-//  }
-//
-//  private CustomerResponse loadFromCache(CustomerResponse param) {
-//    System.out.println("Returning from Cache: -" + param);
-//    return controlledCacheService.getFromCache(param);
-//  }
+  private void loadInCache(CustomerResponse param) {
+    controlledCacheService.populateCache(param);
+  }
+
+  private CustomerResponse loadFromCache(CustomerResponse param) {
+    System.out.println("Returning from Cache: -" + param);
+    return controlledCacheService.getFromCache(param);
+  }
 
   @Override
   public CustomerResponse findByemail(String email) {
@@ -104,10 +86,6 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
     Page<Customer> customerClip = customerService.findAll(pageable);
     List<CustomerResponse> usersResponse =
         customerMapper.entityToResponse(customerClip.getContent());
-
-//    usersResponse.forEach((user) -> {
-//      this.loadInCache(user);
-//    });
     return PageHelper.createPage(usersResponse, pageable, customerClip.getTotalElements());
   }
 
