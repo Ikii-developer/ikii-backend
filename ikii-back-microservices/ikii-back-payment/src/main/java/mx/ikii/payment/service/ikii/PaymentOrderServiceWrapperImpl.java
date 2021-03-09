@@ -1,9 +1,7 @@
 package mx.ikii.payment.service.ikii;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import io.conekta.Order;
+import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.domain.OrderStatus;
 import mx.ikii.commons.domain.OrderSubStatus;
 import mx.ikii.commons.exception.handler.ConektaRepositoryException;
 import mx.ikii.commons.exception.handler.helper.ConflictException;
+import mx.ikii.commons.feignclient.service.impl.ICustomerDetailsFeignService;
 import mx.ikii.commons.mapper.order.IPaymentOrderMapper;
 import mx.ikii.commons.payload.dto.OrderSubstatusDetail;
 import mx.ikii.commons.payload.dto.PaymentOrderDTO;
@@ -27,6 +27,7 @@ import mx.ikii.commons.payload.request.order.OrderRequest;
 import mx.ikii.commons.payload.request.order.OrderStatusRequest;
 import mx.ikii.commons.payload.response.payment.conekta.OrderConektaResponse;
 import mx.ikii.commons.payload.response.payment.order.PaymentOrderResponse;
+import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.OrderDetail;
 import mx.ikii.commons.persistence.collection.PaymentOrder;
 import mx.ikii.commons.persistence.collection.util.ProductDetail;
@@ -36,6 +37,7 @@ import mx.ikii.payment.methods.conekta.service.orders.IOrdersConektaService;
 import mx.ikii.payment.payload.request.OrderConektaRequest;
 import mx.ikii.payment.payload.request.RefoundOrderRequest;
 
+@Slf4j
 @Service
 @Transactional
 public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapper {
@@ -52,26 +54,36 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
   @Autowired
   private IPaymentOrderMapper paymentOrderMapper;
 
-  // TODO change to pattern Template or chain of responsibility, possible use of RabbitMQ
+  @Autowired
+  private ICustomerDetailsFeignService customerDetailsFeignService;
+
   @Transactional
   @Override
   public PaymentOrderResponse order(OrderRequest orderRequest) {
+    log.info("[PaymentOrderServiceWrapperImpl] - INIT create order with request [{}] ",
+        orderRequest);
+    String customerId = orderRequest.getCostumerId();
+    CustomerDetails customerDetails =
+        customerDetailsFeignService.findByCustomerId(customerId);
+
     List<ProductDetail> productDetails = this.getProductDetails(orderRequest.getOrderDetails());
     OrderDetail orderDetail = OrderDetail.builder()
         .products(productDetails)
         .businessId(new ObjectId(orderRequest.getBusinessId()))
         .build();
     orderDetailService.save(orderDetail);
+
     PaymentOrder paymentOrder = PaymentOrder.builder()
         .orderDetail(orderDetail)
         .customerId(new ObjectId(orderRequest.getCostumerId()))
         .createdAt(LocalDateTime.now())
-        .customerIdConekta(orderRequest.getCostumerIdConekta())
+        .customerIdConekta(customerDetails.getCustomerConektaId())
         .paymentMethod(orderRequest.getPaymentMethod())
         .orderType(orderRequest.getOrderType())
         .orderNumber(this.generateOrderNumber())
         .build();
     paymentOrderService.calculateTotals(paymentOrder, orderDetail);
+
     OrderConektaResponse orderConektaResponse = null;
     try {
       OrderConektaRequest orderConektaRequest =
@@ -82,7 +94,6 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
       paymentOrder.setTransactionId(orderConektaResponse.getId());
       paymentOrder.setOrderSubstatusDetail(
           new OrderSubstatusDetail(OrderSubStatus.REQUESTED, LocalDateTime.now()));
-      // TODO will need to process to the delivery step
     } catch (ConektaRepositoryException ex) {
       paymentOrder.setStatus(OrderStatus.ERROR.getStatus());
       paymentOrder.setMessage(ex.getMessage());
