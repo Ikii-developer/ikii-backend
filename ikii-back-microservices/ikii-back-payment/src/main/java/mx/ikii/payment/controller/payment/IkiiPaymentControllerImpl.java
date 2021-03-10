@@ -15,32 +15,35 @@ import mx.ikii.payment.service.payment.IKiiPaymentServiceWrapper;
 
 @Component
 public class IkiiPaymentControllerImpl implements IkiiPaymentController {
-	
-	@Autowired
-	private IKiiPaymentServiceWrapper iKiiPaymentService;
 
-	@Override
-	public ResponseEntity<List<PaymentMethodResponse>> getPaymentMethod(@PathVariable String customerId) {
-		return ResponseEntity.ok(iKiiPaymentService.getPaymentMethod(customerId));
-	}
+  @Autowired
+  private IKiiPaymentServiceWrapper iKiiPaymentService;
 
-	@Override
-	public ResponseEntity<PaymentMethodResponse> createPaymentMethod(@PathVariable String customerId,
-			@RequestBody PaymentMethodDTO paymentMethodDTO) {
-		return ResponseEntity.ok(iKiiPaymentService.createPaymentMethod(customerId, paymentMethodDTO));
-	}
+  @Override
+  public ResponseEntity<List<PaymentMethodResponse>> getPaymentMethod(
+      @PathVariable String ikiiCustomerId) {
+    return ResponseEntity.ok(iKiiPaymentService.getPaymentMethod(ikiiCustomerId));
+  }
 
-	@Override
-	public ResponseEntity<PaymentMethodResponse> updatePaymentMethod(@PathVariable String customerId,
-			@RequestBody PaymentSourceRequest paymentSourceRequest) {
-		iKiiPaymentService.updatePaymentMethod(customerId, paymentSourceRequest);
-		return ResponseEntity.ok().build();
-	}
+  @Override
+  public ResponseEntity<PaymentMethodResponse> createPaymentMethod(
+      @PathVariable String ikiiCustomerId,
+      @RequestBody PaymentMethodDTO paymentMethodDTO) {
+    return ResponseEntity
+        .ok(iKiiPaymentService.createPaymentMethod(ikiiCustomerId, paymentMethodDTO));
+  }
 
-	@Override
-	public ResponseEntity<Void> deletePaymentMethod(@PathVariable String customerId, @PathVariable String paymentMethodId) {
-		iKiiPaymentService.deletePaymentMethod(customerId, paymentMethodId);
-		return ResponseEntity.ok().build();
-	}
+  @Override
+  public ResponseEntity<PaymentMethodResponse> updatePaymentMethod(@PathVariable String customerId,
+      @RequestBody PaymentSourceRequest paymentSourceRequest) {
+    iKiiPaymentService.updatePaymentMethod(customerId, paymentSourceRequest);
+    return ResponseEntity.ok().build();
+  }
 
+  @Override
+  public ResponseEntity<Void> deletePaymentMethod(@PathVariable String ikiiCustomerId,
+      @PathVariable String paymentMethodId) {
+    iKiiPaymentService.deletePaymentMethod(ikiiCustomerId, paymentMethodId);
+    return ResponseEntity.ok().build();
+  }
 }

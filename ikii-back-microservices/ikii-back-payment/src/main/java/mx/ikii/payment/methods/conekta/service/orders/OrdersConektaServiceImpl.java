@@ -26,6 +26,9 @@ public class OrdersConektaServiceImpl implements IOrdersConektaService {
 
   @Override
   public Order createOrderWithCardCharge(OrderConektaRequest orderConektaRequest) {
+    JSONObject jsonObject = new JSONObject(orderConektaRequest);
+    log.info("[OrdersConektaServiceImpl] - INIT create order with JSON request [{}] ",
+        jsonObject);
 
     // "'charges': [{" +
     // " 'payment_method': {" +
@@ -34,7 +37,7 @@ public class OrdersConektaServiceImpl implements IOrdersConektaService {
     // " }, " +
     // " 'amount': 35000" +
     // "}]" +
-    Order order = ordersConektaRepository.createOrder(new JSONObject(orderConektaRequest));
+    Order order = ordersConektaRepository.createOrder(jsonObject);
 
 
     // Okta specific business logic

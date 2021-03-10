@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import mx.ikii.commons.payload.request.customer.CustomerDetailsRequest;
 import mx.ikii.commons.payload.response.customer.CustomerDetailsResponse;
 import mx.ikii.customers.controller.ICustomerDetailsController;

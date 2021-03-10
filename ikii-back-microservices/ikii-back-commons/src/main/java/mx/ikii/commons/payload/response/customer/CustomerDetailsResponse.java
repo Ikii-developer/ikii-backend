@@ -10,12 +10,13 @@ import lombok.Data;
 @Data
 @JsonInclude(Include.NON_NULL)
 public class CustomerDetailsResponse {
-	private String id;
-	private String customerId;
-	private Boolean isValidAccount;
-	private String image;
-	private Integer type;
-	private List<String> businessFavorites;
-	private List<String> productFavorites;
+  private String id;
+  private String customerId;
+  private String customerConektaId;
+  private Boolean isValidAccount;
+  private String image;
+  private Integer type;
+  private List<String> businessFavorites;
+  private List<String> productFavorites;
 
 }

@@ -27,77 +27,97 @@ import mx.ikii.customers.service.ICustomerDetailsServiceWrapper;
 @Slf4j
 public class CustomerDetailsServiceWrapperImpl implements ICustomerDetailsServiceWrapper {
 
-	@Autowired
-	private ICustomerDetailsService customerDetailsService;
+  @Autowired
+  private ICustomerDetailsService customerDetailsService;
 
-	@Autowired
-	private IBusinessFeignService businessFeignService;
+  @Autowired
+  private IBusinessFeignService businessFeignService;
 
-	@Autowired
-	private ICustomerDetailsMapper customerDetailsMapper;
+  @Autowired
+  private ICustomerDetailsMapper customerDetailsMapper;
 
-	@Override
-	public CustomerDetailsResponse getById(String id) {
-		return customerDetailsMapper.entityToResponse(customerDetailsService.getById(id));
-	}
+  @Override
+  public CustomerDetailsResponse getById(String id) {
+    log.info(
+        "[CustomerDetailsServiceWrapperImpl] - INIT get by id method with id [{}]", id);
+    return customerDetailsMapper.entityToResponse(customerDetailsService.getById(id));
+  }
 
-	@Override
-	public CustomerDetailsResponse getByCustomerId(String customerId) {
-		return customerDetailsMapper.entityToResponse(customerDetailsService.getByCustomerId(customerId));
-	}
+  @Override
+  public CustomerDetailsResponse getByCustomerId(String customerId) {
+    log.info(
+        "[CustomerDetailsServiceWrapperImpl] - INIT get by customerId method with customerId [{}]",
+        customerId);
+    return customerDetailsMapper
+        .entityToResponse(customerDetailsService.getByCustomerId(customerId));
+  }
 
-	@Override
-	public Page<CustomerDetailsResponse> getAll(Pageable pageable) {
-		List<CustomerDetailsResponse> response = customerDetailsMapper
-				.entityToResponse(customerDetailsService.getAll(pageable));
-		return PageHelper.createPage(response, pageable, new Long(response.size()));
-	}
+  @Override
+  public Page<CustomerDetailsResponse> getAll(Pageable pageable) {
+    List<CustomerDetailsResponse> response = customerDetailsMapper
+        .entityToResponse(customerDetailsService.getAll(pageable));
+    log.info(
+        "[CustomerDetailsServiceWrapperImpl] - INIT get all method");
+    return PageHelper.createPage(response, pageable, new Long(response.size()));
+  }
 
-	@Override
-	public CustomerDetailsResponse create(CustomerDetailsRequest customerDetailsRequest) {
-		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
-		return customerDetailsMapper.entityToResponse(customerDetailsService.save(customerDetails));
-	}
+  @Override
+  public CustomerDetailsResponse create(CustomerDetailsRequest customerDetailsRequest) {
+    log.info(
+        "[CustomerDetailsServiceWrapperImpl] - INIT create method with request [{}] ",
+        customerDetailsRequest);
+    CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
+    return customerDetailsMapper.entityToResponse(customerDetailsService.save(customerDetails));
+  }
 
-	@Override
-	public CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id) {
-		CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
-		return customerDetailsMapper.entityToResponse(customerDetailsService.update(customerDetails, id));
-	}
+  @Override
+  public CustomerDetailsResponse update(CustomerDetailsRequest customerDetailsRequest, String id) {
+    log.info(
+        "[CustomerDetailsServiceWrapperImpl] - INIT update method with id [{}] and request [{}] ",
+        id, customerDetailsRequest);
+    CustomerDetails customerDetails = customerDetailsMapper.requestToEntity(customerDetailsRequest);
+    return customerDetailsMapper
+        .entityToResponse(customerDetailsService.update(customerDetails, id));
+  }
 
-	@Override
-	public void toggleFavoriteBusiness(String customerId, String businessId) {
-		log.info("Toggle favorite business with businessId {} and customerId {}", businessId, customerId);
-		CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
-		try {
-			businessFeignService.getById(businessId);
-		} catch (Exception e) {
-			log.error("Not possible to get Business for businessId {}, {}", businessId, e);
-			throw new ResourceNotFoundException(businessId, Business.class);
-		}
-		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getBusinessFavorites(), new ObjectId(businessId));
-		log.info("Favorites businessIds {} for customerId {}", customerDetailsEntity.getBusinessFavorites(),
-				customerId);
-		customerDetailsService.save(customerDetailsEntity);
-	}
+  @Override
+  public void toggleFavoriteBusiness(String customerId, String businessId) {
+    log.info("Toggle favorite business with businessId {} and customerId {}", businessId,
+        customerId);
+    CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
+    try {
+      businessFeignService.getById(businessId);
+    } catch (Exception e) {
+      log.error("Not possible to get Business for businessId {}, {}", businessId, e);
+      throw new ResourceNotFoundException(businessId, Business.class);
+    }
+    CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getBusinessFavorites(),
+        new ObjectId(businessId));
+    log.info("Favorites businessIds {} for customerId {}",
+        customerDetailsEntity.getBusinessFavorites(),
+        customerId);
+    customerDetailsService.save(customerDetailsEntity);
+  }
 
-	@Override
-	public void toggleFavoriteProduct(String customerId, String favoriteProductId) {
-		log.info("Toggle favorite product with productId{} and customerId {}", favoriteProductId, customerId);
-		CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
-		if (Nullable.isNull(customerDetailsEntity.getProductFavorites())) {
-			customerDetailsEntity.setProductFavorites(new ArrayList<>());
-		}
+  @Override
+  public void toggleFavoriteProduct(String customerId, String favoriteProductId) {
+    log.info("Toggle favorite product with productId{} and customerId {}", favoriteProductId,
+        customerId);
+    CustomerDetails customerDetailsEntity = customerDetailsService.getByCustomerId(customerId);
+    if (Nullable.isNull(customerDetailsEntity.getProductFavorites())) {
+      customerDetailsEntity.setProductFavorites(new ArrayList<>());
+    }
 
-		CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getProductFavorites(),
-				new ObjectId(favoriteProductId));
-		log.info("Favorites productsIds {} for customerId {}", customerDetailsEntity.getProductFavorites(), customerId);
-		customerDetailsService.save(customerDetailsEntity);
-	}
+    CustomerDetailsHelper.toggleFavorites(customerDetailsEntity.getProductFavorites(),
+        new ObjectId(favoriteProductId));
+    log.info("Favorites productsIds {} for customerId {}",
+        customerDetailsEntity.getProductFavorites(), customerId);
+    customerDetailsService.save(customerDetailsEntity);
+  }
 
-	@Override
-	public void delete(String id) {
-		customerDetailsService.delete(id);
-	}
+  @Override
+  public void delete(String id) {
+    customerDetailsService.delete(id);
+  }
 
 }

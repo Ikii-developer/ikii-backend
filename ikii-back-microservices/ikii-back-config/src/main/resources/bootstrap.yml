@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          default-label: develop
+          default-label: master
           uri: https://github.com/Ikii-developer/ikii-config-server.git
           skipSslValidation: true          
           username: arturo-velazquez-vargas

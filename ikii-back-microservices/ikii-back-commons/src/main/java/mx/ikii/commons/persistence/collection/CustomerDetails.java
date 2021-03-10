@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
 @Data
 @Builder
@@ -22,13 +23,16 @@ import lombok.NoArgsConstructor;
 @JsonInclude(Include.NON_NULL)
 public class CustomerDetails {
 
-	@Id
-	private String id;
-	private ObjectId customerId;
-	private Boolean isValidAccount;
-	private String image;
-	private Integer type;
-	private List<ObjectId> businessFavorites;
-	private List<ObjectId> productFavorites;
+  @Id
+  private String id;
+  private ObjectId customerId;
+  private String customerConektaId;
+  private Boolean isValidAccount;
+  private String image;
+  private Integer type;
+  @Singular
+  private List<ObjectId> businessFavorites;
+  @Singular
+  private List<ObjectId> productFavorites;
 
 }

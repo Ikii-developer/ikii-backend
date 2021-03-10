@@ -15,7 +15,6 @@ public class OrderRequest {
 	
 	private String idOrder;	
 	private String costumerId;
-	private String costumerIdConekta;
 	private String businessId;
 	private BigDecimal total;
 	private BigDecimal subTotal;
