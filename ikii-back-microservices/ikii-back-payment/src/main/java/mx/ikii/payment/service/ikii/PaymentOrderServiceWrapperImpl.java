@@ -90,13 +90,20 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
           OrderConektaMapper.paymentOrderToOrderConektaRequest(paymentOrder, orderDetail);
       Order orderConekta = ordersConektaService.createOrderWithCardCharge(orderConektaRequest);
       orderConektaResponse = OrderConektaMapper.orderConektaToOrderConektaResponse(orderConekta);
-      paymentOrder.setStatus(OrderStatus.ACCEPTED.getStatus());
+      paymentOrder.setStatus(OrderStatus.ACCEPTED.name());
       paymentOrder.setTransactionId(orderConektaResponse.getId());
-      paymentOrder.setOrderSubstatusDetail(
-          new OrderSubstatusDetail(OrderSubStatus.REQUESTED, LocalDateTime.now()));
+      paymentOrder.setOrderSubstatusDetail(OrderSubstatusDetail.builder()
+          .date(LocalDateTime.now())
+          .subStatus(OrderSubStatus.REQUESTED)
+          .build());
     } catch (ConektaRepositoryException ex) {
-      paymentOrder.setStatus(OrderStatus.ERROR.getStatus());
+      paymentOrder.setStatus(OrderStatus.ERROR.name());
       paymentOrder.setMessage(ex.getMessage());
+      paymentOrder.setOrderSubstatusDetail(OrderSubstatusDetail.builder()
+          .date(LocalDateTime.now())
+          .subStatus(OrderSubStatus.ERROR)
+          .description(ex.getMessage())
+          .build());
     }
     paymentOrder = paymentOrderService.save(paymentOrder);
     PaymentOrderResponse paymentOrderResponse = paymentOrderMapper.entityToResponse(paymentOrder);
@@ -129,7 +136,7 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
     refoundOrderRequest.setReason(orderRequest.getReasonRefund());
 
     Order orderConekta = ordersConektaService.refoundOrder(refoundOrderRequest);
-    paymentOrder.setStatus(OrderStatus.REFUNDED.getStatus());
+    paymentOrder.setStatus(OrderStatus.REFUNDED.name());
     paymentOrder.setReasonRefund(orderRequest.getReasonRefund());
     paymentOrderService.update(paymentOrder);
 
@@ -179,7 +186,7 @@ public class PaymentOrderServiceWrapperImpl implements IPaymentOrderServiceWrapp
   @Override
   public void updateOrderDeliveryTime(String orderId, OrderDeliveryTimeRequest orderStatusRequest) {
     PaymentOrder paymentOrder = paymentOrderService.getById(orderId);
-    if (!paymentOrder.getOrderSubstatusDetail().subStatus.equals(OrderSubStatus.ON_DELIVERY)) {
+    if (!paymentOrder.getOrderSubstatusDetail().getSubStatus().equals(OrderSubStatus.ON_DELIVERY)) {
       throw new ConflictException(String.format(
           "The order can not be update because it is not in delivery status[orderId: %s] ",
           orderId));

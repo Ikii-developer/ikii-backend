@@ -8,8 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OrderStatus {
 
-  ACCEPTED("ACCEPTED"), DECLINE("DECLINE"), FINISHED("FINISHED"), ERROR("ERROR"), REFUNDED(
-      "REFUNDED"), ON_HOLD("ON_HOLD");
+  ACCEPTED, DECLINE, FINISHED, ERROR, REFUNDED, ON_HOLD;
 
-  private final String status;
 }

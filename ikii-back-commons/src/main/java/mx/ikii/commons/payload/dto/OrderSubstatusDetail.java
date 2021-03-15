@@ -10,10 +10,10 @@ import mx.ikii.commons.domain.OrderSubStatus;
 @Data
 public class OrderSubstatusDetail {
 
-  public OrderSubStatus subStatus;
-  public LocalDateTime date = LocalDateTime.now();
-  public String description;
-  public List<OrderSubstatusDetail> subStatusHistory;
+  private OrderSubStatus subStatus;
+  private LocalDateTime date;
+  private String description;
+  private List<OrderSubstatusDetail> subStatusHistory;
 
   public OrderSubstatusDetail() {
     super();
