@@ -29,34 +29,34 @@ import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 @FeignClient(name = "customers")
 public interface ICustomerFeignClientRepository {
 
-  @GetMapping("customers/{id}")
+  @GetMapping("/{id}")
   ResponseEntity<CustomerResponse> getById(@PathVariable("id") String id);
 
-  @GetMapping("/customers/phone-numbers/{phoneNumber}")
+  @GetMapping("/phone-numbers/{phoneNumber}")
   ResponseEntity<CustomerResponse> getByPhoneNumber(
       @PathVariable("phoneNumber") String phoneNumber);
 
-  @GetMapping("/customers/emails/{email}")
+  @GetMapping("/emails/{email}")
   ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
 
-  @GetMapping("customers/emails/auth/{email}")
+  @GetMapping("/emails/auth/{email}")
   ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable("email") String email);
 
-  @GetMapping("customers/")
+  @GetMapping("/")
   ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);
 
-  @PutMapping("customers/{id}")
+  @PutMapping("/{id}")
   ResponseEntity<CustomerResponse> update(@RequestBody CustomerRequest userRequest,
       @PathVariable("id") String id);
 
-  @PostMapping("customers/")
+  @PostMapping("/")
   ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest);
 
-  @GetMapping("customers/customer-details/customers/{customerId}")
+  @GetMapping("/customer-details/customers/{customerId}")
   ResponseEntity<CustomerDetailsResponse> getCustomerDetailsByCustomerId(
       @PathVariable("customerId") String customerId);
 
-  @PostMapping("customers/address/near-by-me")
+  @PostMapping("/address/near-by-me")
   ResponseEntity<List<BusinessNearByMe>> nearByMe(@RequestParam("latitude") Double latitude,
       @RequestParam("longitude") Double longitude, @RequestParam("distance") Double distance,
       @RequestParam("customerId") String customerId,

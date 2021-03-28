@@ -2,7 +2,9 @@ package mx.ikii.commons.feignclient.service.impl;
 
 import java.util.List;
 
+import mx.ikii.commons.payload.response.customer.CustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.feignclient.repository.ICustomerFeignClientRepository;
@@ -50,8 +52,8 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
 
   @Override
   public Customer getByEmail(String email) {
-    return customerMapper.responseToEntity(
-        ResponseEntityHelper.processingHttpStatus(customerFeignClientRepository.getByEmail(email)));
+    ResponseEntity<CustomerResponse> customerResponseResponseEntity =  customerFeignClientRepository.getByEmail(email);
+    return customerMapper.responseToEntity(ResponseEntityHelper.processingHttpStatus(customerResponseResponseEntity));
   }
 
   @Override

@@ -12,3 +12,9 @@ spring:
   profiles:
    active:
    - ${PROFILE:development}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

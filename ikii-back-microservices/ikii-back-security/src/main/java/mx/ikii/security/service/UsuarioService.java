@@ -1,4 +1,4 @@
-package mx.ikii.commons.security;
+package mx.ikii.security.service;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,13 +23,12 @@ import mx.ikii.commons.feignclient.service.impl.ICustomerFeignService;
 import mx.ikii.commons.persistence.collection.Customer;
 import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
-import mx.ikii.commons.utils.Nullable;
 
 @Service
 @Transactional
-public class CustomUserDetailsService implements UserDetailsService {
+public class UsuarioService implements UserDetailsService, IUsuarioService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
 
 	@Autowired
 	private ICustomerFeignService customerFeignService;
@@ -38,16 +37,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Customer userByName = null;
 		try {
-			LOGGER.info("Customer email {}", email);
-			userByName = customerFeignService.getByEmailForAuth(email);
+			LOGGER.info("******************************* CustomUserDetailsService {}", email);
+			userByName = customerFeignService.getByEmail(email);
+			
+			return new User(userByName.getEmail(), userByName.getPassword(), userByName.isEnabled(), 
+					userByName.isCredentialNonExpired(), userByName.isCredentialNonExpired(), userByName.isAccountNonLocked(),
+					getAuthorities(userByName.getRoles()));
 		} catch (FeignException e) {
-			throw new UsernameNotFoundException("Email " + email + " not found.");
+			LOGGER.info("Exception message {}", e.getMessage());
+			throw new UsernameNotFoundException(e.getMessage());
 		}
-		if (Nullable.isNull(userByName)) {
-			throw new UsernameNotFoundException("Email " + email + " not found.");
-		}
-		return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(), true, true, true,
-				getAuthorities(userByName.getRoles()));
 	}
 
 	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
@@ -61,6 +60,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
 		return privileges.stream().map(SimpleGrantedAuthority::new).collect(toList());
+	}
+
+	@Override
+	public Customer findByUsername(String username) {
+		return customerFeignService.getByEmail(username);
 	}
 
 }

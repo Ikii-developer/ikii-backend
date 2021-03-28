@@ -36,7 +36,10 @@ public class Customer implements Serializable {
 	private String password;
 	private String birthday;
 	private String image;
-	private Boolean isEnabled;
+	private boolean isEnabled;
+	private boolean accountNonExpired;
+	private boolean credentialNonExpired;
+	private boolean accountNonLocked;
 
 	@DBRef
 	private Set<Role> roles = new HashSet<>();

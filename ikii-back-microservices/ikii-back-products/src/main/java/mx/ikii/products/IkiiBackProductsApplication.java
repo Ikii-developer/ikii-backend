@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableMongoRepositories(basePackages = { "mx.ikii.products.repository", "mx.ikii.web.commons.repository" })
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
 public class IkiiBackProductsApplication {
 
 	public static void main(String[] args) {

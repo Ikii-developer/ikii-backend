@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -58,29 +59,32 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/ikii/security/oauth/**").permitAll()
-			.antMatchers("customers/sign-up").permitAll()
-			.antMatchers("/security").permitAll()
-			//.antMatchers(HttpMethod.GET, "/api/products/v1/", "/api/products/v1/name/**").permitAll()
-			.anyRequest().authenticated();
+				.antMatchers("/api/security/oauth/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/customers/sign-up").permitAll()
+				.anyRequest().authenticated();
 		http.cors().configurationSource(corsConfigurationSource());
 	}
 	
 
+	/**
+	 * Add resource-server specific properties (like a resource id).
+	 * The defaults should work for many applications, 
+	 * but you might want to change at least the resource id.
+	 */
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore());
 	}
 
-
 	/**
-	 * TokenStore se encarga de guardar/generar el token con los datos del accesTokenconverter.
-	 * 
-	 * A {@link TokenStore} implementation that just reads data from the tokens themselves. Not really a store since it
-	 * never persists anything, and methods like {@link #getAccessToken(OAuth2Authentication)} always return null. But
-	 * nevertheless a useful tool since it translates access tokens to and from authentications. Use this wherever a
-	 * {@link TokenStore} is needed, but remember to use the same {@link JwtAccessTokenConverter} instance (or one with the same
-	 * verifier) as was used when the tokens were minted.
+	 * A {@link TokenStore} implementation that just reads data from the tokens
+	 * themselves. 
+	 * Not really a store since it never persists anything, and methods 
+	 * like {@link #getAccessToken(OAuth2Authentication)} always return null. But
+	 * nevertheless a useful tool since it translates access tokens to and from
+	 * authentications. Use this wherever a {@link TokenStore} is needed, but
+	 * remember to use the same {@link JwtAccessTokenConverter} instance (or one
+	 * with the same verifier) as was used when the tokens were minted.
 	 */
 	@Bean
 	public JwtTokenStore tokenStore() {
@@ -99,25 +103,42 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		return tokenConverter;
 	}
 
-
+	/**
+	 * CORS (Cross-origin resource sharing) o el intercambio de recursos de origen cruzado.
+	 * Cors es un mecanismo que utiliza las cabeceras http para permitir que una aplicacion cliente que recide, 
+	 * 	que esta en otro servidor/dominio distinto al backend, tenga los permisos para acceder a los recursos 
+	 * 	del backend, recursos protegidos, en este caso con SpringSecurity y con el servidor de recursos(Zuul)
+	 */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
+		//Tenemos que configurar nuestras aplicaciones clientes(origenes, http, dominio, ruta, url)
 		CorsConfiguration corsConfig = new CorsConfiguration();
 		corsConfig.addAllowedOrigin("*");
+		//corsConfig.setAllowedOrigins(Arrays.asList("","",""));//Lista de origenes
+
+		//Debemos permitir los metodos http, el metodo OPTION es importante para oAuth2
 		corsConfig.setAllowedMethods(Arrays.asList("POST","GET", "PUT", "DELETE", "OPTION"));
 		corsConfig.setAllowCredentials(true);
 		corsConfig.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
+
+		//Debemos pasar esta configuracion del CORS a nuestras rutas URL(endpoints)
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		// Indicamos que se aplique a todas las rutas /*
 		source.registerCorsConfiguration("/**", corsConfig);
+
 		return source;
 	}
 
+	/**
+	* Tenemos que registrar otro componente para registrar un filtro de CORS para que no solo
+	* 	quede configurado en SpringSecurity, tambien a nivel Global en un filtro de Spring
+	* 	a toda nuestra aplicacion en general
+	*/
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter(){
 		FilterRegistrationBean<CorsFilter> filterRegistrationBean =
-		 	new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
+				new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
 		filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return filterRegistrationBean;
 	}
-
 }

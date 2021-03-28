@@ -19,7 +19,7 @@ import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping
 public interface ICustomerController {
 
 	/**

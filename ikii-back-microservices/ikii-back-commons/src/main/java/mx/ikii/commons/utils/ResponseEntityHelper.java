@@ -6,11 +6,7 @@ import mx.ikii.commons.exception.handler.GeneralException;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 
 /**
- * This class helps manage the request of the declarative FeignClient of spring
- * cloud
- * 
- * @author Arturo Isaac Velazquez Vargas
- *
+ * This class helps manage the request of the declarative FeignClient of spring cloud
  */
 public class ResponseEntityHelper {
 
@@ -22,11 +18,12 @@ public class ResponseEntityHelper {
 	 * @return the plain response
 	 */
 	public static <T> T processingHttpStatus(ResponseEntity<T> responseEntity) {
-
+		System.out.println(responseEntity);
 		if (Nullable.isNull(responseEntity)) {
 			return null;
 		}
-
+		System.out.println(responseEntity.getStatusCode());
+		System.out.println(responseEntity.getBody());
 		switch (responseEntity.getStatusCode()) {
 		case OK:
 			return responseEntity.getBody();

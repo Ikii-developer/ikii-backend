@@ -32,8 +32,8 @@ public class Helper {
 			if (Nullable.isNotNull(newEntity.getPassword())) {
 				entity.setPassword(newEntity.getPassword());
 			}
-			if (Nullable.isNotNull(newEntity.getIsEnabled())) {
-				entity.setIsEnabled(newEntity.getIsEnabled());
+			if (Nullable.isNotNull(newEntity.isEnabled())) {
+				entity.setEnabled(newEntity.isEnabled());
 			}
 			if (Nullable.isNotNull(newEntity.getName())) {
 				entity.setName(newEntity.getName());

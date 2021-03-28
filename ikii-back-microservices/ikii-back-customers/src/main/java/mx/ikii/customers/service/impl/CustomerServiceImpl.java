@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.ikii.commons.exception.handler.ResourceNotFoundException;
 import mx.ikii.commons.exception.handler.helper.ConflictException;
 import mx.ikii.commons.persistence.collection.Customer;
@@ -18,10 +19,10 @@ import mx.ikii.customers.service.ICustomerService;
 /**
  * This class contains the CRUD operations related to the user resource
  * 
- * @author Arturo Isaac Velázquez Vargas
- *
  */
+
 @Service
+@Slf4j
 public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
@@ -39,7 +40,7 @@ public class CustomerServiceImpl implements ICustomerService {
 			throw new ConflictException(EnumError.PHONE_ALREADY_EXIST);
 		}
 
-		customer.setIsEnabled(true);
+		customer.setEnabled(true);
 		Customer customerResponse = customerRepository.save(customer);
 		return customerResponse;
 	}
@@ -53,7 +54,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public Customer findByEmail(String email) {
-		System.out.println("EMAIL TO SEARCH: "+email);
+		log.info("EMAIL TO SEARCH: "+email);
 		Optional<Customer> customer = customerRepository.findByEmail(email);
 		return customer.orElseThrow(() -> new ResourceNotFoundException(email, Customer.class));
 	}

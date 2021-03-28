@@ -10,8 +10,8 @@ spring:
         multiplier: 1.5 
         
   profiles:
-   active:
-   - ${PROFILE:development}
+    active:
+      - ${PROFILE:development}
    
 management:
  endpoints:

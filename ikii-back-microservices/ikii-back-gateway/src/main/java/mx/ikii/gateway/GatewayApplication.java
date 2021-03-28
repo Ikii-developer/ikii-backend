@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
  * * 	  RESOURCE SERVER		*
  * ******************************
  */
-@EnableWebSecurity
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+//@EnableWebSecurity
 @EnableEurekaClient
 @EnableZuulProxy
+@SpringBootApplication
 public class GatewayApplication {
 
 	public static void main(String[] args) {

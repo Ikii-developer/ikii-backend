@@ -16,7 +16,7 @@ import org.springframework.web.filter.CorsFilter;
 @ComponentScan({"mx.ikii", "mx.ikii.commons", "mx.ikii.customers", "mx.ikii.web.commons" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableMongoRepositories(basePackages = { "mx.ikii.customers.repository", "mx.ikii.web.commons.repository" })
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
 @EnableDiscoveryClient
 public class IkiiUsersApplication {
 
@@ -29,22 +29,22 @@ public class IkiiUsersApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public CorsFilter corsFilter() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		final CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("OPTIONS");
-		config.addAllowedMethod("HEAD");
-		config.addAllowedMethod("GET");
-		config.addAllowedMethod("PUT");
-		config.addAllowedMethod("POST");
-		config.addAllowedMethod("DELETE");
-		config.addAllowedMethod("PATCH");
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
+//	@Bean
+//	public CorsFilter corsFilter() {
+//		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		final CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.addAllowedOrigin("*");
+//		config.addAllowedHeader("*");
+//		config.addAllowedMethod("OPTIONS");
+//		config.addAllowedMethod("HEAD");
+//		config.addAllowedMethod("GET");
+//		config.addAllowedMethod("PUT");
+//		config.addAllowedMethod("POST");
+//		config.addAllowedMethod("DELETE");
+//		config.addAllowedMethod("PATCH");
+//		source.registerCorsConfiguration("/**", config);
+//		return new CorsFilter(source);
+//	}
 
 }

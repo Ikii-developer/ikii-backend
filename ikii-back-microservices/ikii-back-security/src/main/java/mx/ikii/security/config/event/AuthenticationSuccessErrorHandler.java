@@ -1,26 +1,28 @@
-package mx.ikii.security.config;
+package mx.ikii.security.config.event;
 
+import mx.ikii.commons.persistence.collection.Customer;
+import mx.ikii.security.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
-import mx.ikii.commons.security.CustomUserDetailsService;
 
 /** 
  * Tenemos que registrar esta clase de evento en Spring Security,
  * inyectando la interface
 */
 @Slf4j
-@Component
+@Component("authSuccessErrorHandler")
 public class AuthenticationSuccessErrorHandler implements AuthenticationEventPublisher {
 
 	@Autowired
-	private CustomUserDetailsService usuarioService;
+	private IUsuarioService usuarioService;
 
 	//Podemos obtener los datos del usuario
 	@Override
@@ -43,8 +45,8 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 			
 			StringBuilder errors = new StringBuilder();
 			errors.append(mensaje);
-			
-			UserDetails userDetails = usuarioService.loadUserByUsername(authentication.getName());
+
+			Customer userDetails = usuarioService.findByUsername(authentication.getName());
 			
 			//things to do when authentication failure
 			
