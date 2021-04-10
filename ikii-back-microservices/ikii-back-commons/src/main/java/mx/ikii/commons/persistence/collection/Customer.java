@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,7 @@ import lombok.Data;
  * @author Francisco Javier Mart�nez Arazo
  *
  */
+@ToString
 @Data
 @Document(collection = "Customer")
 @JsonInclude(Include.NON_NULL)
@@ -36,10 +38,10 @@ public class Customer implements Serializable {
 	private String password;
 	private String birthday;
 	private String image;
-	private boolean isEnabled;
-	private boolean accountNonExpired;
-	private boolean credentialNonExpired;
-	private boolean accountNonLocked;
+	private Boolean isEnabled = Boolean.TRUE;
+	private Boolean accountNonExpired = Boolean.TRUE;
+	private Boolean credentialNonExpired = Boolean.TRUE;
+	private Boolean accountNonLocked = Boolean.TRUE;
 
 	@DBRef
 	private Set<Role> roles = new HashSet<>();

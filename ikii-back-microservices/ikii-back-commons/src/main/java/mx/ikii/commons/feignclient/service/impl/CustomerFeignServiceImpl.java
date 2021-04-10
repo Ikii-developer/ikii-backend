@@ -17,9 +17,7 @@ import mx.ikii.commons.persistence.collection.CustomerDetails;
 import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 import mx.ikii.commons.utils.ResponseEntityHelper;
 
-/**
- * @author Arturo Isaac Velazquez Vargas
- */
+
 @Service
 public class CustomerFeignServiceImpl implements ICustomerFeignService {
 
@@ -58,8 +56,8 @@ public class CustomerFeignServiceImpl implements ICustomerFeignService {
 
   @Override
   public Customer getByEmailForAuth(String email) {
-    return customerMapper.authResponseToentity(ResponseEntityHelper
-        .processingHttpStatus(customerFeignClientRepository.getByEmailForAuth(email)));
+    return ResponseEntityHelper
+            .processingHttpStatus(customerFeignClientRepository.getByEmailForAuth(email));
   }
 
   @Override

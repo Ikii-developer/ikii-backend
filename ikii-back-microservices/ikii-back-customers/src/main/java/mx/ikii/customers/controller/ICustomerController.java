@@ -2,6 +2,7 @@ package mx.ikii.customers.controller;
 
 import java.security.Principal;
 
+import mx.ikii.commons.persistence.collection.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import mx.ikii.commons.persistence.collection.Privilege;
 import mx.ikii.commons.persistence.collection.Role;
 
 @RestController
-@RequestMapping
+@RequestMapping("/")
 public interface ICustomerController {
 
 	/**
@@ -37,7 +38,7 @@ public interface ICustomerController {
 	 * @param email
 	 * @return
 	 */
-	@GetMapping("/emails/{email}")
+	@GetMapping("emails/{email}")
 	ResponseEntity<CustomerResponse> getByEmail(String email);
 
 	/**
@@ -46,8 +47,8 @@ public interface ICustomerController {
 	 * @param email
 	 * @return
 	 */
-	@GetMapping("/emails/auth/{email}")
-	ResponseEntity<CustomerAuthResponse> getByEmailForAuth(String email);
+	@GetMapping("emails/auth/{email}")
+	ResponseEntity<Customer> getByEmailForAuth(String email);
 
 	/**
 	 * This method is used to get a user by telephone
@@ -55,7 +56,7 @@ public interface ICustomerController {
 	 * @param telephone
 	 * @return
 	 */
-	@GetMapping("/phone-numbers/{phoneNumber}")
+	@GetMapping("phone-numbers/{phoneNumber}")
 	ResponseEntity<CustomerResponse> getByPhoneNumber(String phoneNumber);
 
 	/**
@@ -91,7 +92,7 @@ public interface ICustomerController {
 	 * @param userRequest
 	 * @return
 	 */
-	@PostMapping("/sign-up")
+	@PostMapping("sign-up")
 	ResponseEntity<CustomerResponse> signUp(CustomerRequest customerRequest);
 
 	/**
@@ -99,7 +100,7 @@ public interface ICustomerController {
 	 * @param privilegeRequest
 	 * @return
 	 */
-	@PostMapping("/privileges")
+	@PostMapping("privileges")
 	ResponseEntity<Privilege> createPrivilege(Privilege privilegeRequest);
 
 	/**
@@ -107,7 +108,7 @@ public interface ICustomerController {
 	 * @param roleRequest
 	 * @return
 	 */
-	@PostMapping("/roles")
+	@PostMapping("roles")
 	ResponseEntity<Role> createRole(Role roleRequest);
 
 	/**
@@ -116,7 +117,7 @@ public interface ICustomerController {
 	 * @param privilegeId
 	 * @return
 	 */
-	@PutMapping("/roles/{roleId}/privileges/{privilegeId}")
+	@PutMapping("roles/{roleId}/privileges/{privilegeId}")
 	ResponseEntity<Void> assignPrivilege(String roleId, String privilegeId);
 
 	/**
@@ -125,7 +126,7 @@ public interface ICustomerController {
 	 * @param roleId
 	 * @return
 	 */
-	@PutMapping("/{userId}/roles/{roleId}")
+	@PutMapping("{userId}/roles/{roleId}")
 	ResponseEntity<Void> assignRole(String userId, String roleId);
 	
 	/**
@@ -134,7 +135,7 @@ public interface ICustomerController {
 	 * @param principal
 	 * @return
 	 */
-	@GetMapping("/logged-in")
+	@GetMapping("logged-in")
 	ResponseEntity<CustomerResponse> getUserByPrincipal(Principal principal);
 
 }

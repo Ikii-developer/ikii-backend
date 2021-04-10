@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements ICustomerService {
 			throw new ConflictException(EnumError.PHONE_ALREADY_EXIST);
 		}
 
-		customer.setEnabled(true);
+		customer.setIsEnabled(true);
 		Customer customerResponse = customerRepository.save(customer);
 		return customerResponse;
 	}
@@ -54,7 +54,6 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public Customer findByEmail(String email) {
-		log.info("EMAIL TO SEARCH: "+email);
 		Optional<Customer> customer = customerRepository.findByEmail(email);
 		return customer.orElseThrow(() -> new ResourceNotFoundException(email, Customer.class));
 	}

@@ -66,8 +66,8 @@ public class CustomerServiceWrapperImpl implements ICustomerServiceWrapper {
 	}
 
 	@Override
-	public CustomerAuthResponse findByemailForAuth(String email) {
-		return customerMapper.entityToAuthResponse(customerService.findByEmail(email));
+	public Customer findByemailForAuth(String email) {
+		return customerService.findByEmail(email);
 	}
 
 	@Override

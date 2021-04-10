@@ -22,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @ComponentScan({ "mx.ikii", "mx.ikii.commons", "mx.ikii.security" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableDiscoveryClient
-//@EnableEurekaClient
 public class PayClipSecurityApplication implements CommandLineRunner {
 	
 	public static void main(String[] args) {

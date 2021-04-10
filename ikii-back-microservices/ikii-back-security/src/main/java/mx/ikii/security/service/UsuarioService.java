@@ -38,10 +38,10 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 		Customer userByName = null;
 		try {
 			LOGGER.info("******************************* CustomUserDetailsService {}", email);
-			userByName = customerFeignService.getByEmail(email);
-			
-			return new User(userByName.getEmail(), userByName.getPassword(), userByName.isEnabled(), 
-					userByName.isCredentialNonExpired(), userByName.isCredentialNonExpired(), userByName.isAccountNonLocked(),
+			userByName = customerFeignService.getByEmailForAuth(email);
+			LOGGER.info(userByName.toString());
+			return new User(userByName.getEmail(), userByName.getPassword(), userByName.getIsEnabled(),
+					userByName.getCredentialNonExpired(), userByName.getCredentialNonExpired(), userByName.getAccountNonLocked(),
 					getAuthorities(userByName.getRoles()));
 		} catch (FeignException e) {
 			LOGGER.info("Exception message {}", e.getMessage());

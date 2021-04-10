@@ -18,12 +18,9 @@ public class ResponseEntityHelper {
 	 * @return the plain response
 	 */
 	public static <T> T processingHttpStatus(ResponseEntity<T> responseEntity) {
-		System.out.println(responseEntity);
 		if (Nullable.isNull(responseEntity)) {
 			return null;
 		}
-		System.out.println(responseEntity.getStatusCode());
-		System.out.println(responseEntity.getBody());
 		switch (responseEntity.getStatusCode()) {
 		case OK:
 			return responseEntity.getBody();

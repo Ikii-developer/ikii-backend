@@ -2,6 +2,7 @@ package mx.ikii.commons.feignclient.repository;
 
 import java.util.List;
 
+import mx.ikii.commons.persistence.collection.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,7 @@ public interface ICustomerFeignClientRepository {
   ResponseEntity<CustomerResponse> getByEmail(@PathVariable("email") String email);
 
   @GetMapping("/emails/auth/{email}")
-  ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable("email") String email);
+  ResponseEntity<Customer> getByEmailForAuth(@PathVariable("email") String email);
 
   @GetMapping("/")
   ResponseEntity<Page<CustomerResponse>> getAll(Pageable pageable);

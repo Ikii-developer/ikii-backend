@@ -1,5 +1,6 @@
 package mx.ikii.customers.service;
 
+import mx.ikii.commons.persistence.collection.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,7 +22,7 @@ public interface ICustomerServiceWrapper {
 
 	CustomerResponse findByemail(String email);
 	
-	CustomerAuthResponse findByemailForAuth(String email);
+	Customer findByemailForAuth(String email);
 
 	Page<CustomerResponse> findAll(Pageable pageable);
 

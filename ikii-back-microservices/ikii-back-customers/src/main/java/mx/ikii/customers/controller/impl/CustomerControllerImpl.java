@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import mx.ikii.commons.persistence.collection.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,7 @@ public class CustomerControllerImpl implements ICustomerController {
 	}
 
 	@Override
-	public ResponseEntity<CustomerAuthResponse> getByEmailForAuth(@PathVariable String email) {
+	public ResponseEntity<Customer> getByEmailForAuth(@PathVariable String email) {
 		return ResponseEntity.ok(customerServiceWrapper.findByemailForAuth(email));
 	}
 

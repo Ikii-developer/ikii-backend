@@ -34,7 +34,7 @@ public class InfoAdicionalToken implements TokenEnhancer {
 		
 		Customer usuario = usuarioService.findByUsername(authentication.getName());
 		info.put("username", usuario.getEmail());
-		info.put("enabled", usuario.isEnabled());
+		info.put("enabled", usuario.getIsEnabled());
 		
 		//Casteamos a la implementacion 
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
