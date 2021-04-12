@@ -6,7 +6,7 @@ import mx.ikii.commons.utils.Nullable;
 /**
  * This class helps the user business logic decoupling the code
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 public class Helper {

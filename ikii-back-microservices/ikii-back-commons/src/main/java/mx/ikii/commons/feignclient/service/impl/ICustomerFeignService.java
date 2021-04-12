@@ -13,7 +13,7 @@ import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
  * obtaining the plain UserClip resources without the http content in the
  * ResponseEntity
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 public interface ICustomerFeignService {

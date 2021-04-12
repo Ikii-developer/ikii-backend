@@ -6,7 +6,7 @@ import java.util.List;
  * This interface is used to provide a generic way of managing the Entity,
  * Request and Response of the resource along with mapstruct
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  * @param <E>  Entity
  * @param <RQ> Request

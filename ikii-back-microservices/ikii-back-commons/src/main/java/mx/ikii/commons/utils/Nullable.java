@@ -7,7 +7,7 @@ import java.util.Optional;
  * This class handles the optional values returning a boolean and reducing a
  * some line of codes
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 public final class Nullable {

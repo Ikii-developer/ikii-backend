@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  * This class is used to represent the Resource Not Found (404) http response
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)

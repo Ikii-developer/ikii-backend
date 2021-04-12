@@ -5,12 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -22,10 +18,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @ComponentScan({ "mx.ikii", "mx.ikii.commons", "mx.ikii.security" })
 @EnableFeignClients({ "mx.ikii.commons.feignclient" })
 @EnableDiscoveryClient
-public class PayClipSecurityApplication implements CommandLineRunner {
+public class IkiiBackSecurityApplication implements CommandLineRunner {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(PayClipSecurityApplication.class, args);
+		SpringApplication.run(IkiiBackSecurityApplication.class, args);
 	}
 	
 	@Autowired

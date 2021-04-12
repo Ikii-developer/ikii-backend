@@ -24,7 +24,7 @@ import mx.ikii.commons.persistence.collection.util.BusinessNearByMe;
 /**
  * This class is used as the feign client class to interact internally with the user microservice
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 @FeignClient(name = "customers")

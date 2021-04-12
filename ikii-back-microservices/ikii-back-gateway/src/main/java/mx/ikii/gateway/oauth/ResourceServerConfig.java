@@ -25,24 +25,7 @@ import java.util.Arrays;
  * ******************************
  * * 	  RESOURCE SERVER		*
  * ******************************
-**OAuth2** 
-
-1. `Autorization Server - OAuth2`
-    * @EnableAuthorizationServer - extends AuthorizationServerConfigurerAdapter
-    * Configuracion: client_id, secret, scopes("read", "write")
-    * Generate Token (JwtTokenStore)
-    * add info token (Token Enhacer)
-    * Codificar y Decodificar el JWT (private_key and public_key)
-2. `Resource Server - Zuul`
-    * Protegemos URLs
-    * Validacion del token (Signing Key)
-    * Cors
-3. Clients (movil, web)
-4. User (data owner)
- * 
- * Si queremos actualizar la configuracion sin tener que
- * 		reiniciar podemos usar Actuator con : @RefreshScope
- * 
+ *
  * @ResourceServerConfigurerAdapter
  * Configurer interface for <code>@EnableResourceServer</code> classes. Implement this interface to adjust the access
  * rules and paths that are protected by OAuth2 security. Applications may provide multiple instances of this interface,
@@ -62,9 +45,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private String jwtKey; // spring-cloud-starter-config
 
 	/**
-	 *Protegemos nuestras rutas
-	 *
-	 * Use this to configure the access rules for secure resources. 
+	 * Use this to configure the access rules for secure resources.
 	 * By default all resources <i>not</i> in "/oauth/**" are protected 
 	 * 	(but no specific rules about scopes are given, for instance). 
 	 * You also get an {@link OAuth2WebSecurityExpressionHandler} by default.
@@ -75,43 +56,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-//			.antMatchers(HttpMethod.GET, "/healthcheck").permitAll()
-			
-			/* TOKEN:
-			 * Ruta para generar el token con la cual nos autenticamos */
+
 			.antMatchers("/api/security/oauth/**")
 				.permitAll()
-			
+
 			.antMatchers(HttpMethod.POST,"/api/customers/sign-up")
 				.permitAll()
-			
+
 			.anyRequest().authenticated();
-		
-		/**
-		 * hasRole: Shortcut for specifying URLs require a particular role.
-		 * 		 If you do not want to have "ROLE_" automatically inserted,
-		 * 			the role to require (i.e. USER, ADMIN, etc).
-		 * 			Note, it should not start with "ROLE_" as this is automatically inserted.
-		 * 
-		 * hasAnyRole: Shortcut for specifying URLs require any of a number of roles. 
-		 * 		If you do not want to have "ROLE_" automatically inserted,
-		 * 			the roles to require (i.e. USER, ADMIN, etc). 
-		 * 			Note, it should not start with "ROLE_" as this is automatically inserted.
-		 * 
-		 * hasAuthority: Specify that URLs require a particular authority.
-		 * 		the authority to require (i.e. ROLE_USER, ROLE_ADMIN, etc).
-		 * 
-		 * hasAnyAuthority: the requests require at least one of the authorities 
-		 * 			(i.e. "ROLE_USER","ROLE_ADMIN" would mean either 
-		 * 				"ROLE_USER" or "ROLE_ADMIN" is required).
-		 * 
-		 * hasIpAddress: Specify that URLs requires a specific IP Address or <a href=
-	 	 * 	"https://forum.spring.io/showthread.php?102783-How-to-use-hasIpAddress&p=343971#post343971"
-		 * 		>subnet</a>. 
-		 * 		the ipaddress (i.e. 192.168.1.79) or local subnet (i.e. 192.168.0/24)
-		 * 
-		 * @see ExpressionUrlAuthorizationConfigurer
-		 */
+
 		http.cors().configurationSource(corsConfigurationSource());
 	}
 	
@@ -152,27 +105,18 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		return tokenConverter;
 	}
 
-	/**
-	 * CORS (Cross-origin resource sharing) o el intercambio de recursos de origen cruzado.
-	 * Cors es un mecanismo que utiliza las cabeceras http para permitir que una aplicacion cliente que recide, 
-	 * 	que esta en otro servidor/dominio distinto al backend, tenga los permisos para acceder a los recursos 
-	 * 	del backend, recursos protegidos, en este caso con SpringSecurity y con el servidor de recursos(Zuul)
-	 */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-		//Tenemos que configurar nuestras aplicaciones clientes(origenes, http, dominio, ruta, url)
+
 		CorsConfiguration corsConfig = new CorsConfiguration();
 		corsConfig.addAllowedOrigin("*");
 		//corsConfig.setAllowedOrigins(Arrays.asList("","",""));//Lista de origenes
-		
-		//Debemos permitir los metodos http, el metodo OPTION es importante para oAuth2
+
 		corsConfig.setAllowedMethods(Arrays.asList("POST","GET", "PUT", "DELETE", "OPTION"));
 		corsConfig.setAllowCredentials(true);
 		corsConfig.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
 
-		//Debemos pasar esta configuracion del CORS a nuestras rutas URL(endpoints)
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		// Indicamos que se aplique a todas las rutas /*
 		source.registerCorsConfiguration("/**", corsConfig);
 		
 		return source;

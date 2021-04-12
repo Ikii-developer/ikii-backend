@@ -11,7 +11,7 @@ import org.mapstruct.Mapper;
  * This class is used to have a correct conversion between objectId and String
  * in mapstruct
  * 
- * @author Arturo Isaac Velazquez Vargas
+ * @author 
  *
  */
 @Mapper(componentModel = "spring")

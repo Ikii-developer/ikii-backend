@@ -22,27 +22,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService usuarioService;
 	
-	/**
-	 * @see AuthenticationSuccessErrorHandler.java, registramos la interface
-	 */
-	@Qualifier("authSuccessErrorHandler")
-	@Autowired
-	private AuthenticationEventPublisher eventPublisher;
-	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	/**
-	 * Registramos UserDetailsService que fue implementada en @UsuarioService.java
-	 * Indicamos la forma de encriptar el password
+	 * Registramos nuestro servicio de Autenticacion "UserDetailsService"
+	 * Processes an Authentication request.
 	 */
 	@Autowired
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(this.usuarioService).passwordEncoder(passwordEncoder())
-		.and().authenticationEventPublisher(eventPublisher);
+		auth.userDetailsService(this.usuarioService).passwordEncoder(passwordEncoder());
 	}
 
 	/**
